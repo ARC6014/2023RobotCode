@@ -13,7 +13,7 @@ import edu.wpi.first.math.util.Units;
 
 public class Constants {
 
-    public static final String CANIVORE_CANBUS = "canivore";
+    public static final String CANIVORE_CANBUS = "CANivore";
     public static final int Pigeon2CanID = 0;
 
     public static final boolean tuningMode = false;
@@ -119,7 +119,7 @@ public class Constants {
         public static final int angleMotorID = 0;
         public static final int driveMotorID = 1;
         public static final int cancoderID = 0;
-        public static final double angleOffset = -74.57 - 358.24;
+        public static final double angleOffset = -74.57 - 358.24 - 359.121;
         public static final double modulekS = 0.0065;
         public static final double modulekV = 0.27;
     }
@@ -128,7 +128,7 @@ public class Constants {
         public static final int angleMotorID = 2;
         public static final int driveMotorID = 3;
         public static final int cancoderID = 1;
-        public static final double angleOffset = 87.1 - 357.80;
+        public static final double angleOffset = 87.1 - 357.80 - 358.51;
         public static final double modulekS = 0.0065;
         public static final double modulekV = 0.27;
     }
@@ -137,7 +137,7 @@ public class Constants {
         public static final int angleMotorID = 4;
         public static final int driveMotorID = 5;
         public static final int cancoderID = 2;
-        public static final double angleOffset = -95.54 - 358.51;
+        public static final double angleOffset = -95.54 - 358.51 - 358.59;
         public static final double modulekS = 0.0065;
         public static final double modulekV = 0.27;
     }
@@ -146,7 +146,7 @@ public class Constants {
         public static final int angleMotorID = 6;
         public static final int driveMotorID = 7;
         public static final int cancoderID = 3;
-        public static final double angleOffset = 66.42 - 146.69;
+        public static final double angleOffset = 66.42 - 146.69 - 1.67;
         public static final double modulekS = 0.0065;
         public static final double modulekV = 0.27;
     }

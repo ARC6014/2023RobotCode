@@ -8,6 +8,9 @@ package frc.robot;
 
 import java.util.List;
 
+import com.pathplanner.lib.PathPoint;
+
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -18,6 +21,7 @@ import frc.robot.commands.DriveByJoystick;
 import frc.robot.commands.Auto.OnTheFlyPathGeneration;
 import frc.robot.commands.Auto.TestAuto;
 import frc.robot.subsystems.DriveSubsystem;
+import io.github.oblarg.oblog.Logger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -37,13 +41,14 @@ public class RobotContainer {
   private final DriveByJoystick teleopDriveByJoystick = new DriveByJoystick(()-> driver.getRawAxis(1)*-1, ()-> driver.getRawAxis(0)*-1, ()-> driver.getRawAxis(2)*-1, () -> driver.getRawButton(7),() -> driver.getRawButton(8));
   //private final IntakeCommand intake = new IntakeCommand();
   //private final OuttakeCommand outtake = new OuttakeCommand();
-  private final OnTheFlyPathGeneration m_tesFlyPathGeneration = new OnTheFlyPathGeneration(List.of(AutoConstants.testPoint));
+  private final OnTheFlyPathGeneration m_tesFlyPathGeneration = new OnTheFlyPathGeneration();
   //private final AutoFromHolonomicController m_testPath = new AutoFromHolonomicController();
   //private final ChaseTag visionTest = new ChaseTag();
   //private final RunCommand swerveLock = new RunCommand(() -> m_drivetrain.changeLock(), m_drivetrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    Logger.configureLoggingAndConfig(this, false);
     m_drivetrain.setDefaultCommand(teleopDriveByJoystick);
     // Configure the button bindings
     configureButtonBindings();
@@ -62,7 +67,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //new JoystickButton(driver,1).whileTrue(intake);
     //new JoystickButton(driver, 2).whileTrue(outtake);
-    //new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration);
+    new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration);
     //new JoystickButton(driver, 2).whileTrue(visionTest);
    // new JoystickButton(driver, 1).toggleWhenPressed(swerveLock, true);
   }

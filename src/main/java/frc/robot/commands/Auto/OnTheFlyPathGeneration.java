@@ -23,13 +23,12 @@ public class OnTheFlyPathGeneration extends SequentialCommandGroup {
   private final DriveSubsystem m_drive = DriveSubsystem.getInstance();
   private PathPlannerTrajectory m_trajectory;
   /** Creates a new OnTheFlyPathGeneration. */
-  public OnTheFlyPathGeneration(List<PathPoint> points) {
+  public OnTheFlyPathGeneration() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(() -> m_drive.lockSwerve(true)).withTimeout(AutoConstants.OnTheFlyPathGenerationTreshold),
-      new InstantCommand(() -> m_trajectory = ARCTrajectoryGenerator.generateTrajectory(points)),
-      new AutoFromHolonomicController(m_trajectory, false),
+      new AutoFromHolonomicController(ARCTrajectoryGenerator.generateTrajectory(), false),
       new InstantCommand(() -> m_drive.stop())
     );
   }

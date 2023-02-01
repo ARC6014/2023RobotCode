@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 
 import com.ctre.phoenixpro.hardware.Pigeon2;
+import com.pathplanner.lib.PathPoint;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -59,13 +60,13 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
     private double lastDriveTime = 0.0;
     private boolean islocked = false;
 
-    private final ProfiledPIDController snapPIDController = new ProfiledPIDController(DriveConstants.snapkP, DriveConstants.snapkI, DriveConstants.snapkD, DriveConstants.rotPIDconstraints);;
+    private ProfiledPIDController snapPIDController = new ProfiledPIDController(DriveConstants.snapkP, DriveConstants.snapkI, DriveConstants.snapkD, DriveConstants.rotPIDconstraints);
 
     private final Timer snapTimer = new Timer();
 
     public DriveSubsystem() {
 
-        SmartDashboard.putData("Field", m_field);
+       // SmartDashboard.putData("Field", m_field);
         
 
         m_swerveModules = new SwerveModuleBase[]{
@@ -130,7 +131,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
     public void periodic(){
         updateOdometry();
         
-
+ /* 
         for(SwerveModuleBase mod: m_swerveModules){
             SmartDashboard.putNumber(mod.getName() + " - Velocity : ", mod.getState().speedMetersPerSecond);
             SmartDashboard.putNumber(mod.getName() + " - Angle : ", mod.getCANCoderRotation().getDegrees());
@@ -140,7 +141,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         SmartDashboard.putNumber("Gyro : ", getRotation2d().getDegrees());
         SmartDashboard.putNumber("x", getPose().getX());
         SmartDashboard.putNumber("Y", getPose().getY());
-
+*/
         m_field.setRobotPose(getPose());
 
         brakeModeTrigger.onTrue(brakeModeCommand);
@@ -170,8 +171,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
             };
         }
 
-        SwerveDriveKinematics.desaturateWheelSpeeds(states, getChassisSpeed(), DriveConstants.maxSpeed, 
-                    DriveConstants.maxTransSpeedMetersPerSecond, DriveConstants.maxAngularSpeedRadPerSec);
+        SwerveDriveKinematics.desaturateWheelSpeeds(states, DriveConstants.maxSpeed);
         
         for (int i = 0; i < 4; i++) {
             m_swerveModules[i].setDesiredState(states[i], true);
@@ -181,7 +181,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         
     }
 
-    public synchronized void angleAlignDrive(double xSpeed, double ySpeed, double targetHeading, boolean fieldRelative){
+    public synchronized void angleAlignDrive(double xSpeed, double ySpeed, boolean fieldRelative, double targetHeading){
         double rotation = snapPIDController.calculate(getRotation2d().getRadians(), Math.toRadians(targetHeading));
         swerveDrive(xSpeed, ySpeed, rotation, fieldRelative);
     }
@@ -267,6 +267,10 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         return m_odometry.getPoseMeters();
     }
 
+    public PathPoint getPathPoint(){
+        return new PathPoint(new Translation2d(m_odometry.getPoseMeters().getX(), m_odometry.getPoseMeters().getY()),new Rotation2d(), getRotation2d());
+    }
+
     private SwerveModulePosition[] getModulePositions(){
         return new SwerveModulePosition[]{       
             m_swerveModules[0].getPosition(),
@@ -340,7 +344,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
  
      @Log(name="RL-Des-Ang", rowIndex = 3, columnIndex = 0)
      public double getRLDesiredAngle() {
-         return angleDesired[2];
+        return angleDesired[2];
      }
  
      @Log(name="RR-Des-Ang", rowIndex = 3, columnIndex = 1)

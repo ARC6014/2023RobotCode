@@ -14,6 +14,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
@@ -25,14 +26,18 @@ public class ARCTrajectoryGenerator {
 
     private static DriveSubsystem m_drive = DriveSubsystem.getInstance();
 
-    public static PathPlannerTrajectory generateTrajectory(List<com.pathplanner.lib.PathPoint> pathpoints){
-        for(int i = 0; i < pathpoints.size(); i++){
+
+    public static PathPlannerTrajectory generateTrajectory(){
+        /*for(int i = 0; i < pathpoints.size(); i++){
             pathpoints.set(i, AllianceFlipUtil.apply((CustomPathPoint) pathpoints.get(i)));
-        }
-        pathpoints.add(0, new PathPoint(
+        }*/
+        /*pathpoints.add(0, new PathPoint(
             new Translation2d(m_drive.getPose().getX(), m_drive.getPose().getY()), m_drive.getRotation2d())
-            );
-        return PathPlanner.generatePath(new PathConstraints(AutoConstants.kMaxSpeedOnTeleop, AutoConstants.kMaxAccelerationOnTeleop), pathpoints);
+            );*/
+        return PathPlanner.generatePath(new PathConstraints(AutoConstants.kMaxSpeedOnTeleop, AutoConstants.kMaxAccelerationOnTeleop),
+        false,
+        List.of(new PathPoint(new Translation2d(5,5), new Rotation2d()), AutoConstants.testPoint)
+        );
     }
 
 }

@@ -13,6 +13,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -57,9 +58,10 @@ public class AutoFromHolonomicController extends CommandBase {
   public void execute() {
     double curTime = m_timer.get();
     PathPlannerState desiredState = (PathPlannerState) m_trajectory.sample(curTime);
-
+   // System.out.println(desiredState.poseMeters);
+    System.out.println(m_trajectory.getInitialHolonomicPose());
     if(m_preloaded){
-      desiredState = AllianceFlipUtil.apply(desiredState);
+      desiredState = PathPlannerTrajectory.transformStateForAlliance(desiredState, DriverStation.getAlliance());
     }
 
     SwerveModuleState[] moduleStates = Constants.kinematics.toSwerveModuleStates(
