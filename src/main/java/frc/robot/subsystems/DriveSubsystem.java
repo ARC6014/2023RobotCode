@@ -144,7 +144,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 */
         m_field.setRobotPose(getPose());
 
-        brakeModeTrigger.onTrue(brakeModeCommand);
+        brakeModeTrigger.whileTrue(brakeModeCommand);
 
     }
 
@@ -196,6 +196,14 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
     public void setClosedLoopStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.maxSpeed);
+        if(islocked){
+            states = new SwerveModuleState[]{
+                new SwerveModuleState(0.1, Rotation2d.fromDegrees(45)),
+                new SwerveModuleState(0.1, Rotation2d.fromDegrees(315)),
+                new SwerveModuleState(0.1, Rotation2d.fromDegrees(135)),
+                new SwerveModuleState(0.1, Rotation2d.fromDegrees(225))
+            };
+        }
         m_swerveModules[0].setDesiredState(desiredStates[0], false);
         m_swerveModules[1].setDesiredState(desiredStates[1], false);
         m_swerveModules[2].setDesiredState(desiredStates[2], false);
@@ -225,6 +233,10 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         m_gyro.reset();
         m_gyro.setYaw(angle.getDegrees());
         m_odometry.resetPosition(m_gyro.getRotation2d(), getModulePositions(), pose);
+    }
+
+    public void resetSnapPID(){
+        snapPIDController.reset(0);
     }
 
     public void zeroHeading(){
@@ -267,8 +279,18 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         return m_odometry.getPoseMeters();
     }
 
-    public PathPoint getPathPoint(){
-        return new PathPoint(new Translation2d(m_odometry.getPoseMeters().getX(), m_odometry.getPoseMeters().getY()),new Rotation2d(), getRotation2d());
+    private static double getHeadingforPoint(Pose2d targetPose2d){
+        double alpha = Math.atan(
+            Math.abs(DriveSubsystem.getInstance().getPose().getX()-targetPose2d.getX())/
+            Math.abs(targetPose2d.getY()-DriveSubsystem.getInstance().getPose().getY())
+        );
+        return alpha;
+    }
+
+
+
+    public PathPoint getPathPoint(Pose2d targetPose2d){
+        return new PathPoint(new Translation2d(m_odometry.getPoseMeters().getX(), m_odometry.getPoseMeters().getY()), edu.wpi.first.math.geometry.Rotation2d.fromDegrees(getHeadingforPoint(targetPose2d) + 90).times(-1), getRotation2d());
     }
 
     private SwerveModulePosition[] getModulePositions(){

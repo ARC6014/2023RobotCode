@@ -30,10 +30,14 @@ public class SwerveAutoBuilder extends SequentialCommandGroup {
       addCommands(
         new InstantCommand(() -> SmartDashboard.putString("AutoPath", pathName)),
          swerveControllerCommand, 
-         new InstantCommand(() -> m_drive.stop()));
+         new InstantCommand(() -> m_drive.stop()),
+         new InstantCommand(() -> SmartDashboard.putString("AutoPath Finished: ", pathName))
+         );
     }else{
       addCommands(new InstantCommand(() -> SmartDashboard.putString("AutoPath", pathName)),
-          swerveControllerCommand);
+          swerveControllerCommand,
+          new InstantCommand(() -> SmartDashboard.putString("AutoPath Finished: ", pathName))
+          );
     }
 
   }

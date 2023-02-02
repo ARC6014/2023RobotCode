@@ -14,8 +14,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.FieldConstants;
-import frc.team6014.lib.util.CustomPathPoint;
-
 
 /**
  * Utility funcitons for flipping from the blue to red alliance. By default, all translations and
@@ -45,16 +43,16 @@ public class AllianceFlipUtil {
   public static Pose2d apply(Pose2d pose) {
     if (shouldFlip()) {
       return new Pose2d(
-          FieldConstants.fieldLength - pose.getX(),
-          pose.getY(),
-          new Rotation2d(-pose.getRotation().getCos(), pose.getRotation().getSin()));
+          pose.getX(),
+          FieldConstants.fieldWidth - pose.getY(),
+          pose.getRotation());
     } else {
       return pose;
     }
   }
 
     /** Flips a pathpoint to the correct side of the field based on the current alliance color. */
-    public static CustomPathPoint apply(CustomPathPoint pose) {
+/* public static CustomPathPoint apply(CustomPathPoint pose) {
       if (shouldFlip()) {
         return new CustomPathPoint(
           apply(pose.getTranslation())
@@ -62,31 +60,31 @@ public class AllianceFlipUtil {
       } else {
         return pose;
       }
-    }
+    }*/
 
   /**
    * Flips a trajectory state to the correct side of the field based on the current alliance color.
    */
   public static PathPlannerState apply(PathPlannerState state) {
-    if (shouldFlip()) {
+     if (shouldFlip()) {
       PathPlannerState mirroredState = new PathPlannerState();
 
-      Rotation2d transformedHeading = state.poseMeters.getRotation().times(-1);
-      Rotation2d transformedHolonomicRotation = state.holonomicRotation.times(-1);
-
-      mirroredState.timeSeconds = state.timeSeconds;
+      Rotation2d transformedHeading = state.poseMeters.getRotation().times(1);
+      Rotation2d transformedHolonomicRotation = state.holonomicRotation.times(1);
+      mirroredState=state;
+     /*  mirroredState.timeSeconds = state.timeSeconds;
       mirroredState.velocityMetersPerSecond = state.velocityMetersPerSecond;
-      mirroredState.accelerationMetersPerSecondSq = state.accelerationMetersPerSecondSq;
+      mirroredState.accelerationMetersPerSecondSq = state.accelerationMetersPerSecondSq;*/
       mirroredState.poseMeters = new Pose2d(
-        FieldConstants.fieldLength - state.poseMeters.getX(), 
-        state.poseMeters.getY(),
+        state.poseMeters.getX(), 
+        FieldConstants.fieldWidth - state.poseMeters.getY(),
         transformedHeading);
-      mirroredState.angularVelocityRadPerSec = -state.angularVelocityRadPerSec;
+      /*mirroredState.angularVelocityRadPerSec = state.angularVelocityRadPerSec;
       mirroredState.holonomicRotation = transformedHolonomicRotation;
-      mirroredState.holonomicAngularVelocityRadPerSec = -state.holonomicAngularVelocityRadPerSec;
-      mirroredState.curvatureRadPerMeter = -state.curvatureRadPerMeter;
+      mirroredState.holonomicAngularVelocityRadPerSec = state.holonomicAngularVelocityRadPerSec;
+      mirroredState.curvatureRadPerMeter = state.curvatureRadPerMeter;*/
 
-          return null;
+          return mirroredState;
     } else {
       return state;
     }

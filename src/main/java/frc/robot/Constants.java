@@ -3,8 +3,8 @@ package frc.robot;
 import frc.team6014.lib.util.SwerveUtils.SwerveConstants;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.pathplanner.lib.PathPoint;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -53,7 +53,7 @@ public class Constants {
         public static final double openLoopRamp = 0;
         public static final double closedLoopRamp = 0;
 
-        public static final double drivePowerScalar = 0.6;
+        public static final double drivePowerScalar = 0.4;
         public static final double driveSlewRateLimitX = 2;
         public static final double driveSlewRateLimitY = 2;
         public static final double driveSlewRateLimitRot = 5;
@@ -93,10 +93,10 @@ public class Constants {
 
     public static final class AutoConstants{
 
-    public static final double kMaxAcceleration = 2.5;
-    public static final double kMaxSpeed = 2.2; 
+    public static final double kMaxAcceleration = 3;
+    public static final double kMaxSpeed = 3; 
 
-    public static final double kMaxAccelerationOnTeleop = 2.5;
+    public static final double kMaxAccelerationOnTeleop = 2.5;  
     public static final double kMaxSpeedOnTeleop = 2.2; 
 
     public static final double OnTheFlyPathGenerationTreshold = 0.25;
@@ -105,14 +105,14 @@ public class Constants {
 
     public static final double kMaxAngularAccel = Math.pow(kMaxAngularSpeed, 2); 
 
-    public static final double kPXController = 0.8;
-    public static final double kPYController = 0.8;
-    public static final double kPThetaController = 1.6;
+    public static final double kPXController = 0.85;
+    public static final double kPYController = 0.85;
+    public static final double kPThetaController = 1.5;
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
         kMaxAngularSpeed, kMaxAngularAccel);
 
-    public static final PathPoint testPoint = new PathPoint(new Translation2d(0,0), new Rotation2d(0), new Rotation2d(0));
+    public static final Pose2d testPose = new Pose2d(1.5,1, Rotation2d.fromDegrees(0));
    }
 
     public static final class SwerveModuleFrontLeft {
