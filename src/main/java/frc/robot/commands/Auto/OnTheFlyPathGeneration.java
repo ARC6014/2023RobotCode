@@ -20,12 +20,10 @@ import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.team6014.ARCTrajectoryGenerator;
-import frc.team6014.lib.math.AllianceFlipUtil;
 
 public class OnTheFlyPathGeneration extends CommandBase {
   private DriveSubsystem m_drive = DriveSubsystem.getInstance();
   private PathPlannerTrajectory m_trajectory;
-  private boolean m_preloaded;
 
   private final PIDController x_pid = new PIDController(AutoConstants.kPXController, 0, 0);
   private final PIDController y_pid = new PIDController(AutoConstants.kPYController, 0, 0);

@@ -4,39 +4,39 @@
 
 package frc.team6014;
 
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.team6014.lib.Pathplanner.PathConstraints;
+import frc.team6014.lib.Pathplanner.PathPlanner;
+import frc.team6014.lib.Pathplanner.PathPlannerTrajectory;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SwerveAutoBuilder extends SequentialCommandGroup {
   private PathPlannerTrajectory m_trajectory;
-  private DriveSubsystem m_drive = DriveSubsystem.getInstance();
   /** Creates a new SwerveAutoBuilder. */
   public SwerveAutoBuilder(String pathName, double maxSpeed, double maxAcceleration, boolean endStatinoary) {
+
     m_trajectory = PathPlanner.loadPath(pathName, new PathConstraints(maxSpeed, maxAcceleration));
 
-    AutoFromHolonomicController swerveControllerCommand = new AutoFromHolonomicController(m_trajectory, true);
+    AutoFromHolonomicController swerveControllerCommand = new AutoFromHolonomicController(m_trajectory);
 
     if(endStatinoary){
       addCommands(
         new InstantCommand(() -> SmartDashboard.putString("AutoPath", pathName)),
          swerveControllerCommand, 
-         new InstantCommand(() -> m_drive.stop()),
-         new InstantCommand(() -> SmartDashboard.putString("AutoPath Finished: ", pathName))
+         new InstantCommand(() -> DriveSubsystem.getInstance().stop()),
+         new InstantCommand(() -> SmartDashboard.putString("Finished AutoPath: ", pathName))
          );
     }else{
       addCommands(new InstantCommand(() -> SmartDashboard.putString("AutoPath", pathName)),
           swerveControllerCommand,
-          new InstantCommand(() -> SmartDashboard.putString("AutoPath Finished: ", pathName))
+          new InstantCommand(() -> SmartDashboard.putString("Finished AutoPath: ", pathName))
           );
     }
 

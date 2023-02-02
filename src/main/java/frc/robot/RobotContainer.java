@@ -5,18 +5,14 @@
 package frc.robot;
 
 
-
-import java.util.List;
-
-import com.pathplanner.lib.PathPoint;
-
-import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.DriveByJoystick;
 import frc.robot.commands.Auto.OnTheFlyPathGeneration;
 import frc.robot.commands.Auto.TestAuto;
@@ -42,12 +38,14 @@ public class RobotContainer {
   //private final IntakeCommand intake = new IntakeCommand();
   //private final OuttakeCommand outtake = new OuttakeCommand();
   private final OnTheFlyPathGeneration m_tesFlyPathGeneration = new OnTheFlyPathGeneration();
-  //private final AutoFromHolonomicController m_testPath = new AutoFromHolonomicController();
-  //private final ChaseTag visionTest = new ChaseTag();
-  //private final RunCommand swerveLock = new RunCommand(() -> m_drivetrain.changeLock(), m_drivetrain);
 
+  private SendableChooser<String> autonomousChooser = new SendableChooser<String>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    autonomousChooser.setDefaultOption("Do Nothing", "Doing Nothing...");
+    autonomousChooser.addOption("Test Auto", "TestAuto");
+
     Logger.configureLoggingAndConfig(this, false);
     m_drivetrain.setDefaultCommand(teleopDriveByJoystick);
     // Configure the button bindings
@@ -67,9 +65,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //new JoystickButton(driver,1).whileTrue(intake);
     //new JoystickButton(driver, 2).whileTrue(outtake);
+    
     new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration);
-    //new JoystickButton(driver, 2).whileTrue(visionTest);
-   // new JoystickButton(driver, 1).toggleWhenPressed(swerveLock, true);
+
   }
 
   /**
@@ -78,7 +76,12 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new TestAuto();
+    switch (autonomousChooser.getSelected()) {
+      case "TestAuto":
+        return DriverStation.getAlliance() == Alliance.Blue ? new TestAuto(true) : new TestAuto(false);
+      default:
+      return null;
+    }
   }
   
 }

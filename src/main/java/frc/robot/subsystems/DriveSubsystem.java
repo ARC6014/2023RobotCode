@@ -17,10 +17,11 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -157,7 +158,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         rot = calculateSnapValue(xSpeed, ySpeed, rot); 
 
         desiredChassisSpeeds =
-            fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getRotation2d())
+            fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getDriverCentericRotation2d())
             : new ChassisSpeeds(xSpeed, ySpeed, rot);
 
         states = Constants.kinematics.toSwerveModuleStates(desiredChassisSpeeds, centerOfRotation);
@@ -258,6 +259,12 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
     public Rotation2d getRotation2d() {
         return Rotation2d.fromDegrees(Math.IEEEremainder(m_gyro.getAngle(), 360.0)).times(DriveConstants.invertGyro? -1 : 1);
+    }
+
+    public Rotation2d getDriverCentericRotation2d() {
+        return DriverStation.getAlliance() == Alliance.Red ?
+        Rotation2d.fromDegrees(Math.IEEEremainder(m_gyro.getAngle() + 180, 360.0)).times(DriveConstants.invertGyro? -1 : 1) : 
+        Rotation2d.fromDegrees(Math.IEEEremainder(m_gyro.getAngle(), 360.0)).times(DriveConstants.invertGyro? -1 : 1);
     }
 
     public void lockSwerve(boolean should){

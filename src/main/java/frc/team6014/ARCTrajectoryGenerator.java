@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.FieldConstants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.team6014.lib.math.AllianceFlipUtil;
 
 /** Add your docs here. */
 public class ARCTrajectoryGenerator {

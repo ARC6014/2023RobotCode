@@ -8,7 +8,6 @@ package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.team6014.SwerveAutoBuilder;
@@ -19,19 +18,35 @@ import frc.team6014.SwerveAutoBuilder;
 public class TestAuto extends SequentialCommandGroup {
   private final DriveSubsystem m_drive = DriveSubsystem.getInstance();
   /** Creates a new TestAuto. */
-  public TestAuto() {
-    final SwerveAutoBuilder swerveCommand = new SwerveAutoBuilder("Deneme", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, false);
-    final SwerveAutoBuilder swerveCommand1 = new SwerveAutoBuilder("Deneme1", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, false);
-    final SwerveAutoBuilder swerveCommand2 = new SwerveAutoBuilder("Deneme2", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, false);
-    final SwerveAutoBuilder swerveCommand3 = new SwerveAutoBuilder("Deneme3", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, true);
+  public TestAuto(boolean blueAllience) {
+    //PATHS4BLUE
+    final SwerveAutoBuilder blueSwerveCommand = new SwerveAutoBuilder("BLUETestAuto1", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, false);
+    final SwerveAutoBuilder blueSwerveCommand1 = new SwerveAutoBuilder("BLUETestAuto2", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, false);
+    final SwerveAutoBuilder blueSwerveCommand2 = new SwerveAutoBuilder("BLUETestAuto3", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, false);
+    final SwerveAutoBuilder blueSwerveCommand3 = new SwerveAutoBuilder("BLUETestAuto4", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, true);
+    //PATHS4RED
+    final SwerveAutoBuilder redSwerveCommand = new SwerveAutoBuilder("REDTestAuto1", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, false);
+    final SwerveAutoBuilder redSwerveCommand1 = new SwerveAutoBuilder("REDTestAuto2", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, false);
+    final SwerveAutoBuilder redSwerveCommand2 = new SwerveAutoBuilder("REDTestAuto3", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, false);
+    final SwerveAutoBuilder redSwerveCommand3 = new SwerveAutoBuilder("REDTestAuto4", AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration, true);
     // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand()final SwerveAutoBuilder swerveCommand = new SwerveAutoBuilder("Deneme", AutoConstants.kMaxSpeed, AutosConstants.kMaxAcceleration, true););
+
+    if(blueAllience){
+      addCommands(
+      new InstantCommand(() -> m_drive.resetOdometry(blueSwerveCommand.getInitialPose())),
+      blueSwerveCommand,
+      blueSwerveCommand1,
+      blueSwerveCommand2,
+      blueSwerveCommand3
+      );
+    }else{
     addCommands(
-      new InstantCommand(() -> m_drive.resetOdometry(swerveCommand.getInitialPose())),
-      swerveCommand,
-      swerveCommand1,
-      swerveCommand2,
-      swerveCommand3
-    );
+      new InstantCommand(() -> m_drive.resetOdometry(redSwerveCommand.getInitialPose())),
+      redSwerveCommand,
+      redSwerveCommand1,
+      redSwerveCommand2,
+      redSwerveCommand3
+      );
+    }
   }
 }
