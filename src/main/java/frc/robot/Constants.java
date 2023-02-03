@@ -99,9 +99,9 @@ public class Constants {
     public static final double kMaxAccelerationOnTeleop = 2.5;  
     public static final double kMaxSpeedOnTeleop = 2.2; 
 
-    public static final double OnTheFlyPathGenerationTreshold = 0.25;
+    public static final double OnTheFlyPathGenerationTreshold = 0.5;
 
-    public static final double kMaxAngularSpeed = Math.PI  /* * 1.2 */ ; 
+    public static final double kMaxAngularSpeed = Math.PI * 1.2  ; 
 
     public static final double kMaxAngularAccel = Math.pow(kMaxAngularSpeed, 2); 
 
@@ -112,7 +112,8 @@ public class Constants {
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
         kMaxAngularSpeed, kMaxAngularAccel);
 
-    public static final Pose2d testPose = new Pose2d(1.5,1, Rotation2d.fromDegrees(0));
+    public static final Pose2d testPose = new Pose2d(7.10,3.35, Rotation2d.fromDegrees(0));
+    public static final Pose2d testPose2 = new Pose2d(7,7.5, Rotation2d.fromDegrees(180));
    }
 
     public static final class SwerveModuleFrontLeft {

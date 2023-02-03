@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 
 import com.ctre.phoenixpro.hardware.Pigeon2;
-import com.pathplanner.lib.PathPoint;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -27,7 +26,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.team6014.ARCTrajectoryGenerator;
+import frc.team6014.lib.Pathplanner.PathPoint;
 import frc.team6014.lib.drivers.SwerveModuleBase;
+import frc.team6014.lib.math.AllianceFlipUtil;
 import frc.team6014.lib.util.SwerveUtils.SwerveModuleConstants;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
@@ -286,18 +288,12 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         return m_odometry.getPoseMeters();
     }
 
-    private static double getHeadingforPoint(Pose2d targetPose2d){
-        double alpha = Math.atan(
-            Math.abs(DriveSubsystem.getInstance().getPose().getX()-targetPose2d.getX())/
-            Math.abs(targetPose2d.getY()-DriveSubsystem.getInstance().getPose().getY())
-        );
-        return alpha;
-    }
-
 
 
     public PathPoint getPathPoint(Pose2d targetPose2d){
-        return new PathPoint(new Translation2d(m_odometry.getPoseMeters().getX(), m_odometry.getPoseMeters().getY()), edu.wpi.first.math.geometry.Rotation2d.fromDegrees(getHeadingforPoint(targetPose2d) + 90).times(-1), getRotation2d());
+        return DriverStation.getAlliance() == Alliance.Blue ?
+        new PathPoint(new Translation2d(getPose().getX(), getPose().getY()), Rotation2d.fromDegrees(ARCTrajectoryGenerator.getHeadingforPoints(getPose(), targetPose2d) - 90) , getRotation2d()) : 
+        new PathPoint(new Translation2d(getPose().getX(), getPose().getY()), Rotation2d.fromDegrees(-ARCTrajectoryGenerator.getHeadingforPoints(getPose(), AllianceFlipUtil.apply(targetPose2d)) - 90), getRotation2d());
     }
 
     private SwerveModulePosition[] getModulePositions(){
