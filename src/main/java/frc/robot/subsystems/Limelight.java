@@ -3,27 +3,21 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-/* 
-import org.photonvision.PhotonCamera;
-import org.photonvision.targeting.PhotonPipelineResult;
 
-import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
+
 
 /** Add your docs here. */
 public class Limelight {
 
-/*     private static PhotonCamera m_limelight = new PhotonCamera("gloworm");
+    private static NetworkTable limelighTable = NetworkTableInstance.getDefault().getTable("limelight");
 
-    public static Transform3d getTransform3d(){
-       return m_limelight.getLatestResult().getBestTarget().getAlternateCameraToTarget();
+    public static Pose2d getEstimatedPose(){
+        double[] ldatas = limelighTable.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
+        return new Pose2d(ldatas[0], ldatas[1], Rotation2d.fromDegrees(ldatas[3]));
     }
-
-    public static PhotonPipelineResult getResult(){
-        return m_limelight.getLatestResult();
-    }
-
-
-    public static int getTagID(){
-        return m_limelight.getLatestResult().getBestTarget().getFiducialId();
-    }*/
 }
