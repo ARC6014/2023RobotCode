@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.DriveByJoystick;
 import frc.robot.commands.Auto.OnTheFlyPathGeneration;
 import frc.robot.commands.Auto.TestAuto;
@@ -37,9 +39,10 @@ public class RobotContainer {
   private final DriveByJoystick teleopDriveByJoystick = new DriveByJoystick(()-> driver.getRawAxis(1)*-1, ()-> driver.getRawAxis(0)*-1, ()-> driver.getRawAxis(2)*-1, () -> driver.getRawButton(7),() -> driver.getRawButton(8));
   //private final IntakeCommand intake = new IntakeCommand();
   //private final OuttakeCommand outtake = new OuttakeCommand();
-  private final OnTheFlyPathGeneration m_tesFlyPathGeneration = new OnTheFlyPathGeneration();
+  private final OnTheFlyPathGeneration m_tesFlyPathGeneration = new OnTheFlyPathGeneration(AutoConstants.firstNode);
+  private final OnTheFlyPathGeneration m_tesFlyPathGeneration2 = new OnTheFlyPathGeneration(AutoConstants.secondNode);
 
-  private SendableChooser<String> autonomousChooser = new SendableChooser<String>();
+  SendableChooser<String> autonomousChooser = new SendableChooser<String>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -52,7 +55,7 @@ public class RobotContainer {
     configureButtonBindings();
    /*logger = Logger.getLoggerInstance();
     logger.addShutdownHook();*/
-  
+  SmartDashboard.putData(autonomousChooser);
     
   }
 
@@ -67,7 +70,7 @@ public class RobotContainer {
     //new JoystickButton(driver, 2).whileTrue(outtake);
     
     new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration);
-
+    new JoystickButton(driver, 3).whileTrue(m_tesFlyPathGeneration2);
   }
 
   /**

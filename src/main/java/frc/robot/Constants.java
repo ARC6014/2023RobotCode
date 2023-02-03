@@ -66,8 +66,8 @@ public class Constants {
         public static final double drivekI = 0;
         public static final double drivekD = 0;
         public static final double drivekS = 0.0065;
-        public static final double drivekV = 0.27;
-        public static final double drivekA = 0.1;
+        public static final double drivekV = 0.22;
+        public static final double drivekA = 0.05;
 
         public static final double anglekP = 0.25; 
         public static final double anglekI = 0;
@@ -96,8 +96,8 @@ public class Constants {
     public static final double kMaxAcceleration = 3;
     public static final double kMaxSpeed = 3; 
 
-    public static final double kMaxAccelerationOnTeleop = 2.5;  
-    public static final double kMaxSpeedOnTeleop = 2.2; 
+    public static final double kMaxAccelerationOnTeleop = 2;  
+    public static final double kMaxSpeedOnTeleop = 1.8; 
 
     public static final double OnTheFlyPathGenerationTreshold = 0.5;
 
@@ -113,7 +113,22 @@ public class Constants {
         kMaxAngularSpeed, kMaxAngularAccel);
 
     public static final Pose2d testPose = new Pose2d(7.10,3.35, Rotation2d.fromDegrees(0));
-    public static final Pose2d testPose2 = new Pose2d(7,7.5, Rotation2d.fromDegrees(180));
+    public static final Pose2d testPose2 = new Pose2d(7,7.5, Rotation2d.fromDegrees(0));
+    public static final Pose2d FIRST_PIVOT_POSE2D = new Pose2d(5.5,4.75, Rotation2d.fromDegrees(0));
+    public static final Pose2d SECOND_PIVOT_POSE2D = new Pose2d(2.5,4.75, Rotation2d.fromDegrees(0));
+
+    public static final Pose2d firstNode = new Pose2d(1.78,3.30, Rotation2d.fromDegrees(0));
+    public static final Pose2d firstCube = new Pose2d(1.78,1.05, Rotation2d.fromDegrees(0));
+    public static final Pose2d secondNode = new Pose2d(1.78,4.98, Rotation2d.fromDegrees(0));
+    public static final Pose2d thirdNode = new Pose2d(1.78,3.85, Rotation2d.fromDegrees(0));
+    public static final Pose2d secondCube = new Pose2d(1.78,2.75, Rotation2d.fromDegrees(0));
+    public static final Pose2d fourthNode = new Pose2d(1.78,1.64, Rotation2d.fromDegrees(0));
+    public static final Pose2d fifthNode = new Pose2d(1.78,4.40, Rotation2d.fromDegrees(0));
+    public static final Pose2d thirdCube = new Pose2d(1.78,2.18, Rotation2d.fromDegrees(0));
+    public static final Pose2d sixthNode = new Pose2d(1.78,0.50, Rotation2d.fromDegrees(0));
+    public static final Pose2d loadingZoneCone = new Pose2d(13.45,7.00, Rotation2d.fromDegrees(0));
+    public static final Pose2d loadingZoneCube = new Pose2d(13.45,7.35, Rotation2d.fromDegrees(0));
+    public static final Pose2d chargingStation = new Pose2d(5.30,3.60, Rotation2d.fromDegrees(0));
    }
 
     public static final class SwerveModuleFrontLeft {

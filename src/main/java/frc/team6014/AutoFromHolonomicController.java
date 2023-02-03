@@ -39,7 +39,7 @@ public class AutoFromHolonomicController extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_trajectory = trajectory;
 
-    m_controller.setTolerance(new Pose2d(0.5, 0.5, new Rotation2d(0.25)));
+    m_controller.setTolerance(new Pose2d(0.25, 0.25, new Rotation2d(0.125)));
     m_thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     addRequirements(m_drive);

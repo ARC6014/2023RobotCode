@@ -24,6 +24,7 @@ import frc.team6014.lib.Pathplanner.PathPlannerTrajectory.PathPlannerState;
 
 public class OnTheFlyPathGeneration extends CommandBase {
   private DriveSubsystem m_drive = DriveSubsystem.getInstance();
+  private Pose2d m_targetPose;
   private PathPlannerTrajectory m_trajectory;
 
   private final PIDController x_pid = new PIDController(AutoConstants.kPXController, 0, 0);
@@ -35,9 +36,9 @@ public class OnTheFlyPathGeneration extends CommandBase {
   
   
   /** Creates a new AutoFromHolonomicController. */
-  public OnTheFlyPathGeneration() {
+  public OnTheFlyPathGeneration(Pose2d targetPose2d) {
     // Use addRequirements() here to declare subsystem dependencies.
-
+    m_targetPose = targetPose2d;
     m_controller.setTolerance(new Pose2d(0.25, 0.25, new Rotation2d(0.125)));
     m_thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
@@ -53,7 +54,7 @@ public class OnTheFlyPathGeneration extends CommandBase {
     m_drive.setClosedLoopStates(new ChassisSpeeds(0, 0, 0));
     Timer.delay(AutoConstants.OnTheFlyPathGenerationTreshold);
     m_drive.lockSwerve(false);
-    m_trajectory = ARCTrajectoryGenerator.generateTrajectory();
+    m_trajectory = ARCTrajectoryGenerator.generateTrajectory(m_targetPose);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

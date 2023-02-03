@@ -33,7 +33,7 @@ public class TestAuto extends SequentialCommandGroup {
 
     if(blueAllience){
       addCommands(
-      new InstantCommand(() -> m_drive.resetOdometry(blueSwerveCommand.getInitialPose())),
+      new InstantCommand(() -> m_drive.resetOdometry(blueSwerveCommand.getInitialPose()), m_drive),
       blueSwerveCommand,
       blueSwerveCommand1,
       blueSwerveCommand2,
@@ -41,7 +41,7 @@ public class TestAuto extends SequentialCommandGroup {
       );
     }else{
     addCommands(
-      new InstantCommand(() -> m_drive.resetOdometry(redSwerveCommand.getInitialPose())),
+      new InstantCommand(() -> m_drive.resetOdometry(redSwerveCommand.getInitialPose()), m_drive),
       redSwerveCommand,
       redSwerveCommand1,
       redSwerveCommand2,

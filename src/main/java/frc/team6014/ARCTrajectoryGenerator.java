@@ -27,10 +27,11 @@ public class ARCTrajectoryGenerator {
     private static DriveSubsystem m_drive = DriveSubsystem.getInstance();
 
 
-    public static PathPlannerTrajectory generateTrajectory(){
+    public static PathPlannerTrajectory generateTrajectory(Pose2d targetPose2d){
         return PathPlanner.generatePath(new PathConstraints(AutoConstants.kMaxSpeedOnTeleop, AutoConstants.kMaxAccelerationOnTeleop),
         false,
-        List.of(m_drive.getPathPoint(AutoConstants.testPose), getPathPoint(m_drive.getPose(), AutoConstants.testPose)//, getPathPoint(AutoConstants.testPose, AutoConstants.testPose2))
+        List.of(m_drive.getPathPoint(AutoConstants.FIRST_PIVOT_POSE2D), getPathPoint(m_drive.getPose(), AutoConstants.FIRST_PIVOT_POSE2D), getPathPoint(AutoConstants.FIRST_PIVOT_POSE2D, AutoConstants.SECOND_PIVOT_POSE2D)
+        , getPathPoint(AutoConstants.SECOND_PIVOT_POSE2D, targetPose2d)
         ));
     }
 
@@ -45,7 +46,7 @@ public class ARCTrajectoryGenerator {
     private static PathPoint getPathPoint(Pose2d initial, Pose2d pose){
         return DriverStation.getAlliance() == Alliance.Blue ?
         new PathPoint(pose.getTranslation(), Rotation2d.fromDegrees(getHeadingforPoints(initial, pose) - 90), pose.getRotation()) : 
-        new PathPoint(AllianceFlipUtil.apply(pose).getTranslation(), Rotation2d.fromDegrees(-getHeadingforPoints(initial, AllianceFlipUtil.apply(pose)) - 90), AllianceFlipUtil.apply(pose).getRotation());
+        new PathPoint(AllianceFlipUtil.apply(pose).getTranslation(), Rotation2d.fromDegrees(-getHeadingforPoints(initial, AllianceFlipUtil.apply(pose)) - 90), AllianceFlipUtil.apply(pose.getRotation()));
     }
 
 

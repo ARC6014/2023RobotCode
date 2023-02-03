@@ -43,6 +43,7 @@ public class SwerveAutoBuilder extends SequentialCommandGroup {
   }
 
   public Pose2d getInitialPose() {
+    SmartDashboard.putString("Path pose : " ,m_trajectory.getInitialHolonomicPose().toString());
     return m_trajectory.getInitialHolonomicPose();
   }
 
