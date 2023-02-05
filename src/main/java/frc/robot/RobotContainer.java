@@ -17,8 +17,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.DriveByJoystick;
 import frc.robot.commands.Auto.OnTheFlyPathGeneration;
+import frc.robot.commands.Auto.TeleopMoveToPose;
 import frc.robot.commands.Auto.TestAuto;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.PoseEstimatorSubsystem;
 import io.github.oblarg.oblog.Logger;
 
 /**
@@ -30,6 +32,7 @@ import io.github.oblarg.oblog.Logger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drivetrain = DriveSubsystem.getInstance();
+  private final PoseEstimatorSubsystem m_pEstimatorSubsystem = PoseEstimatorSubsystem.getInstance();
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   Joystick driver = new Joystick(0);
   //Logger logger; 
@@ -37,10 +40,10 @@ public class RobotContainer {
 
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveByJoystick teleopDriveByJoystick = new DriveByJoystick(()-> driver.getRawAxis(1)*-1, ()-> driver.getRawAxis(0)*-1, ()-> driver.getRawAxis(2)*-1, () -> driver.getRawButton(7),() -> driver.getRawButton(8));
-  //private final IntakeCommand intake = new IntakeCommand();
-  //private final OuttakeCommand outtake = new OuttakeCommand();
-  private final OnTheFlyPathGeneration m_tesFlyPathGeneration = new OnTheFlyPathGeneration(AutoConstants.firstNode);
-  private final OnTheFlyPathGeneration m_tesFlyPathGeneration2 = new OnTheFlyPathGeneration(AutoConstants.secondNode);
+  //private final OnTheFlyPathGeneration m_tesFlyPathGeneration = new OnTheFlyPathGeneration(AutoConstants.firstNode);
+  //private final OnTheFlyPathGeneration m_tesFlyPathGeneration2 = new OnTheFlyPathGeneration(AutoConstants.secondNode);
+  private final TeleopMoveToPose m_tesFlyPathGeneration1 = new TeleopMoveToPose(AutoConstants.FIRST_PIVOT_POSE2D, AutoConstants.SECOND_PIVOT_POSE2D, AutoConstants.firstNode);
+  private final TeleopMoveToPose m_tesFlyPathGeneration2 = new TeleopMoveToPose(AutoConstants.FIRST_PIVOT_POSE2D, AutoConstants.SECOND_PIVOT_POSE2D, AutoConstants.secondNode);
 
   SendableChooser<String> autonomousChooser = new SendableChooser<String>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -69,7 +72,7 @@ public class RobotContainer {
     //new JoystickButton(driver,1).whileTrue(intake);
     //new JoystickButton(driver, 2).whileTrue(outtake);
     
-    new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration);
+    new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration1);
     new JoystickButton(driver, 3).whileTrue(m_tesFlyPathGeneration2);
   }
 

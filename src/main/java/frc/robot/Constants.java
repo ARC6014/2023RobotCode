@@ -95,22 +95,31 @@ public class Constants {
 
     public static final double kMaxAcceleration = 3;
     public static final double kMaxSpeed = 3; 
+    
+    public static final double kPXController = 0.85;
+    public static final double kPYController = 0.85;
+    public static final double kPThetaController = 1.5;
 
-    public static final double kMaxAccelerationOnTeleop = 2;  
-    public static final double kMaxSpeedOnTeleop = 1.8; 
-
-    public static final double OnTheFlyPathGenerationTreshold = 0.5;
+    public static final double kPdriveOnTeleop = 0.5;  
+    public static final double kDdriveOnTeleop = 0.0;  
+    public static final double kPturnOnTeleop = 1.0;
+    public static final double kDturnOnTeleop = 0.0;
+    public static final double onTheFlyMoveTreshold = 0.5;
 
     public static final double kMaxAngularSpeed = Math.PI * 1.2  ; 
 
     public static final double kMaxAngularAccel = Math.pow(kMaxAngularSpeed, 2); 
 
-    public static final double kPXController = 0.85;
-    public static final double kPYController = 0.85;
-    public static final double kPThetaController = 1.5;
+    public static final double OnTheFlyPathGenerationTreshold = 0.5;
+    public static final double kMaxAccelerationOnTeleop = 2;  
+    public static final double kMaxSpeedOnTeleop = 1.8; 
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
         kMaxAngularSpeed, kMaxAngularAccel);
+
+    public static final double kPositionToleranceX = 0.25;
+    public static final double kPositionToleranceY = 0.25;
+    public static final double kRotationToleranceRadians = 0.125;
 
     public static final Pose2d testPose = new Pose2d(7.10,3.35, Rotation2d.fromDegrees(0));
     public static final Pose2d testPose2 = new Pose2d(7,7.5, Rotation2d.fromDegrees(0));

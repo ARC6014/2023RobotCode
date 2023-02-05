@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.team6014.lib.Pathplanner.PathConstraints;
 import frc.team6014.lib.Pathplanner.PathPlanner;
 import frc.team6014.lib.Pathplanner.PathPlannerTrajectory;
@@ -25,7 +26,7 @@ import frc.team6014.lib.math.AllianceFlipUtil;
 public class ARCTrajectoryGenerator {
 
     private static DriveSubsystem m_drive = DriveSubsystem.getInstance();
-
+    private static PoseEstimatorSubsystem m_poseEstimator = PoseEstimatorSubsystem.getInstance();
 
     public static PathPlannerTrajectory generateTrajectory(Pose2d targetPose2d){
         return PathPlanner.generatePath(new PathConstraints(AutoConstants.kMaxSpeedOnTeleop, AutoConstants.kMaxAccelerationOnTeleop),

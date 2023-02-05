@@ -18,12 +18,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.team6014.lib.Pathplanner.PathPlannerTrajectory;
 import frc.team6014.lib.Pathplanner.PathPlannerTrajectory.PathPlannerState;
 
 
 public class AutoFromHolonomicController extends CommandBase {
   private DriveSubsystem m_drive = DriveSubsystem.getInstance();
+  private PoseEstimatorSubsystem m_poseEstimator = PoseEstimatorSubsystem.getInstance();
   private PathPlannerTrajectory m_trajectory;
 
   private final PIDController x_pid = new PIDController(AutoConstants.kPXController, 0, 0);
@@ -39,7 +41,7 @@ public class AutoFromHolonomicController extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_trajectory = trajectory;
 
-    m_controller.setTolerance(new Pose2d(0.25, 0.25, new Rotation2d(0.125)));
+    m_controller.setTolerance(new Pose2d(AutoConstants.kPositionToleranceX, AutoConstants.kPositionToleranceY, new Rotation2d(AutoConstants.kRotationToleranceRadians)));
     m_thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     addRequirements(m_drive);

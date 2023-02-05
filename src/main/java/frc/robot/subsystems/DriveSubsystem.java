@@ -36,8 +36,8 @@ import io.github.oblarg.oblog.annotations.Log;
 
 public class DriveSubsystem extends SubsystemBase implements Loggable {
 
-    @Log.Field2d(name = "Field", rowIndex = 0, columnIndex = 2, width = 6, height = 4)
-    private final Field2d m_field = new Field2d();
+    /*@Log.Field2d(name = "Field", rowIndex = 0, columnIndex = 2, width = 6, height = 4)
+    private final Field2d m_field = new Field2d();*/
 
     private final Trigger brakeModeTrigger;
     private final StartEndCommand brakeModeCommand;
@@ -145,7 +145,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         SmartDashboard.putNumber("x", getPose().getX());
         SmartDashboard.putNumber("Y", getPose().getY());
 */
-        m_field.setRobotPose(getPose());
+        //m_field.setRobotPose(getPose());
 
         brakeModeTrigger.whileTrue(brakeModeCommand);
 
@@ -239,7 +239,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
     }
 
     public void resetSnapPID(){
-        snapPIDController.reset(0);
+        snapPIDController.reset(getRotation2d().getRadians());
     }
 
     public void zeroHeading(){
@@ -296,7 +296,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         new PathPoint(new Translation2d(getPose().getX(), getPose().getY()), Rotation2d.fromDegrees(-ARCTrajectoryGenerator.getHeadingforPoints(getPose(), AllianceFlipUtil.apply(targetPose2d)) - 90), getRotation2d());
     }
 
-    private SwerveModulePosition[] getModulePositions(){
+    SwerveModulePosition[] getModulePositions(){
         return new SwerveModulePosition[]{       
             m_swerveModules[0].getPosition(),
             m_swerveModules[1].getPosition(),

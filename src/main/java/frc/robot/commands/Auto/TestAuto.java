@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.team6014.SwerveAutoBuilder;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,6 +18,7 @@ import frc.team6014.SwerveAutoBuilder;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TestAuto extends SequentialCommandGroup {
   private final DriveSubsystem m_drive = DriveSubsystem.getInstance();
+ // private final PoseEstimatorSubsystem m_poseEstimator = PoseEstimatorSubsystem.getInstance();
   /** Creates a new TestAuto. */
   public TestAuto(boolean blueAllience) {
     //PATHS4BLUE
