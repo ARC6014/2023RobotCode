@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.DriveByJoystick;
-import frc.robot.commands.Auto.OnTheFlyPathGeneration;
 import frc.robot.commands.Auto.TeleopMoveToPose;
 import frc.robot.commands.Auto.TestAuto;
 import frc.robot.subsystems.DriveSubsystem;
@@ -32,7 +31,7 @@ import io.github.oblarg.oblog.Logger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drivetrain = DriveSubsystem.getInstance();
-  private final PoseEstimatorSubsystem m_pEstimatorSubsystem = PoseEstimatorSubsystem.getInstance();
+  private final PoseEstimatorSubsystem m_poseEstimatorSubsystem = PoseEstimatorSubsystem.getInstance();
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   Joystick driver = new Joystick(0);
   //Logger logger; 

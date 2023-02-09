@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -111,11 +111,12 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
 
         brakeModeCommand = new StartEndCommand(() -> {
             for(SwerveModuleBase mod : m_swerveModules){
-                mod.setNeutralMode2Brake(true);;
+                mod.setNeutralMode2Brake(true);
             }
         }, () -> {
+            Timer.delay(2);
             for(SwerveModuleBase mod : m_swerveModules){
-                mod.setNeutralMode2Brake(false);;
+                mod.setNeutralMode2Brake(false);
             }
         });
         
@@ -134,7 +135,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
     public void periodic(){
         updateOdometry();
         
- /* 
+  
         for(SwerveModuleBase mod: m_swerveModules){
             SmartDashboard.putNumber(mod.getName() + " - Velocity : ", mod.getState().speedMetersPerSecond);
             SmartDashboard.putNumber(mod.getName() + " - Angle : ", mod.getCANCoderRotation().getDegrees());
@@ -144,7 +145,7 @@ public class DriveSubsystem extends SubsystemBase implements Loggable {
         SmartDashboard.putNumber("Gyro : ", getRotation2d().getDegrees());
         SmartDashboard.putNumber("x", getPose().getX());
         SmartDashboard.putNumber("Y", getPose().getY());
-*/
+
         //m_field.setRobotPose(getPose());
 
         brakeModeTrigger.whileTrue(brakeModeCommand);

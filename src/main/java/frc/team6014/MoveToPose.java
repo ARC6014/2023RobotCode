@@ -4,12 +4,13 @@
 
 package frc.team6014;
 
-import java.sql.Time;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
@@ -26,8 +27,13 @@ public class MoveToPose extends CommandBase {
   private final ProfiledPIDController m_thetaController = new ProfiledPIDController(AutoConstants.kPturnOnTeleop, 0,
     AutoConstants.kDturnOnTeleop, AutoConstants.kThetaControllerConstraints);
   private Pose2d m_targetPose;
+  private boolean m_endstationary;
+  private boolean m_isFinished = false;
   
-  public MoveToPose(Pose2d targetPose) {
+  public MoveToPose(Pose2d targetPose, boolean endstationary) {
+    m_targetPose = targetPose;
+    m_endstationary = endstationary;    
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
   }
@@ -39,15 +45,21 @@ public class MoveToPose extends CommandBase {
     y_pid.reset();
     m_thetaController.reset(m_drive.getRotation2d().getRadians());
     m_thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
     m_targetPose = AllianceFlipUtil.apply(m_targetPose);
+    if(!m_endstationary && pivotToSkip()){
+      m_isFinished = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(atReference(m_drive.getPose(), m_targetPose)){
-      m_drive.swerveDrive(0, 0, 0, true);
+    if(atReference(m_targetPose)){
+      if(m_endstationary){
+        m_drive.swerveDrive(0, 0, 0, true);
+      }else{
+        m_drive.stop();
+      }
       m_timer.start();
     }else{
       m_timer.reset();
@@ -68,17 +80,29 @@ public class MoveToPose extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return atReference(m_drive.getPose(), m_targetPose) && m_timer.get() >= AutoConstants.onTheFlyMoveTreshold;
+    return (atReference(m_targetPose) && m_timer.get() >= AutoConstants.onTheFlyMoveTreshold) || m_isFinished;
   }
 
-  public boolean atReference(Pose2d currentPose, Pose2d referencePose){
-    if(Math.abs(currentPose.getX() - referencePose.getX()) <= AutoConstants.kPositionToleranceX && 
-      Math.abs(currentPose.getY() - referencePose.getY()) <= AutoConstants.kPositionToleranceY &&
-      Math.abs(currentPose.getRotation().getRadians() - referencePose.getRotation().getRadians()) <= AutoConstants.kRotationToleranceRadians){
-
+  public boolean atReference(Pose2d referencePose){
+    if(Math.abs(m_drive.getPose().getX() - referencePose.getX()) <= AutoConstants.kPositionToleranceX && 
+      Math.abs(m_drive.getPose().getY() - referencePose.getY()) <= AutoConstants.kPositionToleranceY &&
+      Math.abs(m_drive.getPose().getRotation().getRadians() - referencePose.getRotation().getRadians()) <= AutoConstants.kRotationToleranceRadians){
       return true;
     }else {
       return false;
     }
+  }
+
+  private boolean pivotToSkip(){
+    if(DriverStation.getAlliance() == Alliance.Red){
+      if(m_drive.getPose().getX() - m_targetPose.getX() >= 0){
+        return true;
+      }
+    }else{
+      if(m_drive.getPose().getX() - m_targetPose.getX() <= 0){
+        return true;
+      }
+    }
+    return false;
   }
 }

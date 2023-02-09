@@ -18,8 +18,8 @@ public class Constants {
 
     public static final boolean tuningMode = false;
 
-    public static final double wheelBaseLength = 0.59;
-    private static final double WheelBaseWidth = 0.59;
+    public static final double wheelBaseLength = 0.639;
+    private static final double WheelBaseWidth = 0.639;
 
     public static final Translation2d FRONTLEFTMODULE_TRANSLATION2D = new Translation2d(wheelBaseLength / 2, WheelBaseWidth / 2);
     public static final Translation2d FRONTRIGHTMODULE_TRANSLATION2D = new Translation2d(wheelBaseLength / 2, -WheelBaseWidth / 2);
@@ -53,21 +53,21 @@ public class Constants {
         public static final double openLoopRamp = 0;
         public static final double closedLoopRamp = 0;
 
-        public static final double drivePowerScalar = 0.4;
-        public static final double driveSlewRateLimitX = 2;
-        public static final double driveSlewRateLimitY = 2;
+        public static final double drivePowerScalar = 0.6;
+        public static final double driveSlewRateLimitX = 2.5;
+        public static final double driveSlewRateLimitY = 2.5;
         public static final double driveSlewRateLimitRot = 5;
 
         public static final double angleGearboxRatio = 22.93;
-        public static final double driveGearboxRatio = 8.76923;
+        public static final double driveGearboxRatio = 6.59340659;
         public static final double wheelCircumference = Units.inchesToMeters(4) * Math.PI;
 
-        public static final double drivekP = 0.03;
+        public static final double drivekP = 0.00;
         public static final double drivekI = 0;
         public static final double drivekD = 0;
-        public static final double drivekS = 0.0065;
-        public static final double drivekV = 0.22;
-        public static final double drivekA = 0.05;
+        public static final double drivekS = 0.0;
+        public static final double drivekV = 0.0;
+        public static final double drivekA = 0.0;
 
         public static final double anglekP = 0.25; 
         public static final double anglekI = 0;
@@ -77,9 +77,9 @@ public class Constants {
         public static final double snapkI = 0.0;
         public static final double snapkD = 0.0;
 
-        public static final double maxSpeed = 3.5;
+        public static final double maxSpeed = 5;
 
-        public static final double maxTransSpeedMetersPerSecond = 3.31;
+        public static final double maxTransSpeedMetersPerSecond = 3.3;
         public static final double maxAngularSpeedRadPerSec = 2 * Math.PI;        
         public static final double maxAngularAccelRadPerSecSq = Math.pow(maxAngularSpeedRadPerSec, 2);
 
@@ -93,8 +93,8 @@ public class Constants {
 
     public static final class AutoConstants{
 
-    public static final double kMaxAcceleration = 3;
-    public static final double kMaxSpeed = 3; 
+    public static final double kMaxSpeed = 4;
+    public static final double kMaxAcceleration = 3.5; 
     
     public static final double kPXController = 0.85;
     public static final double kPYController = 0.85;
@@ -144,36 +144,36 @@ public class Constants {
         public static final int angleMotorID = 0;
         public static final int driveMotorID = 1;
         public static final int cancoderID = 0;
-        public static final double angleOffset = -74.57 - 358.24 - 359.121;
-        public static final double modulekS = 0.0065;
-        public static final double modulekV = 0.27;
+        public static final double angleOffset = -71.931;
+        public static final double modulekS = DriveConstants.drivekS;
+        public static final double modulekV = DriveConstants.drivekV;
     }
 
     public static final class SwerveModuleFrontRight {
         public static final int angleMotorID = 2;
         public static final int driveMotorID = 3;
         public static final int cancoderID = 1;
-        public static final double angleOffset = 87.1 - 357.80 - 358.51;
-        public static final double modulekS = 0.0065;
-        public static final double modulekV = 0.27;
+        public static final double angleOffset = -269.21;
+        public static final double modulekS = DriveConstants.drivekS;
+        public static final double modulekV = DriveConstants.drivekV;
     }
     
     public static final class SwerveModuleRearLeft {
         public static final int angleMotorID = 4;
         public static final int driveMotorID = 5;
         public static final int cancoderID = 2;
-        public static final double angleOffset = -95.54 - 358.51 - 358.59;
-        public static final double modulekS = 0.0065;
-        public static final double modulekV = 0.27;
+        public static final double angleOffset = -92.64;
+        public static final double modulekS = DriveConstants.drivekS;
+        public static final double modulekV = DriveConstants.drivekV;
     }
     
     public static final class SwerveModuleRearRight {
         public static final int angleMotorID = 6;
         public static final int driveMotorID = 7;
         public static final int cancoderID = 3;
-        public static final double angleOffset = 66.42 - 146.69 - 1.67;
-        public static final double modulekS = 0.0065;
-        public static final double modulekV = 0.27;
+        public static final double angleOffset = -81.94;
+        public static final double modulekS = DriveConstants.drivekS;
+        public static final double modulekV = DriveConstants.drivekV;
     }
 
 }

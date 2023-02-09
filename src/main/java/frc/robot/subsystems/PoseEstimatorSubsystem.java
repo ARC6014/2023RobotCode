@@ -13,6 +13,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -53,15 +54,15 @@ private final SwerveDrivePoseEstimator poseEstimator;
 
   @Override
   public void periodic() {
-    if(Limelight.hasValid()){
+   /*  if(Limelight.hasValid()){
     poseEstimator.addVisionMeasurement(Limelight.getEstimatedPose(), Limelight.getTimeStamp());
-    }
+    }*/
     // This method will be called once per scheduler run
-    poseEstimator.update(m_drive.getRotation2d(), m_drive.getModulePositions());
+    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), m_drive.getRotation2d(), m_drive.getModulePositions());
 
     m_field.setRobotPose(getPose());
     SmartDashboard.putString("Pose: ", getPose().toString());
-    SmartDashboard.putString("Limelight Pose: ", Limelight.getEstimatedPose().toString());
+    //SmartDashboard.putString("Limelight Pose: ", Limelight.getEstimatedPose().toString());
   }
 
   public void resetOdometry(Pose2d pose){
