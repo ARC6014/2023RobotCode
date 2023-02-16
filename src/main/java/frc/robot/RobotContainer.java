@@ -16,8 +16,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.DriveByJoystick;
+import frc.robot.commands.ElevatorDeneme;
 import frc.robot.commands.Auto.TeleopMoveToPose;
 import frc.robot.commands.Auto.TestAuto;
+import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
 import io.github.oblarg.oblog.Logger;
@@ -32,13 +34,15 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_drivetrain = DriveSubsystem.getInstance();
   private final PoseEstimatorSubsystem m_poseEstimatorSubsystem = PoseEstimatorSubsystem.getInstance();
+  private final CarriageSubsystem m_carriage = CarriageSubsystem.getInstance();
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   Joystick driver = new Joystick(0);
   //Logger logger; 
   
 
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final DriveByJoystick teleopDriveByJoystick = new DriveByJoystick(()-> driver.getRawAxis(1)*-1, ()-> driver.getRawAxis(0)*-1, ()-> driver.getRawAxis(2)*-1, () -> driver.getRawButton(7),() -> driver.getRawButton(8));
+  private final DriveByJoystick teleopDriveByJoystick = new DriveByJoystick(()-> driver.getRawAxis(1) * -1, ()-> driver.getRawAxis(0)*-1, ()-> driver.getRawAxis(2)*-1, () -> driver.getRawButton(7),() -> driver.getRawButton(8));
+  private final ElevatorDeneme m_Deneme = new ElevatorDeneme(() -> driver.getRawAxis(1) * -1, ()-> driver.getRawButton(1), () -> driver.getRawButton(3));
   //private final OnTheFlyPathGeneration m_tesFlyPathGeneration = new OnTheFlyPathGeneration(AutoConstants.firstNode);
   //private final OnTheFlyPathGeneration m_tesFlyPathGeneration2 = new OnTheFlyPathGeneration(AutoConstants.secondNode);
   private final TeleopMoveToPose m_tesFlyPathGeneration1 = new TeleopMoveToPose(AutoConstants.FIRST_PIVOT_POSE2D, AutoConstants.SECOND_PIVOT_POSE2D, AutoConstants.firstNode);
@@ -52,7 +56,8 @@ public class RobotContainer {
     autonomousChooser.addOption("Test Auto", "TestAuto");
 
     Logger.configureLoggingAndConfig(this, false);
-    m_drivetrain.setDefaultCommand(teleopDriveByJoystick);
+    //m_drivetrain.setDefaultCommand(teleopDriveByJoystick);
+    m_carriage.setDefaultCommand(m_Deneme);
     // Configure the button bindings
     configureButtonBindings();
    /*logger = Logger.getLoggerInstance();
@@ -71,8 +76,8 @@ public class RobotContainer {
     //new JoystickButton(driver,1).whileTrue(intake);
     //new JoystickButton(driver, 2).whileTrue(outtake);
     
-    new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration1);
-    new JoystickButton(driver, 3).whileTrue(m_tesFlyPathGeneration2);
+    //new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration1);
+    //new JoystickButton(driver, 3).whileTrue(m_tesFlyPathGeneration2);
   }
 
   /**
