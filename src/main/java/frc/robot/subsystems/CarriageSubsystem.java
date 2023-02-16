@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-
 import com.ctre.phoenixpro.StatusCode;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.controls.PositionTorqueCurrentFOC;
@@ -25,21 +24,23 @@ import frc.team6014.lib.math.Gearbox;
 public class CarriageSubsystem extends SubsystemBase {
 
   private static CarriageSubsystem mInstance;
-  public static synchronized CarriageSubsystem getInstance(){
+
+  public static synchronized CarriageSubsystem getInstance() {
     if (mInstance == null) {
       mInstance = new CarriageSubsystem();
-  } 
-  return mInstance;
+    }
+    return mInstance;
   }
 
   private final TalonFX carriageMaster = new TalonFX(CarriageConstants.carriageMasterID, Constants.CANIVORE_CANBUS);
   private final DutyCycleEncoder m_encoder = new DutyCycleEncoder(CarriageConstants.encoderID);
 
   private final Gearbox falconGearbox = new Gearbox(1 * 40 * 10, 75 * 42 * 40);
-  private final Gearbox encoderGearbox = new Gearbox(CarriageConstants.encoderDrivingGear, CarriageConstants.encoderDrivenGear);
+  private final Gearbox encoderGearbox = new Gearbox(CarriageConstants.encoderDrivingGear,
+      CarriageConstants.encoderDrivenGear);
   private Rotation2d currentRotation = new Rotation2d();
 
-  private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0,0,0, false);
+  private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0, 0, 0, false);
 
   public CarriageSubsystem() {
 
@@ -53,12 +54,12 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.Slot0.kV = CarriageConstants.kV;
 
     configs.Voltage.PeakForwardVoltage = CarriageConstants.peakForwardVoltage;
-    configs.Voltage.PeakReverseVoltage = CarriageConstants.peakReverseVoltage; 
+    configs.Voltage.PeakReverseVoltage = CarriageConstants.peakReverseVoltage;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = CarriageConstants.peakForwardTorqueCurrent;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = CarriageConstants.peakReverseTorqueCurrent;
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; //değiştir
+    configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
     configs.MotorOutput.DutyCycleNeutralDeadband = CarriageConstants.dutyCycleNeutralDeadband;
 
     configs.CurrentLimits.StatorCurrentLimit = CarriageConstants.statorCurrentLimit;
@@ -71,15 +72,16 @@ public class CarriageSubsystem extends SubsystemBase {
     StatusCode status = StatusCode.StatusCodeNotInitialized;
     for (int i = 0; i < 5; ++i) {
       status = carriageMaster.getConfigurator().apply(configs);
-      if (status.isOK()) break;
+      if (status.isOK())
+        break;
     }
-    if(!status.isOK()) {
+    if (!status.isOK()) {
       System.out.println("Could not apply configs, error code: " + status.toString());
     }
 
     m_encoder.reset();
-    //m_encoder.setPositionOffset(-177.6);
-    //m_encoder.setDutyCycleRange(-4, 4);
+    // m_encoder.setPositionOffset(-177.6);
+    // m_encoder.setDutyCycleRange(-4, 4);
 
     resetToAbsolute();
   }
@@ -92,42 +94,42 @@ public class CarriageSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void update(){
+  public void update() {
     var falconDegree = carriageMaster.getRotorPosition();
     falconDegree.refresh();
     currentRotation = Rotation2d.fromDegrees((falconDegree.getValue() / falconGearbox.getRatio()) * 360);
   }
 
-  public synchronized void setPosition(SuperStructureState state){
+  public synchronized void setPosition(SuperStructureState state) {
     double targetDegree = state.getDegree();
-    if(targetDegree >= 100){
+    if (targetDegree >= 100) {
       targetDegree = 100;
-    }else if(targetDegree <= -90){
+    } else if (targetDegree <= -90) {
       targetDegree = -90;
     }
     double falconRotation = (targetDegree / 360) * falconGearbox.getRatio();
     carriageMaster.setControl(m_torqueControl.withPosition(falconRotation));
   }
 
-  public synchronized void setMotorOutput(double speed){
+  public synchronized void setMotorOutput(double speed) {
     carriageMaster.set(speed);
   }
 
-  public synchronized void holdCurrentPosition(double lastdegrees){
+  public synchronized void holdCurrentPosition(double lastdegrees) {
     double falconRotation = (currentRotation.getDegrees() / 360) * falconGearbox.getRatio();
     carriageMaster.setControl(m_torqueControl.withPosition(falconRotation));
   }
 
-  public synchronized void resetToAbsolute(){
+  public synchronized void resetToAbsolute() {
     double position = getAbsolutePosition();
-    carriageMaster.setRotorPosition((position/360) * falconGearbox.getRatio());
+    carriageMaster.setRotorPosition((position / 360) * falconGearbox.getRatio());
   }
 
-  public double getAbsolutePosition(){
-    return ((Math.toDegrees(m_encoder.getAbsolutePosition() * 2 * Math.PI) * -1 ) +88);
+  public double getAbsolutePosition() {
+    return ((Math.toDegrees(m_encoder.getAbsolutePosition() * 2 * Math.PI) * -1) + 88);
   }
 
-  public Rotation2d getCurrentRotation(){
+  public Rotation2d getCurrentRotation() {
     return currentRotation;
   }
 }
