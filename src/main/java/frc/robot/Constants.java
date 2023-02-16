@@ -3,6 +3,8 @@ package frc.robot;
 import frc.team6014.lib.util.SwerveUtils.SwerveConstants;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenixpro.signals.InvertedValue;
+import com.ctre.phoenixpro.signals.NeutralModeValue;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -194,6 +196,8 @@ public class Constants {
         public static final double kS = 0;
         public static final double kV = 0;
 
+        public static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
+        public static final InvertedValue invertedValue = InvertedValue.Clockwise_Positive;
         public static final double peakForwardVoltage = 8;
         public static final double peakReverseVoltage = -8;
 

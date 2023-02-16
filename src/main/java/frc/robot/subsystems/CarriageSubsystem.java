@@ -58,8 +58,8 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.TorqueCurrent.PeakForwardTorqueCurrent = CarriageConstants.peakForwardTorqueCurrent;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = CarriageConstants.peakReverseTorqueCurrent;
 
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
+    configs.MotorOutput.NeutralMode = CarriageConstants.neutralMode;
+    configs.MotorOutput.Inverted = CarriageConstants.invertedValue; // değiştir
     configs.MotorOutput.DutyCycleNeutralDeadband = CarriageConstants.dutyCycleNeutralDeadband;
 
     configs.CurrentLimits.StatorCurrentLimit = CarriageConstants.statorCurrentLimit;
