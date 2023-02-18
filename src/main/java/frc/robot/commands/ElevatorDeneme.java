@@ -36,10 +36,12 @@ public class ElevatorDeneme extends CommandBase {
   public void execute() {
     if(!m_button.getAsBoolean()){
       m_carraige.setMotorOutput(joystick.getAsDouble());
+      lastRotation = m_carraige.getCurrentRotation().getDegrees();
     }else{
       m_carraige.setPosition(new SuperStructureState(0, 0, targetDegree));
+      lastRotation = m_carraige.getCurrentRotation().getDegrees();
     }
-    lastRotation = m_carraige.getCurrentRotation().getDegrees();
+
     if(m_secondButton.getAsBoolean()){
       m_carraige.holdCurrentPosition(lastRotation);
     }

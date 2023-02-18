@@ -213,4 +213,31 @@ public class Constants {
 
     }
 
+    public static final class TelescobicArmConstants {
+
+        public static final int telesobicMotorID = 50;
+
+        public static final double kP = 3.65;
+        public static final double kI = 0;
+        public static final double kD = 0.45;
+        public static final double kS = 0;
+        public static final double kV = 0;
+
+        public static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
+        public static final InvertedValue invertedValue = InvertedValue.Clockwise_Positive;
+        public static final double peakForwardVoltage = 8;
+        public static final double peakReverseVoltage = -8;
+
+        public static final double peakForwardTorqueCurrent = 200;
+        public static final double peakReverseTorqueCurrent = 200;
+
+        public static final double dutyCycleNeutralDeadband = 0.04;
+
+        public static final double statorCurrentLimit = 300;
+        public static final boolean statorCurrentLimitEnable = true;
+        public static final double supplyCurrentLimit = 80;
+        public static final boolean supplyCurrentLimitEnable = true;
+
+    }
+
 }

@@ -8,17 +8,14 @@ import com.ctre.phoenixpro.StatusCode;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenixpro.hardware.TalonFX;
-import com.ctre.phoenixpro.signals.InvertedValue;
-import com.ctre.phoenixpro.signals.NeutralModeValue;
-import com.fasterxml.jackson.databind.node.POJONode;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.CarriageConstants;
 import frc.team6014.SuperStructureState;
-import frc.team6014.lib.DutyCycleEncoder;
 import frc.team6014.lib.math.Gearbox;
 
 public class CarriageSubsystem extends SubsystemBase {
@@ -59,7 +56,7 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.TorqueCurrent.PeakReverseTorqueCurrent = CarriageConstants.peakReverseTorqueCurrent;
 
     configs.MotorOutput.NeutralMode = CarriageConstants.neutralMode;
-    configs.MotorOutput.Inverted = CarriageConstants.invertedValue; // değiştir
+    configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
     configs.MotorOutput.DutyCycleNeutralDeadband = CarriageConstants.dutyCycleNeutralDeadband;
 
     configs.CurrentLimits.StatorCurrentLimit = CarriageConstants.statorCurrentLimit;
@@ -80,8 +77,6 @@ public class CarriageSubsystem extends SubsystemBase {
     }
 
     m_encoder.reset();
-    // m_encoder.setPositionOffset(-177.6);
-    // m_encoder.setDutyCycleRange(-4, 4);
 
     resetToAbsolute();
   }
@@ -126,7 +121,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public double getAbsolutePosition() {
-    return ((Math.toDegrees(m_encoder.getAbsolutePosition() * 2 * Math.PI) * -1) + 88);
+    return ((Math.toDegrees(m_encoder.getAbsolutePosition() * 2 * Math.PI) / encoderGearbox.getRatio() * -1) + 88);
   }
 
   public Rotation2d getCurrentRotation() {
