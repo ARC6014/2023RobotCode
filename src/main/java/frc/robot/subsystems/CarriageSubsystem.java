@@ -35,7 +35,6 @@ public class CarriageSubsystem extends SubsystemBase {
   private final Gearbox falconGearbox = new Gearbox(1 * 40 * 10, 75 * 42 * 40);
   private final Gearbox encoderGearbox = new Gearbox(CarriageConstants.encoderDrivingGear,
       CarriageConstants.encoderDrivenGear);
-  private Rotation2d currentRotation = new Rotation2d();
 
   private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0, 0, 0, false);
 
@@ -83,22 +82,21 @@ public class CarriageSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    update();
     SmartDashboard.putNumber("Encoder: ", getAbsolutePosition());
-    SmartDashboard.putNumber("Falcon Degree", currentRotation.getDegrees());
+    SmartDashboard.putNumber("Falcon Degree", getCurrentRotation());
     // This method will be called once per scheduler run
   }
 
-  public void update() {
+  public double getCurrentRotation() {
     var falconDegree = carriageMaster.getRotorPosition();
     falconDegree.refresh();
-    currentRotation = Rotation2d.fromDegrees((falconDegree.getValue() / falconGearbox.getRatio()) * 360);
+    return falconDegree.getValue() * 360 / falconGearbox.getRatio();
   }
 
   public synchronized void setPosition(SuperStructureState state) {
     double targetDegree = state.getDegree();
-    if (targetDegree >= 100) {
-      targetDegree = 100;
+    if (targetDegree >= 110) {
+      targetDegree = 110;
     } else if (targetDegree <= -90) {
       targetDegree = -90;
     }
@@ -110,21 +108,13 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.set(speed);
   }
 
-  public synchronized void holdCurrentPosition(double lastdegrees) {
-    double falconRotation = (currentRotation.getDegrees() / 360) * falconGearbox.getRatio();
-    carriageMaster.setControl(m_torqueControl.withPosition(falconRotation));
-  }
-
   public synchronized void resetToAbsolute() {
     double position = getAbsolutePosition();
     carriageMaster.setRotorPosition((position / 360) * falconGearbox.getRatio());
   }
 
-  public double getAbsolutePosition() {
+  public synchronized double getAbsolutePosition() {
     return ((Math.toDegrees(m_encoder.getAbsolutePosition() * 2 * Math.PI) / encoderGearbox.getRatio() * -1) + 88);
   }
 
-  public Rotation2d getCurrentRotation() {
-    return currentRotation;
-  }
 }

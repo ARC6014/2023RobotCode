@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.TelescobicArmConstants;
 import frc.team6014.SuperStructureState;
-import frc.team6014.lib.DutyCycleEncoder;
 import frc.team6014.lib.math.Gearbox;
 
 public class TelescobicArmSubsystem extends SubsystemBase {

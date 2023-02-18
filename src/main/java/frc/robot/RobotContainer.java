@@ -86,12 +86,13 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    switch (autonomousChooser.getSelected()) {
+    /*switch (autonomousChooser.getSelected()) {
       case "TestAuto":
         return DriverStation.getAlliance() == Alliance.Blue ? new TestAuto(true) : new TestAuto(false);
       default:
       return null;
-    }
+    }*/
+    return null;
   }
   
 }

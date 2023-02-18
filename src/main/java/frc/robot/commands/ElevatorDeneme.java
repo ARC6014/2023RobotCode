@@ -17,7 +17,6 @@ public class ElevatorDeneme extends CommandBase {
   private final DoubleSupplier joystick;
   private final BooleanSupplier m_button;
   private final BooleanSupplier m_secondButton;
-  private double lastRotation = m_carraige.getCurrentRotation().getDegrees();
   /** Creates a new ElevatorDeneme. */
   public ElevatorDeneme(DoubleSupplier output, BooleanSupplier button, BooleanSupplier secondButton) {
     joystick = output;
@@ -36,14 +35,11 @@ public class ElevatorDeneme extends CommandBase {
   public void execute() {
     if(!m_button.getAsBoolean()){
       m_carraige.setMotorOutput(joystick.getAsDouble());
-      lastRotation = m_carraige.getCurrentRotation().getDegrees();
     }else{
       m_carraige.setPosition(new SuperStructureState(0, 0, targetDegree));
-      lastRotation = m_carraige.getCurrentRotation().getDegrees();
     }
 
     if(m_secondButton.getAsBoolean()){
-      m_carraige.holdCurrentPosition(lastRotation);
     }
   }
 
