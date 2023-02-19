@@ -5,6 +5,7 @@ import frc.team6014.lib.util.SwerveUtils.SwerveConstants;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenixpro.signals.InvertedValue;
 import com.ctre.phoenixpro.signals.NeutralModeValue;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -181,6 +182,55 @@ public class Constants {
         public static final double angleOffset = -81.94;
         public static final double modulekS = DriveConstants.drivekS;
         public static final double modulekV = DriveConstants.drivekV;
+    }
+
+    public static final class GrabberConstants {
+        public static int grabberMotorMasterID = 20;
+        public static int grabberMotorSlaveID = 21;
+
+
+        public static double kMinOutput = -1.0;
+        public static double kMaxOutput = 1.0;
+        public static double kMaxRPM = 5700;
+        public static double kP = 0.1;
+        public static double kI = 0.01;
+        public static double kD = 0.1;
+        public static double kIz = 0;
+
+        public static double kFF = 0.0;
+        public static double gearRatio = 5.0;
+
+        public static int sensorChannel = 2;
+        public static double kDistanceConstant = 0.5;
+        public static int smartCurrentLimit = 40;
+        public static double kS = 0.0;
+        public static double kV = 0.0;
+        public static double kA = 0.0;
+        public static double rpm = 0.5;
+    }
+
+    public static final class IntakeConstants {
+        public static final int intakeMotorID = 10;
+        public static final int intakeDoubleSolenoidPort1 = 0;
+        public static final int intakeDoubleSolenoidPort2 = 1;
+
+        public static final double intakeSpeed = 0.3;
+        public static final double outtakeSpeed = -0.3;
+        public static final boolean isIntakeInverted = true;
+        public static final CANSparkMax.IdleMode idleMode = CANSparkMax.IdleMode.kCoast;
+
+        // PID
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+
+        // Limits
+        public static final int stallCurrentLimit = 60;
+        public static final int freeCurrentLimit = 35;
+        public static final int kMaxRPM = 5700;
+        public static final double RPM = 0;
+        
+        public static final double kIntakeTolerance = 0;
     }
 
     public static final class CarriageConstants {

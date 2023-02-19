@@ -50,6 +50,10 @@ public class SuperStructureState {
         this.degree = degree;
     }   
 
-    //Ğ
+    //Calc
+
+    public double getAbsoluteHeight(){
+       return this.height - (this.length * Math.cos(Math.toRadians(this.degree)));
+    }
 
 }

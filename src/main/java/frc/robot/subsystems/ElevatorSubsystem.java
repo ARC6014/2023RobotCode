@@ -30,8 +30,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     return mInstance;
   }
 
-  private final TalonFX elevatorMaster = new TalonFX(50, Constants.CANIVORE_CANBUS);
-  private final TalonFX elevatorSlave = new TalonFX(51, Constants.CANIVORE_CANBUS);
+  private final TalonFX elevatorMaster = new TalonFX(30, Constants.CANIVORE_CANBUS);
+  private final TalonFX elevatorSlave = new TalonFX(31, Constants.CANIVORE_CANBUS);
   private final Gearbox falconGearbox = new Gearbox(8, 60);
   private final MotionMagicTorqueCurrentFOC m_motionMagic = new MotionMagicTorqueCurrentFOC(0,0,0, false);
   private double lastHeight;
@@ -42,25 +42,25 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 0;
+    configs.Slot0.kP = 250;
     configs.Slot0.kI = 0;
     configs.Slot0.kD = 0;
     configs.Slot0.kS = 0;
     configs.Slot0.kV = 0;
 
-    configs.Voltage.PeakForwardVoltage = 6;
-    configs.Voltage.PeakReverseVoltage = -6;
-    configs.MotionMagic.MotionMagicAcceleration = 3; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 10; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 5; //  değiştir
+   // configs.Voltage.PeakForwardVoltage = 10;
+   // configs.Voltage.PeakReverseVoltage = -10;
+    configs.MotionMagic.MotionMagicAcceleration = 200; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 200; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 100; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 
-    configs.CurrentLimits.StatorCurrentLimit = 250;
+    configs.CurrentLimits.StatorCurrentLimit = 300;
     configs.CurrentLimits.StatorCurrentLimitEnable = true;
-    configs.CurrentLimits.SupplyCurrentLimit = 80;
+    configs.CurrentLimits.SupplyCurrentLimit = 150;
     configs.CurrentLimits.SupplyCurrentLimitEnable = true;
 
     elevatorMaster.getConfigurator().apply(configs);
@@ -71,8 +71,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    maybeShouldStop();
+    //maybeShouldStop();
     SmartDashboard.putNumber("Elevator Height", getHeight());
+    System.out.println(getHeight());
     // This method will be called once per scheduler run
   }
 

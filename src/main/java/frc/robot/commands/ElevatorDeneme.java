@@ -9,11 +9,12 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CarriageSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.team6014.SuperStructureState;
 
 public class ElevatorDeneme extends CommandBase {
-  private final CarriageSubsystem m_carraige = CarriageSubsystem.getInstance();
-  private final double targetDegree = 90;
+  private final ElevatorSubsystem m_carraige = ElevatorSubsystem.getInstance();
+  private final double targetHeight = 0.60;
   private final DoubleSupplier joystick;
   private final BooleanSupplier m_button;
   private final BooleanSupplier m_secondButton;
@@ -36,10 +37,11 @@ public class ElevatorDeneme extends CommandBase {
     if(!m_button.getAsBoolean()){
       m_carraige.setMotorOutput(joystick.getAsDouble());
     }else{
-      m_carraige.setPosition(new SuperStructureState(0, 0, targetDegree));
+      m_carraige.setHeight(new SuperStructureState(targetHeight, 0, 0));
     }
 
     if(m_secondButton.getAsBoolean()){
+      m_carraige.overrideHeight(0);
     }
   }
 

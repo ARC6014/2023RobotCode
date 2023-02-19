@@ -19,8 +19,13 @@ import frc.robot.commands.DriveByJoystick;
 import frc.robot.commands.ElevatorDeneme;
 import frc.robot.commands.Auto.TeleopMoveToPose;
 import frc.robot.commands.Auto.TestAuto;
+import frc.robot.commands.Intaking.IntakeCommand;
+import frc.robot.commands.Intaking.Outtake;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.GrabberSubsystem;
+import frc.robot.subsystems.IntakeSubsytem;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
 import io.github.oblarg.oblog.Logger;
 
@@ -35,6 +40,9 @@ public class RobotContainer {
   private final DriveSubsystem m_drivetrain = DriveSubsystem.getInstance();
   private final PoseEstimatorSubsystem m_poseEstimatorSubsystem = PoseEstimatorSubsystem.getInstance();
   private final CarriageSubsystem m_carriage = CarriageSubsystem.getInstance();
+  private final IntakeSubsytem m_intake = IntakeSubsytem.getInstance();
+  private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
+  private final GrabberSubsystem m_grabber = GrabberSubsystem.getInstance();
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   Joystick driver = new Joystick(0);
   //Logger logger; 
@@ -57,7 +65,8 @@ public class RobotContainer {
 
     Logger.configureLoggingAndConfig(this, false);
     //m_drivetrain.setDefaultCommand(teleopDriveByJoystick);
-    m_carriage.setDefaultCommand(m_Deneme);
+    //m_carriage.setDefaultCommand(m_Deneme);
+    m_elevator.setDefaultCommand(m_Deneme);
     // Configure the button bindings
     configureButtonBindings();
    /*logger = Logger.getLoggerInstance();
@@ -78,6 +87,10 @@ public class RobotContainer {
     
     //new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration1);
     //new JoystickButton(driver, 3).whileTrue(m_tesFlyPathGeneration2);
+    /*new JoystickButton(driver, 3).whileTrue(new IntakeCommand());
+    new JoystickButton(driver, 2).whileTrue(new Outtake());*/
+
+    
   }
 
   /**
