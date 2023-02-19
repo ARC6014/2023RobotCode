@@ -4,13 +4,11 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenixpro.StatusCode;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenixpro.hardware.TalonFX;
 import com.ctre.phoenixpro.signals.NeutralModeValue;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -66,16 +64,6 @@ public class CarriageSubsystem extends SubsystemBase {
 
     carriageMaster.getConfigurator().apply(configs);
 
-    StatusCode status = StatusCode.StatusCodeNotInitialized;
-    for (int i = 0; i < 5; ++i) {
-      status = carriageMaster.getConfigurator().apply(configs);
-      if (status.isOK())
-        break;
-    }
-    if (!status.isOK()) {
-      System.out.println("Could not apply configs, error code: " + status.toString());
-    }
-
     m_encoder.reset();
 
     resetToAbsolute();
@@ -83,22 +71,17 @@ public class CarriageSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Encoder: ", getAbsolutePosition());
-    SmartDashboard.putNumber("Falcon Degree", getCurrentRotation());
+    SmartDashboard.putNumber("Carriage Encoder: ", getAbsolutePosition());
+    SmartDashboard.putNumber("Carriage Falcon Degree", getRotation());
+    SmartDashboard.putNumber("Carriage Current", getCurrent());
     // This method will be called once per scheduler run
-  }
-
-  public double getCurrentRotation() {
-    var falconDegree = carriageMaster.getRotorPosition();
-    falconDegree.refresh();
-    return falconDegree.getValue() * 360 / falconGearbox.getRatio();
   }
 
   public synchronized void setPosition(SuperStructureState state) {
     double targetDegree = state.getDegree();
-    if (targetDegree >= 110) {
+    if (targetDegree >= 110) {// max angle
       targetDegree = 110;
-    } else if (targetDegree <= -90) {
+    } else if (targetDegree <= -90) { // min angle
       targetDegree = -90;
     }
     double falconRotation = (targetDegree / 360) * falconGearbox.getRatio();
@@ -109,13 +92,29 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.set(speed);
   }
 
-  public synchronized void resetToAbsolute() {
+  public double getRotation() {
+    var falconDegree = carriageMaster.getRotorPosition();
+    falconDegree.refresh();
+    return falconDegree.getValue() * 360 / falconGearbox.getRatio();
+  }
+
+  public double getCurrent(){
+    var masterCurrent = carriageMaster.getStatorCurrent();
+    masterCurrent.refresh();
+    return masterCurrent.getValue();
+  }
+
+  public void resetToAbsolute() {
     double position = getAbsolutePosition();
     carriageMaster.setRotorPosition((position / 360) * falconGearbox.getRatio());
   }
 
-  public synchronized double getAbsolutePosition() {
-    return ((Math.toDegrees(m_encoder.getAbsolutePosition() * 2 * Math.PI) / encoderGearbox.getRatio() * -1) + 88);
+  public double getAbsolutePosition() {
+    return (((m_encoder.getAbsolutePosition() * 360) / encoderGearbox.getRatio() * -1) + 88);
+  }
+
+  public boolean isAtSetpoint(SuperStructureState state){
+    return Math.abs(state.getDegree() - getRotation()) <= 3;
   }
 
 }

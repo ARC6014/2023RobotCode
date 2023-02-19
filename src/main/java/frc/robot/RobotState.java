@@ -1,14 +1,25 @@
 package frc.robot;
 
+import frc.team6014.SuperStructureState;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
 public class RobotState implements Loggable {
 
-    private static RobotState instance = null;
+    private static RobotState mInstance;
+
+    public static RobotState getInstance(){
+        if(mInstance == null){
+            mInstance = new RobotState();
+        }
+        
+        return mInstance;
+    }
 
     @Log.ToString(name = "Robot Mode")
     private robotState state = robotState.cubeMode;
+
+    private SuperStructureState currenStructureState = new SuperStructureState();
 
     private enum robotState {
         cubeMode(0), coneMode(1);
@@ -38,13 +49,6 @@ public class RobotState implements Loggable {
         }
     }
 
-    public static RobotState getInstance() {
-        if (instance == null) {
-            instance = new RobotState();
-        }
-        return instance;
-    }
-
     public void setMode(int numVal) {
         state = state.setMode(numVal);
     }
@@ -59,6 +63,22 @@ public class RobotState implements Loggable {
 
     public int getModeNum() {
         return state.getNumVal();
+    }
+
+    public synchronized void updateHeight(double height){
+        currenStructureState.setHeight(height);
+    }
+
+    public synchronized void updateLength(double length){
+        currenStructureState.setLength(length);
+    }
+
+    public synchronized void updateDegree(double degree){
+        currenStructureState.setDegree(degree);
+    }
+
+    public SuperStructureState getCurrentSuperStructureState(){
+        return currenStructureState;
     }
 
 }

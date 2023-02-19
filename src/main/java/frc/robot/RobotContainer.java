@@ -43,6 +43,7 @@ public class RobotContainer {
   private final IntakeSubsytem m_intake = IntakeSubsytem.getInstance();
   private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
   private final GrabberSubsystem m_grabber = GrabberSubsystem.getInstance();
+  private final RobotState m_robotState = RobotState.getInstance();
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   Joystick driver = new Joystick(0);
   //Logger logger; 

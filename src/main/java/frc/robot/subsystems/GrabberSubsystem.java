@@ -3,14 +3,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.CANSparkMaxLowLevel;
-import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.RobotState;
 import frc.robot.Constants.GrabberConstants;
 import frc.team6014.lib.drivers.TalonSRXFactory;
-import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Config;
 import io.github.oblarg.oblog.annotations.Log;
 
@@ -19,7 +14,6 @@ public class GrabberSubsystem extends SubsystemBase{
     private TalonSRX grabberMotorMaster;
     private TalonSRX grabberMotorSlave;
 
-    // private IndexingSensor indexSensor;
     private static GrabberSubsystem m_instance;
 
     @Log

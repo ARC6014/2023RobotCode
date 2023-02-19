@@ -5,7 +5,6 @@
 package frc.robot.commands.Intaking;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotState;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.IntakeSubsytem;
 
