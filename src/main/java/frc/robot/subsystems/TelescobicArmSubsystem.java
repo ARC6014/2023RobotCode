@@ -54,7 +54,7 @@ public class TelescobicArmSubsystem extends SubsystemBase {
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    configs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; // değiştir
+    configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 
     configs.CurrentLimits.StatorCurrentLimit = TelescobicArmConstants.statorCurrentLimit;

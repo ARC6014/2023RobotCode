@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import io.github.oblarg.oblog.Loggable;
 
-public class IntakeSubsytem extends SubsystemBase implements Loggable {
+public class IntakeSubsytem extends SubsystemBase {
   /** Creates a new IntakeSubsytem. */
   private final CANSparkMax intakeMotor = new CANSparkMax(Constants.IntakeConstants.intakeMotorID, MotorType.kBrushless);
 

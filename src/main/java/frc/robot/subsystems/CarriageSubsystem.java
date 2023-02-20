@@ -77,7 +77,7 @@ public class CarriageSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public synchronized void setPosition(SuperStructureState state) {
+  public void setPosition(SuperStructureState state) {
     double targetDegree = state.getDegree();
     if (targetDegree >= 110) {// max angle
       targetDegree = 110;
@@ -88,7 +88,7 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.setControl(m_torqueControl.withPosition(falconRotation));
   }
 
-  public synchronized void setMotorOutput(double speed) {
+  public void setMotorOutput(double speed) {
     carriageMaster.set(speed);
   }
 

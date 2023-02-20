@@ -33,7 +33,7 @@ import frc.team6014.lib.util.SwerveUtils.SwerveModuleConstants;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class DriveSubsystem extends SubsystemBase implements Loggable {
+public class DriveSubsystem extends SubsystemBase{
 
     /*
      * @Log.Field2d(name = "Field", rowIndex = 0, columnIndex = 2, width = 6, height

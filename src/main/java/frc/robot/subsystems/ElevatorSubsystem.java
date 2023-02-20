@@ -43,26 +43,26 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 250;
-    configs.Slot0.kI = 0;
-    configs.Slot0.kD = 0;
-    configs.Slot0.kS = 0;
+    configs.Slot0.kP = 20;
+    configs.Slot0.kI = 5;
+    configs.Slot0.kD = 0.5;
+    configs.Slot0.kS = 5;
     configs.Slot0.kV = 0;
 
     configs.Voltage.PeakForwardVoltage = 10;
     configs.Voltage.PeakReverseVoltage = -10;
-    configs.MotionMagic.MotionMagicAcceleration = 200; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 200; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 100; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 500; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 400; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 300; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 
-    configs.CurrentLimits.StatorCurrentLimit = 300;
-    configs.CurrentLimits.StatorCurrentLimitEnable = true;
-    configs.CurrentLimits.SupplyCurrentLimit = 150;
-    configs.CurrentLimits.SupplyCurrentLimitEnable = true;
+    configs.CurrentLimits.StatorCurrentLimit = 500;
+    configs.CurrentLimits.StatorCurrentLimitEnable = false;
+    configs.CurrentLimits.SupplyCurrentLimit = 300;
+    configs.CurrentLimits.SupplyCurrentLimitEnable = false;
 
     elevatorMaster.getConfigurator().apply(configs);
     elevatorSlave.getConfigurator().apply(configs);
@@ -80,20 +80,21 @@ public class ElevatorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public synchronized void setMotorOutput(double output){
+  public void setMotorOutput(double output){
     elevatorMaster.set(output);
     elevatorSlave.set(output);
     lastElevatorCommandHeight = getHeight();
+    System.out.println(output);
   }
 
-  public synchronized void setHeight(SuperStructureState state){
+  public void setHeight(SuperStructureState state){
     double sprocketRotation = state.getHeight() / sprocketCircumferenceInCM;
     elevatorMaster.setControl(m_motionMagic.withPosition(sprocketRotation * falconGearbox.getRatio()));
     elevatorSlave.setControl(m_motionMagic.withPosition(sprocketRotation * falconGearbox.getRatio()));
     lastElevatorCommandHeight = getHeight();
   }
 
-  public synchronized void holdCurrentPosition(){
+  public void holdCurrentPosition(){
     elevatorMaster.setControl(m_motionMagic.withPosition(lastElevatorCommandHeight));
     elevatorSlave.setControl(m_motionMagic.withPosition(lastElevatorCommandHeight));
   }

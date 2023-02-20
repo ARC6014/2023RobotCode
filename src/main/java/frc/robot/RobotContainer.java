@@ -21,12 +21,14 @@ import frc.robot.commands.Auto.TeleopMoveToPose;
 import frc.robot.commands.Auto.TestAuto;
 import frc.robot.commands.Intaking.IntakeCommand;
 import frc.robot.commands.Intaking.Outtake;
+import frc.robot.commands.Resetting.ZeroTelescopic;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.IntakeSubsytem;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
+import frc.robot.subsystems.TelescobicArmSubsystem;
 import io.github.oblarg.oblog.Logger;
 
 /**
@@ -44,6 +46,7 @@ public class RobotContainer {
   private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
   private final GrabberSubsystem m_grabber = GrabberSubsystem.getInstance();
   private final RobotState m_robotState = RobotState.getInstance();
+  private final TelescobicArmSubsystem m_telescopic = TelescobicArmSubsystem.getInstance();
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   Joystick driver = new Joystick(0);
   //Logger logger; 
@@ -67,7 +70,7 @@ public class RobotContainer {
     Logger.configureLoggingAndConfig(this, false);
     //m_drivetrain.setDefaultCommand(teleopDriveByJoystick);
     //m_carriage.setDefaultCommand(m_Deneme);
-    m_elevator.setDefaultCommand(m_Deneme);
+    m_telescopic.setDefaultCommand(m_Deneme);
     // Configure the button bindings
     configureButtonBindings();
    /*logger = Logger.getLoggerInstance();
@@ -90,6 +93,7 @@ public class RobotContainer {
     //new JoystickButton(driver, 3).whileTrue(m_tesFlyPathGeneration2);
     /*new JoystickButton(driver, 3).whileTrue(new IntakeCommand());
     new JoystickButton(driver, 2).whileTrue(new Outtake());*/
+    new JoystickButton(driver, 3).onTrue(new ZeroTelescopic());
 
     
   }
