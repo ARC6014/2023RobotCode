@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
+import com.ctre.phoenixpro.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenixpro.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenixpro.hardware.TalonFX;
 import com.ctre.phoenixpro.signals.InvertedValue;
@@ -34,7 +35,7 @@ public class TelescobicArmSubsystem extends SubsystemBase {
   private final TalonFX telescobicMaster = new TalonFX(TelescobicArmConstants.telesobicMotorID, Constants.CANIVORE_CANBUS);
   private final Gearbox falconGearbox = new Gearbox(1 * 18, 4 * 24);
   private final double pulleyCircumferenceInCM = Units.inchesToMeters(1.504) * Math.PI * 100;
-  private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0, 0, 0, false);
+  private final MotionMagicTorqueCurrentFOC m_torqueControl = new MotionMagicTorqueCurrentFOC(0, 0, 0, false);
   private double lastTelescopicCommandLength;
 
   public TelescobicArmSubsystem() {
@@ -42,18 +43,19 @@ public class TelescobicArmSubsystem extends SubsystemBase {
     telescobicMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 0;
-    configs.Slot0.kI = 0;
-    configs.Slot0.kD = 0;
-    configs.Slot0.kS = 0;
+    configs.Slot0.kP = 10;
+    configs.Slot0.kI = 0.5;
+    configs.Slot0.kD = 0.0;
+    configs.Slot0.kS = 0.7;
     configs.Slot0.kV = 0;
 
-    configs.Voltage.PeakForwardVoltage = 4;
-    configs.Voltage.PeakReverseVoltage = -4;
-    configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
-    configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
+    configs.Voltage.PeakForwardVoltage = 6;
+    configs.Voltage.PeakReverseVoltage = -6;
+    configs.MotionMagic.MotionMagicAcceleration = 60; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 50; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 70; //  değiştir
 
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 
@@ -63,6 +65,7 @@ public class TelescobicArmSubsystem extends SubsystemBase {
     configs.CurrentLimits.SupplyCurrentLimitEnable = TelescobicArmConstants.supplyCurrentLimitEnable;
 
     telescobicMaster.getConfigurator().apply(configs);
+
 
 
   }

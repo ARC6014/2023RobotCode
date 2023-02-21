@@ -15,7 +15,7 @@ import frc.team6014.SuperStructureState;
 
 public class ElevatorDeneme extends CommandBase {
   private final TelescobicArmSubsystem m_carraige = TelescobicArmSubsystem.getInstance();
-  private final double targetHeight = 100;
+  private final double targetHeight = 110;
   private final DoubleSupplier joystick;
   private final BooleanSupplier m_button;
   private final BooleanSupplier m_secondButton;
@@ -36,7 +36,7 @@ public class ElevatorDeneme extends CommandBase {
   @Override
   public void execute() {
     if(!m_button.getAsBoolean()){
-      m_carraige.setMotorOutput(joystick.getAsDouble());
+      m_carraige.setMotorOutput(Math.pow(joystick.getAsDouble(), 3));
     }else{
       m_carraige.setLength(new SuperStructureState(0, targetHeight , 0));
     }

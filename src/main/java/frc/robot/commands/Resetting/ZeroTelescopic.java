@@ -25,7 +25,7 @@ public class ZeroTelescopic extends CommandBase {
     m_timer.reset();
     m_timer.start();
     m_isFinished = false;
-    m_telescobicArmSubsystem.setMotorOutput(-0.189);
+    m_telescobicArmSubsystem.setMotorOutput(-0.15);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
