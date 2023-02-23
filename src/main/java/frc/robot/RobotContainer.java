@@ -95,30 +95,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //new JoystickButton(driver,1).whileTrue(intake);
-    //new JoystickButton(driver, 2).whileTrue(outtake);
-    
-    //new JoystickButton(driver, 1).whileTrue(m_tesFlyPathGeneration1);
-    //new JoystickButton(driver, 3).whileTrue(m_tesFlyPathGeneration2);
-    /*new JoystickButton(driver, 3).whileTrue(new IntakeCommand());
-    new JoystickButton(driver, 2).whileTrue(new Outtake());*/
-
-    
-    //new JoystickButton(driver, 1).onTrue(new ZeroElevator());
-    //new JoystickButton(driver, 1).whileTrue(m_calibration).whileFalse(new PercentOutputCommand(driver));
-    new JoystickButton(driver, 2).whileTrue(m_grab);
+  /*   new JoystickButton(driver, 2).whileTrue(m_grab);
     new JoystickButton(driver, 3).onTrue(new ZeroTelescopic());
     new JoystickButton(driver, 4).whileTrue(m_relase);
     new JoystickButton(driver, 5).whileTrue(new IntakeCommand());
     new JoystickButton(driver, 6).onTrue(new ZeroTelescopic());
 
     new JoystickButton(driver, 1).onTrue(new ZeroElevator());
-
-
-    //new JoystickButton(driver, 0).onTrue(m_Deneme);
-
-
-
+*/
     
 
     

@@ -22,7 +22,7 @@ public class CarriageSubsystem extends SubsystemBase {
 
   private static CarriageSubsystem mInstance;
 
-  public static synchronized CarriageSubsystem getInstance() {
+  public static CarriageSubsystem getInstance() {
     if (mInstance == null) {
       mInstance = new CarriageSubsystem();
     }

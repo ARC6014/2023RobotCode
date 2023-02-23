@@ -65,15 +65,15 @@ public class RobotState implements Loggable {
         return state.getNumVal();
     }
 
-    public synchronized void updateHeight(double height){
+    public void updateHeight(double height){
         currenStructureState.setHeight(height);
     }
 
-    public synchronized void updateLength(double length){
+    public void updateLength(double length){
         currenStructureState.setLength(length);
     }
 
-    public synchronized void updateDegree(double degree){
+    public void updateDegree(double degree){
         currenStructureState.setDegree(degree);
     }
 

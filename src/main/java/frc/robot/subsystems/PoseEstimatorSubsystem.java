@@ -58,9 +58,9 @@ private final SwerveDrivePoseEstimator poseEstimator;
     poseEstimator.addVisionMeasurement(Limelight.getEstimatedPose(), Limelight.getTimeStamp());
     }*/
     // This method will be called once per scheduler run
-    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), m_drive.getRotation2d(), m_drive.getModulePositions());
+    //poseEstimator.updateWithTime(Timer.getFPGATimestamp(), m_drive.getRotation2d(), m_drive.getModulePositions());
 
-    m_field.setRobotPose(getPose());
+   // m_field.setRobotPose(getPose());
     SmartDashboard.putString("Pose: ", getPose().toString());
     //SmartDashboard.putString("Limelight Pose: ", Limelight.getEstimatedPose().toString());
   }

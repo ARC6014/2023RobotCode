@@ -17,9 +17,7 @@ public class SuperStructureCalibration extends CommandBase {
   private final CarriageSubsystem m_carriage = CarriageSubsystem.getInstance();
   private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
   private final TelescobicArmSubsystem m_telescobic = TelescobicArmSubsystem.getInstance();
-  private static final TunableNumber targetHeight = new TunableNumber("Target-HEİGHT");
-  private static final TunableNumber targetLength = new TunableNumber("Target-LENGTH");
-  private static final TunableNumber targetDegree = new TunableNumber("Target-DEGREE");
+
   private SuperStructureState targetState = new SuperStructureState(0, 0, 0);
   /** Creates a new SuperStructureCalibration. */
   public SuperStructureCalibration() {
@@ -30,28 +28,11 @@ public class SuperStructureCalibration extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    targetDegree.setDefault(-30);
-    targetHeight.setDefault(128);
-    targetLength.setDefault(92.5);
-    targetState.setHeight(targetHeight.get());
-    targetState.setLength(targetLength.get());
-    targetState.setLength(targetLength.get());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(targetDegree.hasChanged()){
-      targetState.setDegree(targetDegree.get());
-    }
-
-    if(targetHeight.hasChanged()){
-      targetState.setHeight(targetHeight.get());
-    }
-
-    if(targetLength.hasChanged()){
-      targetState.setLength(targetLength.get());
-    }
 
     SmartDashboard.putNumber("Target Height", targetState.getHeight());
 
