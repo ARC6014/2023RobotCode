@@ -16,15 +16,16 @@ public class GrabberSubsystem extends SubsystemBase{
 
     private static GrabberSubsystem m_instance;
 
-    @Log
-    @Config
+   // @Log
+   // @Config
     private double output;
 
     public GrabberSubsystem() {
-        grabberMotorMaster = TalonSRXFactory.createDefaultTalon(GrabberConstants.grabberMotorMasterID);
-        grabberMotorSlave = TalonSRXFactory.createDefaultTalon(GrabberConstants.grabberMotorSlaveID);
+        grabberMotorMaster = new TalonSRX(GrabberConstants.grabberMotorMasterID);
+        grabberMotorSlave = new TalonSRX(GrabberConstants.grabberMotorSlaveID);
 
         grabberMotorSlave.setInverted(false);
+        grabberMotorMaster.setInverted(false);
         grabberMotorSlave.follow(grabberMotorMaster);
         // indexSensor = new IndexingSensor(Constants.GrabberConstants.sensorChannel,
         // Constants.GrabberConstants.kDistanceConstant);
@@ -41,18 +42,18 @@ public class GrabberSubsystem extends SubsystemBase{
 
     // percent output
     public void grab() {
-        grabberMotorMaster.set(ControlMode.PercentOutput, 0.3);
+        grabberMotorMaster.set(ControlMode.PercentOutput, 0.7);
     }
 
     public void release() {
-        grabberMotorMaster.set(ControlMode.PercentOutput, -0.3);
+        grabberMotorMaster.set(ControlMode.PercentOutput, -0.15);
     }
 
     public void stop() {
         grabberMotorMaster.set(TalonSRXControlMode.PercentOutput, 0);
     }
 
-    @Log.NumberBar(name = "Motor Speed", columnIndex = 0, rowIndex = 3)
+  //  @Log.NumberBar(name = "Motor Speed", columnIndex = 0, rowIndex = 3)
     public double getSpeed() {
         return grabberMotorMaster.getMotorOutputPercent();
     }

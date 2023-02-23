@@ -23,7 +23,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private static ElevatorSubsystem mInstance;
 
-  public static synchronized ElevatorSubsystem getInstance() {
+  public static ElevatorSubsystem getInstance() {
     if (mInstance == null) {
       mInstance = new ElevatorSubsystem();
     }
@@ -55,7 +55,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.MotionMagic.MotionMagicCruiseVelocity = 400; // değiştir
     configs.MotionMagic.MotionMagicJerk = 300; //  değiştir
 
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 

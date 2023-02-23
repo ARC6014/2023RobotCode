@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotState;
 import frc.robot.Constants.CarriageConstants;
 import frc.team6014.SuperStructureState;
 import frc.team6014.lib.math.Gearbox;
@@ -66,7 +67,7 @@ public class CarriageSubsystem extends SubsystemBase {
 
     m_encoder.reset();
 
-    resetToAbsolute();
+    //resetToAbsolute();
   }
 
   @Override
@@ -74,6 +75,7 @@ public class CarriageSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Carriage Encoder: ", getAbsolutePosition());
     SmartDashboard.putNumber("Carriage Falcon Degree", getRotation());
     SmartDashboard.putNumber("Carriage Current", getCurrent());
+    RobotState.getInstance().updateDegree(getRotation());
     // This method will be called once per scheduler run
   }
 
@@ -110,7 +112,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public double getAbsolutePosition() {
-    return (((m_encoder.getAbsolutePosition() * 360) / encoderGearbox.getRatio() * -1) + 88);
+    return (((m_encoder.getAbsolutePosition() * 360) / encoderGearbox.getRatio() * -1) + 89.57);
   }
 
   public boolean isAtSetpoint(SuperStructureState state){

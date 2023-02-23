@@ -8,6 +8,7 @@ import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.IntegerLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.CarriageSubsystem;
@@ -36,6 +37,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    LiveWindow.disableAllTelemetry();
     dataLog = DataLogManager.getLog();
     loopCountLogEntry = new IntegerLogEntry(dataLog, "/robot/loopCount");
     m_robotContainer = new RobotContainer();
@@ -102,7 +104,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    CarriageSubsystem.getInstance().resetToAbsolute();
+    //CarriageSubsystem.getInstance().resetToAbsolute();
     DriveSubsystem.getInstance().resetSnapPID();
 
   }
@@ -121,7 +123,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    CarriageSubsystem.getInstance().resetToAbsolute();
+  }
 
   /** This function is called once when the robot is first started up. */
   @Override

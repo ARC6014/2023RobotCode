@@ -82,7 +82,7 @@ public class SwerveModuleBase {
         m_angleMotor.set(.0);
     }
 
-    public synchronized void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
+    public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
 
         desiredState = CTREModuleState.optimize(desiredState, getState().angle);
 

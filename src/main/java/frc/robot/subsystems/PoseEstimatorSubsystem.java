@@ -28,7 +28,7 @@ import io.github.oblarg.oblog.annotations.Log;
 
 public class PoseEstimatorSubsystem extends SubsystemBase{
 
-@Log.Field2d(name = "Field", rowIndex = 0, columnIndex = 2, width = 6, height = 4)
+//@Log.Field2d(name = "Field", rowIndex = 0, columnIndex = 2, width = 6, height = 4)
 private final Field2d m_field = new Field2d();
 
 private static PoseEstimatorSubsystem m_instance;

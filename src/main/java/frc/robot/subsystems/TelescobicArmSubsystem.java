@@ -25,7 +25,7 @@ public class TelescobicArmSubsystem extends SubsystemBase {
 
   private static TelescobicArmSubsystem mInstance;
 
-  public static synchronized TelescobicArmSubsystem getInstance() {
+  public static TelescobicArmSubsystem getInstance() {
     if (mInstance == null) {
       mInstance = new TelescobicArmSubsystem();
     }
@@ -80,18 +80,18 @@ public class TelescobicArmSubsystem extends SubsystemBase {
      // This method will be called once per scheduler run
   }
 
-  public synchronized void setMotorOutput(double output){
+  public void setMotorOutput(double output){
     telescobicMaster.set(output);
     lastTelescopicCommandLength = getLength();
   }
 
-  public synchronized void setLength(SuperStructureState state){
+  public void setLength(SuperStructureState state){
     double pulleyRotation = state.getLength() / pulleyCircumferenceInCM;
     telescobicMaster.setControl(m_torqueControl.withPosition(pulleyRotation * falconGearbox.getRatio()));
     lastTelescopicCommandLength = getLength();
   }
 
-  public synchronized void holdCurrentPosition(){
+  public void holdCurrentPosition(){
     telescobicMaster.setControl(m_torqueControl.withPosition(lastTelescopicCommandLength));
   }
 

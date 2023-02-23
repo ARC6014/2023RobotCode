@@ -55,7 +55,7 @@ public class DriveSubsystem extends SubsystemBase{
     private double[] velocityDesired = new double[4];
     private double[] angleDesired = new double[4];
 
-    @Log.Gyro(name = "Gyro", rowIndex = 0, columnIndex = 8)
+   // @Log.Gyro(name = "Gyro", rowIndex = 0, columnIndex = 8)
     Pigeon2 m_gyro = new Pigeon2(Constants.Pigeon2CanID, Constants.CANIVORE_CANBUS);
 
     private double snapAngle = 0.0;
@@ -155,7 +155,7 @@ public class DriveSubsystem extends SubsystemBase{
      * Manual Swerve Drive Method
      */
 
-    public synchronized void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative,
+    public void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative,
             Translation2d centerOfRotation) {
 
         rot = calculateSnapValue(xSpeed, ySpeed, rot);
@@ -185,13 +185,13 @@ public class DriveSubsystem extends SubsystemBase{
 
     }
 
-    public synchronized void angleAlignDrive(double xSpeed, double ySpeed, boolean fieldRelative,
+    public void angleAlignDrive(double xSpeed, double ySpeed, boolean fieldRelative,
             double targetHeading) {
         double rotation = snapPIDController.calculate(getRotation2d().getRadians(), Math.toRadians(targetHeading));
         swerveDrive(xSpeed, ySpeed, rotation, fieldRelative);
     }
 
-    public synchronized void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+    public void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
         swerveDrive(xSpeed, ySpeed, rot, fieldRelative, new Translation2d());
     }
 
@@ -342,7 +342,7 @@ public class DriveSubsystem extends SubsystemBase{
     /*
      * Velocity-Angle Displays for Shuffleboard
      */
-
+/* 
     @Log(name = "FL-Des-Vel", rowIndex = 0, columnIndex = 0)
     public double getFLDesiredVelocity() {
         return velocityDesired[0];
@@ -381,5 +381,5 @@ public class DriveSubsystem extends SubsystemBase{
     @Log(name = "RR-Des-Ang", rowIndex = 3, columnIndex = 1)
     public double getRRDesiredAngle() {
         return angleDesired[3];
-    }
+    }*/
 }

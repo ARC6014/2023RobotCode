@@ -19,7 +19,7 @@ public class Constants {
     public static final String CANIVORE_CANBUS = "CANivore";
     public static final int Pigeon2CanID = 0;
 
-    public static final boolean tuningMode = false;
+    public static final boolean tuningMode = true;
 
     public static final double wheelBaseLength = 0.639;
     private static final double WheelBaseWidth = 0.639;
@@ -214,7 +214,7 @@ public class Constants {
         public static final int intakeDoubleSolenoidPort1 = 0;
         public static final int intakeDoubleSolenoidPort2 = 1;
 
-        public static final double intakeSpeed = 0.3;
+        public static final double intakeSpeed = 0.5;
         public static final double outtakeSpeed = -0.3;
         public static final boolean isIntakeInverted = true;
         public static final CANSparkMax.IdleMode idleMode = CANSparkMax.IdleMode.kCoast;
