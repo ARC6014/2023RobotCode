@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.team6014.SwerveAutoBuilder;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more

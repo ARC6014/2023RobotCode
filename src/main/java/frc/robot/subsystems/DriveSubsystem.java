@@ -30,14 +30,10 @@ import frc.team6014.lib.Pathplanner.PathPoint;
 import frc.team6014.lib.drivers.SwerveModuleBase;
 import frc.team6014.lib.math.AllianceFlipUtil;
 import frc.team6014.lib.util.SwerveUtils.SwerveModuleConstants;
-import io.github.oblarg.oblog.Loggable;
-import io.github.oblarg.oblog.annotations.Log;
 
 public class DriveSubsystem extends SubsystemBase{
 
     /*
-     * @Log.Field2d(name = "Field", rowIndex = 0, columnIndex = 2, width = 6, height
-     * = 4)
      * private final Field2d m_field = new Field2d();
      */
 
@@ -55,7 +51,6 @@ public class DriveSubsystem extends SubsystemBase{
     private double[] velocityDesired = new double[4];
     private double[] angleDesired = new double[4];
 
-   // @Log.Gyro(name = "Gyro", rowIndex = 0, columnIndex = 8)
     Pigeon2 m_gyro = new Pigeon2(Constants.Pigeon2CanID, Constants.CANIVORE_CANBUS);
 
     private double snapAngle = 0.0;
@@ -145,7 +140,6 @@ public class DriveSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("x", getPose().getX());
         SmartDashboard.putNumber("Y", getPose().getY());
 */
-        // m_field.setRobotPose(getPose());
 
         brakeModeTrigger.whileTrue(brakeModeCommand);
 
@@ -155,8 +149,7 @@ public class DriveSubsystem extends SubsystemBase{
      * Manual Swerve Drive Method
      */
 
-    public void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative,
-            Translation2d centerOfRotation) {
+    public synchronized void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
 
         rot = calculateSnapValue(xSpeed, ySpeed, rot);
 
@@ -164,7 +157,7 @@ public class DriveSubsystem extends SubsystemBase{
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getDriverCentericRotation2d())
                 : new ChassisSpeeds(xSpeed, ySpeed, rot);
 
-        states = Constants.kinematics.toSwerveModuleStates(desiredChassisSpeeds, centerOfRotation);
+        states = Constants.kinematics.toSwerveModuleStates(desiredChassisSpeeds);
 
         if (islocked) {
             states = new SwerveModuleState[] {
@@ -191,15 +184,11 @@ public class DriveSubsystem extends SubsystemBase{
         swerveDrive(xSpeed, ySpeed, rotation, fieldRelative);
     }
 
-    public void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-        swerveDrive(xSpeed, ySpeed, rot, fieldRelative, new Translation2d());
-    }
-
     /*
      * Auto Swerve States Method
      */
 
-    public void setClosedLoopStates(SwerveModuleState[] desiredStates) {
+    public synchronized void setClosedLoopStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.maxSpeed);
         if (islocked) {
             states = new SwerveModuleState[] {
