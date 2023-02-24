@@ -20,7 +20,7 @@ import frc.team6014.lib.math.AllianceFlipUtil;
 public class MoveToPose extends CommandBase {
   private final Timer m_timer = new Timer();
   private final DriveSubsystem m_drive = DriveSubsystem.getInstance();
-  private final PoseEstimatorSubsystem m_poseEstimatorSubsystem = PoseEstimatorSubsystem.getInstance();
+  //private final PoseEstimatorSubsystem m_poseEstimatorSubsystem = PoseEstimatorSubsystem.getInstance();
 
   private final PIDController x_pid = new PIDController(AutoConstants.kPdriveOnTeleop, 0.0, AutoConstants.kDdriveOnTeleop);
   private final PIDController y_pid = new PIDController(AutoConstants.kPdriveOnTeleop, 0.0, AutoConstants.kDdriveOnTeleop);

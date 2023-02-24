@@ -6,11 +6,11 @@ package frc.robot.commands.Resetting;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.TelescobicArmSubsystem;
+import frc.robot.subsystems.TelescobicSubsystem;
 
 public class ZeroTelescopic extends CommandBase {
   /** Creates a new ZeroTelescopic. */
-  private final TelescobicArmSubsystem m_telescobicArmSubsystem = TelescobicArmSubsystem.getInstance();
+  private final TelescobicSubsystem m_telescobicArmSubsystem = TelescobicSubsystem.getInstance();
   private Timer m_timer = new Timer();
   private boolean m_isFinished;
 
@@ -25,7 +25,7 @@ public class ZeroTelescopic extends CommandBase {
     m_timer.reset();
     m_timer.start();
     m_isFinished = false;
-    m_telescobicArmSubsystem.setMotorOutput(-0.15);
+  //  m_telescobicArmSubsystem.setMotorOutput(-0.1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

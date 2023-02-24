@@ -25,7 +25,7 @@ import frc.team6014.lib.Pathplanner.PathPlannerTrajectory.PathPlannerState;
 
 public class AutoFromHolonomicController extends CommandBase {
   private DriveSubsystem m_drive = DriveSubsystem.getInstance();
-  private PoseEstimatorSubsystem m_poseEstimator = PoseEstimatorSubsystem.getInstance();
+  //private PoseEstimatorSubsystem m_poseEstimator = PoseEstimatorSubsystem.getInstance();
   private PathPlannerTrajectory m_trajectory;
 
   private final PIDController x_pid = new PIDController(AutoConstants.kPXController, 0, 0);

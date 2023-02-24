@@ -4,17 +4,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.util.datalog.DataLog;
-import edu.wpi.first.util.datalog.IntegerLogEntry;
-import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.CarriageSubsystem;
-import frc.robot.subsystems.DriveSubsystem;
-import io.github.oblarg.oblog.Logger;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -24,9 +16,7 @@ import io.github.oblarg.oblog.Logger;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private DataLog dataLog;
-  private IntegerLogEntry loopCountLogEntry;
-  private int loopCount;
+
   private RobotContainer m_robotContainer;
 
   /**
@@ -37,14 +27,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    LiveWindow.disableAllTelemetry();
-    dataLog = DataLogManager.getLog();
-    loopCountLogEntry = new IntegerLogEntry(dataLog, "/robot/loopCount");
     m_robotContainer = new RobotContainer();
-   // 
-    /*addPeriodic(() -> {
-      DriveSubsystem.getInstance().updateOdometry();
-  }, 0.01, 0.005);*/
   }
 
   /**
@@ -60,21 +43,12 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-   Logger.updateEntries();
-
-   loopCount++;
-   loopCountLogEntry.append(loopCount);
-
     CommandScheduler.getInstance().run();
-    
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {
-    
-
-  }
+  public void disabledInit() {}
 
   @Override
   public void disabledPeriodic() {}
@@ -82,7 +56,6 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    DriveSubsystem.getInstance().resetToAbsolute();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -104,9 +77,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    //CarriageSubsystem.getInstance().resetToAbsolute();
-    DriveSubsystem.getInstance().resetSnapPID();
-
   }
 
   /** This function is called periodically during operator control. */
@@ -117,15 +87,11 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-    DriveSubsystem.getInstance().resetToAbsolute();
-    DriveSubsystem.getInstance().zeroHeading();
   }
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-    CarriageSubsystem.getInstance().resetToAbsolute();
-  }
+  public void testPeriodic() {}
 
   /** This function is called once when the robot is first started up. */
   @Override

@@ -26,7 +26,7 @@ import frc.team6014.lib.math.AllianceFlipUtil;
 public class ARCTrajectoryGenerator {
 
     private static DriveSubsystem m_drive = DriveSubsystem.getInstance();
-    private static PoseEstimatorSubsystem m_poseEstimator = PoseEstimatorSubsystem.getInstance();
+    //private static PoseEstimatorSubsystem m_poseEstimator = PoseEstimatorSubsystem.getInstance();
 
     public static PathPlannerTrajectory generateTrajectory(Pose2d targetPose2d){
         return PathPlanner.generatePath(new PathConstraints(AutoConstants.kMaxSpeedOnTeleop, AutoConstants.kMaxAccelerationOnTeleop),

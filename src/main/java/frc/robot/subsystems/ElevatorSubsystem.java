@@ -5,7 +5,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
+import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.controls.MotionMagicTorqueCurrentFOC;
+import com.ctre.phoenixpro.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenixpro.hardware.TalonFX;
 import com.ctre.phoenixpro.signals.InvertedValue;
 import com.ctre.phoenixpro.signals.NeutralModeValue;
@@ -14,14 +16,76 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotState;
 import frc.team6014.SuperStructureState;
 import frc.team6014.lib.math.Gearbox;
 import frc.team6014.lib.util.Util;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
+  public enum ElevatorControlState{
+    HOMING,
+    OPEN_LOOP,
+    MOTION_MAGIC,
+    TORQUE_CONTROL
+  }
+
+  private final TalonFX elevatorMaster = new TalonFX(30, Constants.CANIVORE_CANBUS);
+  private final TalonFX elevatorSlave = new TalonFX(31, Constants.CANIVORE_CANBUS);
+
+  private final MotionMagicTorqueCurrentFOC m_motionMagic = new MotionMagicTorqueCurrentFOC(0,0,0, false);
+  private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0,0,1,false); 
+  private final DutyCycleOut m_percentOut = new DutyCycleOut(0, true, false);
+
+  private final Gearbox falconGearbox = new Gearbox(8, 60);
+  private final double sprocketCircumferenceInCM = Units.inchesToMeters(1.790) * Math.PI * 100;
+  private double targetOutput = 0.0;
+  private SuperStructureState targetState = new SuperStructureState();
+  private double lastDemandedHeight;
+  
+  public ElevatorControlState m_controlState = ElevatorControlState.OPEN_LOOP;
+
   private static ElevatorSubsystem mInstance;
+  /** Creates a new ElevatorSubsystem. */
+  public ElevatorSubsystem() {
+
+    elevatorMaster.getConfigurator().apply(new TalonFXConfiguration());
+    elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
+
+    TalonFXConfiguration configs = new TalonFXConfiguration();
+    configs.Slot0.kP = 28;
+    configs.Slot0.kI = 9;
+    configs.Slot0.kD = 0.7;
+    configs.Slot0.kS = 5;
+    configs.Slot0.kV = 0;
+
+    configs.Slot1.kP = 0;
+    configs.Slot1.kI = 0;
+    configs.Slot1.kD = 0;
+    configs.Slot1.kS = 0;
+    configs.Slot1.kV = 0;
+
+    configs.Voltage.PeakForwardVoltage = 4;
+    configs.Voltage.PeakReverseVoltage = -4;
+    configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
+    configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
+    configs.MotionMagic.MotionMagicAcceleration = 200; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 200; //  değiştir
+
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
+    configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
+
+    configs.CurrentLimits.StatorCurrentLimit = 500;
+    configs.CurrentLimits.StatorCurrentLimitEnable = true;
+    configs.CurrentLimits.SupplyCurrentLimit = 300;
+    configs.CurrentLimits.SupplyCurrentLimitEnable = true;
+
+    elevatorMaster.getConfigurator().apply(configs);
+    elevatorSlave.getConfigurator().apply(configs);
+
+    lastDemandedHeight = getHeight();
+  }
 
   public static ElevatorSubsystem getInstance() {
     if (mInstance == null) {
@@ -30,78 +94,80 @@ public class ElevatorSubsystem extends SubsystemBase {
     return mInstance;
   }
 
-  private final TalonFX elevatorMaster = new TalonFX(30, Constants.CANIVORE_CANBUS);
-  private final TalonFX elevatorSlave = new TalonFX(31, Constants.CANIVORE_CANBUS);
-  private final Gearbox falconGearbox = new Gearbox(8, 60);
-  private final double sprocketCircumferenceInCM = Units.inchesToMeters(1.790) * Math.PI * 100;
-  private final MotionMagicTorqueCurrentFOC m_motionMagic = new MotionMagicTorqueCurrentFOC(0,0,0, false);
-  private double lastElevatorCommandHeight;
-  /** Creates a new ElevatorSubsystem. */
-  public ElevatorSubsystem() {
-
-    elevatorMaster.getConfigurator().apply(new TalonFXConfiguration());
-    elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
-
-    TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 20;
-    configs.Slot0.kI = 5;
-    configs.Slot0.kD = 0.5;
-    configs.Slot0.kS = 5;
-    configs.Slot0.kV = 0;
-
-    configs.Voltage.PeakForwardVoltage = 10;
-    configs.Voltage.PeakReverseVoltage = -10;
-    configs.MotionMagic.MotionMagicAcceleration = 500; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 400; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 300; //  değiştir
-
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-    configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
-    configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
-
-    configs.CurrentLimits.StatorCurrentLimit = 500;
-    configs.CurrentLimits.StatorCurrentLimitEnable = false;
-    configs.CurrentLimits.SupplyCurrentLimit = 300;
-    configs.CurrentLimits.SupplyCurrentLimitEnable = false;
-
-    elevatorMaster.getConfigurator().apply(configs);
-    elevatorSlave.getConfigurator().apply(configs);
-
-    lastElevatorCommandHeight = getHeight();
-  }
-
   @Override
   public void periodic() {
     //maybeShouldStop();
-    SmartDashboard.putNumber("Elevator Height: ", getHeight());
-    SmartDashboard.putNumber("Elevator Current: ", getCurrent());
 
-    RobotState.getInstance().updateHeight(getHeight());
+    switch(m_controlState){
+      case OPEN_LOOP:
+        setMotorOutput();
+        break;
+      case MOTION_MAGIC:
+        setHeight();
+        break;
+      case TORQUE_CONTROL:
+        holdPosition();
+        break;
+      default:
+        stop();
+        break;
+    }
+
+    SmartDashboard.putString("Elevator State: ", m_controlState.toString());
+
+    //RobotState.getInstance().updateHeight(getHeight());
     // This method will be called once per scheduler run
   }
 
-  public void setMotorOutput(double output){
-    elevatorMaster.set(output);
-    elevatorSlave.set(output);
-    lastElevatorCommandHeight = getHeight();
-    System.out.println(output);
+  public synchronized void setElevatorOpenLoop(double output){
+    if(m_controlState != ElevatorControlState.OPEN_LOOP){
+      m_controlState =  ElevatorControlState.OPEN_LOOP;
+    }
+    targetOutput = output;
+    lastDemandedHeight = getHeight();
   }
 
-  public void setHeight(SuperStructureState state){
-    double sprocketRotation = state.getHeight() / sprocketCircumferenceInCM;
+  public synchronized void setElevatorPosition(SuperStructureState state){
+    if(m_controlState != ElevatorControlState.MOTION_MAGIC){
+      m_controlState =  ElevatorControlState.MOTION_MAGIC;
+    }
+    targetState = state;
+    lastDemandedHeight = getHeight();
+  }
+
+  public synchronized void holdElevatorPosition(){
+    if(m_controlState != ElevatorControlState.TORQUE_CONTROL){
+      m_controlState =  ElevatorControlState.TORQUE_CONTROL;
+    }
+  }
+
+  public void setElevatorControlState(ElevatorControlState state){
+    m_controlState = state;
+  }
+
+  public void setMotorOutput(){
+    elevatorMaster.setControl(m_percentOut.withOutput(targetOutput));
+    elevatorSlave.setControl(m_percentOut.withOutput(targetOutput));
+  }
+
+  public void setHeight(){
+    double sprocketRotation = targetState.getHeight() / sprocketCircumferenceInCM;
     elevatorMaster.setControl(m_motionMagic.withPosition(sprocketRotation * falconGearbox.getRatio()));
     elevatorSlave.setControl(m_motionMagic.withPosition(sprocketRotation * falconGearbox.getRatio()));
-    lastElevatorCommandHeight = getHeight();
   }
 
-  public void holdCurrentPosition(){
-    elevatorMaster.setControl(m_motionMagic.withPosition(lastElevatorCommandHeight));
-    elevatorSlave.setControl(m_motionMagic.withPosition(lastElevatorCommandHeight));
+  public void holdPosition(){
+    double sprocketRotation = lastDemandedHeight / sprocketCircumferenceInCM;
+    elevatorMaster.setControl(m_torqueControl.withPosition(sprocketRotation * falconGearbox.getRatio()));
+    elevatorSlave.setControl(m_torqueControl.withPosition(sprocketRotation * falconGearbox.getRatio()));
   }
 
   public void stop(){
-    elevatorMaster.set(0.0);
-    elevatorSlave.set(0.0);
+    if(m_controlState != ElevatorControlState.HOMING){
+      m_controlState =  ElevatorControlState.HOMING;
+    }
+    elevatorMaster.stopMotor();
+    elevatorSlave.stopMotor();
   }
 
   public void overrideHeight(double height){
@@ -139,13 +205,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     var currentVel = elevatorMaster.getRotorVelocity();
     currentVel.refresh();
     if(Util.epsilonEquals(currentVel.getValue() / falconGearbox.getRatio(), 0 , 0.1) && getCurrent() >= 100){//Kalibre ET!!!
-      elevatorMaster.setControl(m_motionMagic.withPosition(lastElevatorCommandHeight - 0.005));
-      elevatorSlave.setControl(m_motionMagic.withPosition(lastElevatorCommandHeight - 0.005));
+      holdPosition();
+      System.out.println("Triggered Elevator");
     }
   }
 
-  public boolean isAtSetpoint(SuperStructureState state){
-    return Math.abs(state.getHeight() - getHeight()) < 1; 
+  public boolean isAtSetpoint(){
+    return Math.abs(targetState.getHeight() - getHeight()) < 1; 
   } 
 
 }

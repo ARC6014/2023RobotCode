@@ -4,7 +4,7 @@ import frc.team6014.SuperStructureState;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class RobotState implements Loggable {
+public class RobotState{
 
     private static RobotState mInstance;
 
@@ -16,7 +16,7 @@ public class RobotState implements Loggable {
         return mInstance;
     }
 
-    @Log.ToString(name = "Robot Mode")
+    //Log.ToString(name = "Robot Mode")
     private robotState state = robotState.cubeMode;
 
     private SuperStructureState currenStructureState = new SuperStructureState();

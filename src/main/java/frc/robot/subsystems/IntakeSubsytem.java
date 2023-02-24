@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -14,7 +15,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
-import io.github.oblarg.oblog.Loggable;
 
 public class IntakeSubsytem extends SubsystemBase {
   /** Creates a new IntakeSubsytem. */
@@ -22,10 +22,6 @@ public class IntakeSubsytem extends SubsystemBase {
 
   private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
       Constants.IntakeConstants.intakeDoubleSolenoidPort1, Constants.IntakeConstants.intakeDoubleSolenoidPort2);
-
-  private final SparkMaxPIDController m_PID = intakeMotor.getPIDController();
-
-  private final double m_rpm;
 
 
   private static IntakeSubsytem m_instance;
@@ -35,14 +31,8 @@ public class IntakeSubsytem extends SubsystemBase {
     intakeMotor.setInverted(Constants.IntakeConstants.isIntakeInverted);
     intakeMotor.setIdleMode(Constants.IntakeConstants.idleMode);
 
-    m_PID.setP(Constants.IntakeConstants.kP);
-    m_PID.setI(Constants.IntakeConstants.kI);
-    m_PID.setD(Constants.IntakeConstants.kD);
-
-    // TODO: Check the last parameter (RPM)
     intakeMotor.setSmartCurrentLimit(Constants.IntakeConstants.stallCurrentLimit, Constants.IntakeConstants.freeCurrentLimit, (int) Constants.IntakeConstants.RPM);
 
-    m_rpm = Constants.IntakeConstants.RPM;
     intakeMotor.burnFlash();
 
   }
@@ -56,30 +46,7 @@ public class IntakeSubsytem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    // @Log.BooleanBox(name="Intake Open?")
-    //isIntakeOpen();
 
-  }
-
-  /*@Log.BooleanBox(name = "Intake Open?", rowIndex = 0, columnIndex = 0)
-  public boolean isIntakeOpen() {
-    if (intakeSolenoid.isRevSolenoidDisabled()) {
-      return false;
-    } else {
-      return true;
-    }
-  }*/
-
-  public boolean intakeAtSetPoint() {
-    if(Math.abs(m_rpm-getRPM()) < Constants.IntakeConstants.kIntakeTolerance) {
-      return true;
-    }  
-    return false;
-  }
-
-  private double getRPM() {
-    return intakeMotor.getEncoder().getVelocity();
   }
 
   public void extendIntake() {
@@ -90,8 +57,8 @@ public class IntakeSubsytem extends SubsystemBase {
     intakeSolenoid.set(Value.kReverse);
   }
 
-  public void getCurrent() {
-    intakeMotor.getOutputCurrent();
+  public void intakeOff(){
+    intakeSolenoid.set(Value.kOff);
   }
 
   public void intakeCube() {
@@ -102,7 +69,11 @@ public class IntakeSubsytem extends SubsystemBase {
     intakeMotor.set(Constants.IntakeConstants.outtakeSpeed);
   }
 
-  public void stopIntake() {
+  public void stop() {
     intakeMotor.stopMotor();
+  }
+
+  public double getCurrent(){
+    return intakeMotor.getOutputCurrent();
   }
 }

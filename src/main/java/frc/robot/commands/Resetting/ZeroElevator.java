@@ -25,13 +25,13 @@ public class ZeroElevator extends CommandBase {
     m_timer.reset();
     m_timer.start();
     m_isFinished = false;
-    m_elevator.setMotorOutput(-0.3);
+    //m_elevator.setMotorOutput(-0.1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_timer.get() > 0.5 && m_elevator.getCurrent() > 22.5) {
+    if (m_timer.get() > 0.5 && m_elevator.getCurrent() > 20) {
       m_elevator.stop();
       m_elevator.resetToZero();
       m_isFinished = true;
