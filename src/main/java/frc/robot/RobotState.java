@@ -1,8 +1,6 @@
 package frc.robot;
 
 import frc.team6014.SuperStructureState;
-import io.github.oblarg.oblog.Loggable;
-import io.github.oblarg.oblog.annotations.Log;
 
 public class RobotState{
 

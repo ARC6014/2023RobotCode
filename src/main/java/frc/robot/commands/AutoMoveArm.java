@@ -5,20 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotState;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.TelescobicSubsystem;
 import frc.team6014.SuperStructureState;
 
-public class SuperStructureCalibration extends CommandBase {
+public class AutoMoveArm extends CommandBase {
   private final CarriageSubsystem m_carriage = CarriageSubsystem.getInstance();
   private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
   private final TelescobicSubsystem m_telescobic = TelescobicSubsystem.getInstance();
 
+  private final SuperStructureState m_pivotState = new SuperStructureState(124.5,92.5,0);
   private SuperStructureState targetState;
+
+  private boolean readyToMove;
   /** Creates a new SuperStructureCalibration. */
-  public SuperStructureCalibration(SuperStructureState state) {
+  public AutoMoveArm(SuperStructureState state) {
     targetState = state;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_carriage, m_elevator, m_telescobic);
@@ -27,30 +29,35 @@ public class SuperStructureCalibration extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    targetState.setDegree(RobotState.getInstance().getCurrentSuperStructureState().getDegree());
+    readyToMove = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //m_carriage.setPosition(targetState);
-   // m_elevator.setHeight(targetState);
-   // m_telescobic.setLength(targetState);
+    m_elevator.setElevatorPosition(m_pivotState);
+    m_telescobic.setTelescopicPosition(m_pivotState);
+    m_carriage.holdCarriagePosition();
+
+    readyToMove = m_elevator.isAtSetpoint() && m_telescobic.isAtSetpoint();
+
+    if(readyToMove){
+      m_carriage.setCarriagePosition(targetState);
+    }
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //m_carriage.setMotorOutput(0);
-    m_telescobic.stop();
-    m_elevator.stop();
-
+    m_carriage.holdCarriagePosition();
+    m_elevator.holdElevatorPosition();
+    m_telescobic.holdTelescopicPosition();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotState.getInstance().getCurrentSuperStructureState().isAtDesiredState(targetState);
+    return m_carriage.isAtSetpoint();
   }
 }

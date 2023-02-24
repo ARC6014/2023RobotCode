@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveByJoystick;
+import frc.robot.commands.SuperStructureToTarget;
 import frc.robot.commands.Deneme.CarriageDeneme;
 import frc.robot.commands.Deneme.ElevatorDeneme;
 import frc.robot.commands.Deneme.TelescopicDeneme;
@@ -17,6 +18,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.IntakeSubsytem;
 import frc.robot.subsystems.TelescobicSubsystem;
+import frc.team6014.SuperStructureState;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,6 +42,8 @@ public class RobotContainer {
   private final TelescopicDeneme m_Teneme = new TelescopicDeneme(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawButton(1), () -> m_driver.getRawButton(2));
   private final CarriageDeneme m_Aeneme = new CarriageDeneme(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawButton(1), () -> m_driver.getRawButton(2));
 
+  private final SuperStructureToTarget m_intekeSeq = new SuperStructureToTarget(new SuperStructureState(100,94, -40));
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -53,7 +57,7 @@ public class RobotContainer {
 
 
   private void configureBindings() {
-    //new JoystickButton(m_driver, 5).whileTrue(m_Teneme);
+    new JoystickButton(m_driver, 1).whileTrue(m_intekeSeq);
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
   }
 

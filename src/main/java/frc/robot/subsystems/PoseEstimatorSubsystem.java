@@ -15,8 +15,6 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
@@ -27,7 +25,7 @@ import frc.team6014.lib.math.AllianceFlipUtil;
 public class PoseEstimatorSubsystem extends SubsystemBase{
 
 //@Log.Field2d(name = "Field", rowIndex = 0, columnIndex = 2, width = 6, height = 4)
-private final Field2d m_field = new Field2d();
+//private final Field2d m_field = new Field2d();
 
 private static PoseEstimatorSubsystem m_instance;
 

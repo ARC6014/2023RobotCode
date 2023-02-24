@@ -130,16 +130,16 @@ public class DriveSubsystem extends SubsystemBase{
     public void periodic() {
         updateOdometry();
 
-      /*   for (SwerveModuleBase mod : m_swerveModules) {
+         for (SwerveModuleBase mod : m_swerveModules) {
             SmartDashboard.putNumber(mod.getName() + " - Velocity : ", mod.getState().speedMetersPerSecond);
             SmartDashboard.putNumber(mod.getName() + " - Angle : ", mod.getCANCoderRotation().getDegrees());
             SmartDashboard.putNumber(mod.getName() + " - AngleFalcon : ", mod.getState().angle.getDegrees());
         }
 
-        SmartDashboard.putNumber("Gyro : ", getRotation2d().getDegrees());
+        /*SmartDashboard.putNumber("Gyro : ", getRotation2d().getDegrees());
         SmartDashboard.putNumber("x", getPose().getX());
-        SmartDashboard.putNumber("Y", getPose().getY());
-*/
+        SmartDashboard.putNumber("Y", getPose().getY());*/
+
 
         brakeModeTrigger.whileTrue(brakeModeCommand);
 
@@ -149,7 +149,7 @@ public class DriveSubsystem extends SubsystemBase{
      * Manual Swerve Drive Method
      */
 
-    public synchronized void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+    public void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
 
         rot = calculateSnapValue(xSpeed, ySpeed, rot);
 
