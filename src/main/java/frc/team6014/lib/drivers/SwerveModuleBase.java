@@ -99,7 +99,7 @@ public class SwerveModuleBase {
                 : desiredState.angle.getDegrees();
 
         
-        m_angleMotor.set(TalonFXControlMode.Position, Conversions.degreesToFalcon(angle , angleGearbox.getRatio()));
+        m_angleMotor.set(TalonFXControlMode.Position, Conversions.degreesToFalcon(lastAngle , angleGearbox.getRatio()));
 
         lastAngle = angle;
                 

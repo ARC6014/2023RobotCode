@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -15,7 +16,7 @@ public class AutoMoveArm extends CommandBase {
   private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
   private final TelescobicSubsystem m_telescobic = TelescobicSubsystem.getInstance();
 
-  private final SuperStructureState m_pivotState = new SuperStructureState(124.5,92.5,0);
+  private final SuperStructureState m_pivotState = new SuperStructureState(124,93,0);
   private SuperStructureState targetState;
 
   private boolean readyToMove;
@@ -30,17 +31,20 @@ public class AutoMoveArm extends CommandBase {
   @Override
   public void initialize() {
     readyToMove = false;
+    m_carriage.updateLastDemandedRotation(m_carriage.getRotation());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println(targetState.getDegree());
     m_elevator.setElevatorPosition(m_pivotState);
     m_telescobic.setTelescopicPosition(m_pivotState);
     m_carriage.holdCarriagePosition();
 
     readyToMove = m_elevator.isAtSetpoint() && m_telescobic.isAtSetpoint();
 
+    SmartDashboard.putBoolean("ReadyToArm", readyToMove);
     if(readyToMove){
       m_carriage.setCarriagePosition(targetState);
     }
@@ -58,6 +62,6 @@ public class AutoMoveArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_carriage.isAtSetpoint();
+    return m_carriage.isAtSetpoint() && m_elevator.isAtSetpoint() && m_telescobic.isAtSetpoint();
   }
 }

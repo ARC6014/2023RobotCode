@@ -69,11 +69,11 @@ public class Constants {
         public static final double driveGearboxRatio = 6.59340659;
         public static final double wheelCircumference = Units.inchesToMeters(4) * Math.PI;
 
-        public static final double drivekP = 0.00;
+        public static final double drivekP = 0.05;
         public static final double drivekI = 0;
         public static final double drivekD = 0;
-        public static final double drivekS = 0.0;
-        public static final double drivekV = 0.0;
+        public static final double drivekS = 0.3;
+        public static final double drivekV = 0.022;
         public static final double drivekA = 0.0;
 
         public static final double anglekP = 0.25;
@@ -102,11 +102,11 @@ public class Constants {
     public static final class AutoConstants {
 
         public static final double kMaxSpeed = 3.5;
-        public static final double kMaxAcceleration = 3.5;
+        public static final double kMaxAcceleration = 3;
 
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
-        public static final double kPThetaController = 5;
+        public static final double kPXController = 1.05;
+        public static final double kPYController = 1.05;
+        public static final double kPThetaController = 3;
 
         public static final double kPdriveOnTeleop = 0.5;
         public static final double kDdriveOnTeleop = 0.0;
@@ -152,7 +152,7 @@ public class Constants {
         public static final int angleMotorID = 0;
         public static final int driveMotorID = 1;
         public static final int cancoderID = 0;
-        public static final double angleOffset = -71.931;
+        public static final double angleOffset = -67 - 179.736328;
         public static final double modulekS = DriveConstants.drivekS;
         public static final double modulekV = DriveConstants.drivekV;
     }
@@ -161,7 +161,7 @@ public class Constants {
         public static final int angleMotorID = 2;
         public static final int driveMotorID = 3;
         public static final int cancoderID = 1;
-        public static final double angleOffset = -269.21;
+        public static final double angleOffset = -9.4 - 359.912109;
         public static final double modulekS = DriveConstants.drivekS;
         public static final double modulekV = DriveConstants.drivekV;
     }
@@ -170,7 +170,7 @@ public class Constants {
         public static final int angleMotorID = 4;
         public static final int driveMotorID = 5;
         public static final int cancoderID = 2;
-        public static final double angleOffset = -92.64;
+        public static final double angleOffset = -294.7 - 0.263672;
         public static final double modulekS = DriveConstants.drivekS;
         public static final double modulekV = DriveConstants.drivekV;
     }
@@ -179,7 +179,7 @@ public class Constants {
         public static final int angleMotorID = 6;
         public static final int driveMotorID = 7;
         public static final int cancoderID = 3;
-        public static final double angleOffset = -81.94;
+        public static final double angleOffset = -242.07 - 357.187500;
         public static final double modulekS = DriveConstants.drivekS;
         public static final double modulekV = DriveConstants.drivekV;
     }
@@ -287,6 +287,28 @@ public class Constants {
         public static final boolean statorCurrentLimitEnable = true;
         public static final double supplyCurrentLimit = 80;
         public static final boolean supplyCurrentLimitEnable = true;
+
+    }
+
+    public static final class JoystickButtonConstants{
+
+        public static final int square = 1;
+        public static final int X = 2;
+        public static final int O = 3;
+        public static final int triangle = 4;
+        public static final int L1 = 5;
+        public static final int R1 = 6;
+        public static final int L2 = 7;
+        public static final int R2 = 8;
+        public static final int createButton = 9;
+        public static final int optionsButton = 10;
+        public static final int L3 = 11;
+        public static final int R3 = 12;
+        public static final int dne = 13;
+        public static final int touchpadButton = 14;
+        public static final int muteButton = 15;
+
+        
 
     }
 

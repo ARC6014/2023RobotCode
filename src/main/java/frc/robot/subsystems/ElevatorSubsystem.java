@@ -52,27 +52,27 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 28;
-    configs.Slot0.kI = 9;
-    configs.Slot0.kD = 0.7;
-    configs.Slot0.kS = 5;
+    configs.Slot0.kP = 3.2;
+    configs.Slot0.kI = 5;
+    configs.Slot0.kD = 0.6;
+    configs.Slot0.kS = 3;
     configs.Slot0.kV = 0;
 
-    configs.Slot1.kP = 0;
+    configs.Slot1.kP = 4;
     configs.Slot1.kI = 0;
     configs.Slot1.kD = 0;
-    configs.Slot1.kS = 0;
+    configs.Slot1.kS = 0.5;
     configs.Slot1.kV = 0;
 
-    configs.Voltage.PeakForwardVoltage = 4;
-    configs.Voltage.PeakReverseVoltage = -4;
+    configs.Voltage.PeakForwardVoltage = 6;
+    configs.Voltage.PeakReverseVoltage = -6;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 200; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 200; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 60; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 80; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 50; //  değiştir
 
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 
@@ -114,6 +114,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putString("Elevator State: ", m_controlState.toString());
+    SmartDashboard.putNumber("Elevator Height", getHeight());
+    SmartDashboard.putNumber("Elevator Current", getCurrent());
+    SmartDashboard.putNumber("LastDemandElevator", lastDemandedHeight);
 
     //RobotState.getInstance().updateHeight(getHeight());
     // This method will be called once per scheduler run
@@ -132,13 +135,17 @@ public class ElevatorSubsystem extends SubsystemBase {
       m_controlState =  ElevatorControlState.MOTION_MAGIC;
     }
     targetState = state;
-    lastDemandedHeight = getHeight();
+    lastDemandedHeight = targetState.getHeight();
   }
 
   public synchronized void holdElevatorPosition(){
     if(m_controlState != ElevatorControlState.TORQUE_CONTROL){
       m_controlState =  ElevatorControlState.TORQUE_CONTROL;
     }
+  }
+
+  public void updateLastDemandedHeight(double height){
+    lastDemandedHeight = height;
   }
 
   public void setElevatorControlState(ElevatorControlState state){

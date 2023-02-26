@@ -51,16 +51,16 @@ public class TelescobicSubsystem extends SubsystemBase {
     telescobicMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 10;
-    configs.Slot0.kI = 0.5;
+    configs.Slot0.kP = 17;
+    configs.Slot0.kI = 1.2;
     configs.Slot0.kD = 0.0;
-    configs.Slot0.kS = 0.7;
+    configs.Slot0.kS = 1;
     configs.Slot0.kV = 0;
 
-    configs.Slot1.kP = 0.4;
-    configs.Slot1.kI = 0.05;
+    configs.Slot1.kP = 0.45;
+    configs.Slot1.kI = 0.07;
     configs.Slot1.kD = 0.0;
-    configs.Slot1.kS = 0.1;
+    configs.Slot1.kS = 0.15;
     configs.Slot1.kV = 0;
 
     configs.Voltage.PeakForwardVoltage = 6;
@@ -71,7 +71,7 @@ public class TelescobicSubsystem extends SubsystemBase {
     configs.MotionMagic.MotionMagicCruiseVelocity = 50; // değiştir
     configs.MotionMagic.MotionMagicJerk = 70; //  değiştir
 
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 
@@ -113,6 +113,7 @@ public class TelescobicSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putString("Telescopic State: ", m_controlState.toString());
+    SmartDashboard.putNumber("Telescopic Length", getLength());
 
     //RobotState.getInstance().updateLength(getLength());
     // This method will be called once per scheduler run

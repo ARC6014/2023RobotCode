@@ -52,27 +52,27 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 3.5;
-    configs.Slot0.kI = 0.0;
+    configs.Slot0.kP = 20;
+    configs.Slot0.kI = 5;
     configs.Slot0.kD = 0.0;
-    configs.Slot0.kS = 0.1;
+    configs.Slot0.kS = 0.7;
     configs.Slot0.kV = 0.0;
 
-    configs.Slot1.kP = 0.0;
+    configs.Slot1.kP = 1.55;
     configs.Slot1.kI = 0.0;
     configs.Slot1.kD = 0.0;
-    configs.Slot1.kS = 0.0;
+    configs.Slot1.kS = 0.25;
     configs.Slot1.kV = 0.0;
 
     configs.Voltage.PeakForwardVoltage = CarriageConstants.peakForwardVoltage;
     configs.Voltage.PeakReverseVoltage = CarriageConstants.peakReverseVoltage;
-    configs.TorqueCurrent.PeakForwardTorqueCurrent = CarriageConstants.peakForwardTorqueCurrent;
-    configs.TorqueCurrent.PeakReverseTorqueCurrent = CarriageConstants.peakReverseTorqueCurrent;
-    configs.MotionMagic.MotionMagicAcceleration = 150; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 100; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 160; //  değiştir
+    configs.TorqueCurrent.PeakForwardTorqueCurrent = 150;
+    configs.TorqueCurrent.PeakReverseTorqueCurrent = 150;;
+    configs.MotionMagic.MotionMagicAcceleration = 200; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 180; //  değiştir
     
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
     configs.MotorOutput.DutyCycleNeutralDeadband = CarriageConstants.dutyCycleNeutralDeadband;
 
@@ -97,9 +97,9 @@ public class CarriageSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //SmartDashboard.putNumber("Carriage Encoder: ", getAbsolutePosition());
-    //SmartDashboard.putNumber("Carriage Falcon Degree", getRotation());
-    //SmartDashboard.putNumber("Carriage Current", getCurrent());
+    SmartDashboard.putNumber("Carriage Encoder: ", getAbsolutePosition());
+    SmartDashboard.putNumber("Carriage Falcon Degree", getRotation());
+    SmartDashboard.putNumber("Carriage Current", getCurrent());
 
     switch(m_controlState){
       case OPEN_LOOP:
@@ -142,6 +142,10 @@ public class CarriageSubsystem extends SubsystemBase {
     if(m_controlState != CarriageControlState.TORQUE_CONTROL){
       m_controlState =  CarriageControlState.TORQUE_CONTROL;
     }
+  }
+
+  public synchronized void updateLastDemandedRotation(double rotation){
+    lastDemandedRotation = rotation;
   }
 
   public void setCarriageControlState(CarriageControlState state){

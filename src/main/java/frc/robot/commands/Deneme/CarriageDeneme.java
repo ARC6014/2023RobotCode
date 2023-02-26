@@ -9,11 +9,12 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CarriageSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.team6014.SuperStructureState;
 
 public class CarriageDeneme extends CommandBase {
   private final CarriageSubsystem m_carriage = CarriageSubsystem.getInstance();
-  private final SuperStructureState targetState = new SuperStructureState(0, 0, 90);
+  private final SuperStructureState targetState = new SuperStructureState(124, 0, 90);
   private final DoubleSupplier joystick;
   private final BooleanSupplier m_button;
   private final BooleanSupplier m_secondButton;
@@ -28,19 +29,21 @@ public class CarriageDeneme extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_carriage.updateLastDemandedRotation(m_carriage.getRotation());
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-/*     if(joystick.getAsDouble() >= 0.04 || joystick.getAsDouble() <= -0.04){
-      m_telescop.setTelescopicOpenLoop(joystick.getAsDouble());
+     if(joystick.getAsDouble() >= 0.04 || joystick.getAsDouble() <= -0.04){
+      m_carriage.setCarriageOpenLoop(joystick.getAsDouble());
     }else if(m_button.getAsBoolean()){
-      m_telescop.setTelescopicPosition(targetState);
+      m_carriage.setCarriagePosition(targetState);
     }else{
-      m_telescop.holdTelescopicPosition();
-    }*/
- 
+      m_carriage.holdCarriagePosition();
+    }
+    ElevatorSubsystem.getInstance().setElevatorPosition(targetState);/* 
     if(m_secondButton.getAsBoolean()){
       m_carriage.holdCarriagePosition();
     }else if(m_button.getAsBoolean()){

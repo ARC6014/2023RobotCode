@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,6 +15,8 @@ public class GrabberSubsystem extends SubsystemBase{
     private static GrabberSubsystem m_instance;
 
     public GrabberSubsystem() {
+        grabberMotorMaster.setNeutralMode(NeutralMode.Brake);
+        grabberMotorSlave.setNeutralMode(NeutralMode.Brake);
         grabberMotorSlave.setInverted(false);
         grabberMotorMaster.setInverted(false);
         grabberMotorSlave.follow(grabberMotorMaster);
@@ -32,7 +35,7 @@ public class GrabberSubsystem extends SubsystemBase{
     }
 
     public void release() {
-        grabberMotorMaster.set(ControlMode.PercentOutput, -0.15);
+        grabberMotorMaster.set(ControlMode.PercentOutput, -0.2);
     }
 
     public void stop() {

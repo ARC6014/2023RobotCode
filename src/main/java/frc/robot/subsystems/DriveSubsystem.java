@@ -136,8 +136,8 @@ public class DriveSubsystem extends SubsystemBase{
             SmartDashboard.putNumber(mod.getName() + " - AngleFalcon : ", mod.getState().angle.getDegrees());
         }
 
-        /*SmartDashboard.putNumber("Gyro : ", getRotation2d().getDegrees());
-        SmartDashboard.putNumber("x", getPose().getX());
+        SmartDashboard.putNumber("Gyro : ", getRotation2d().getDegrees());
+       /*  SmartDashboard.putNumber("x", getPose().getX());
         SmartDashboard.putNumber("Y", getPose().getY());*/
 
 

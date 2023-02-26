@@ -37,12 +37,14 @@ public class AutoExtend extends CommandBase {
 
     readyToExtend = m_carriage.isAtSetpoint();
 
+    m_elevator.updateLastDemandedHeight(targetState.getHeight());
+
     if(!readyToExtend){
       m_carriage.setCarriagePosition(targetState);
       m_elevator.holdElevatorPosition();
-      m_telescobic.holdPosition();
+      m_telescobic.holdTelescopicPosition();
     }
-    m_carriage.holdCarriagePosition();
+    m_carriage.setCarriagePosition(targetState);
     m_elevator.setElevatorPosition(targetState);
     m_telescobic.setTelescopicPosition(targetState);
 

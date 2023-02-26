@@ -25,7 +25,7 @@ public class ZeroElevator extends CommandBase {
     m_timer.reset();
     m_timer.start();
     m_isFinished = false;
-    //m_elevator.setMotorOutput(-0.1);
+    m_elevator.setElevatorOpenLoop(-0.2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,7 +42,7 @@ public class ZeroElevator extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_timer.stop();
-
+    m_elevator.updateLastDemandedHeight(45);
   }
 
   // Returns true when the command should end.
