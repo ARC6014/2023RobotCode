@@ -151,7 +151,7 @@ public class DriveSubsystem extends SubsystemBase{
 
     public void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
 
-        rot = calculateSnapValue(xSpeed, ySpeed, rot);
+       // rot = calculateSnapValue(xSpeed, ySpeed, rot);
 
         desiredChassisSpeeds = fieldRelative
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getDriverCentericRotation2d())

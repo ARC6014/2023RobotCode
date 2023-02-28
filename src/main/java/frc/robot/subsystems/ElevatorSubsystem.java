@@ -72,7 +72,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.MotionMagic.MotionMagicCruiseVelocity = 80; // değiştir
     configs.MotionMagic.MotionMagicJerk = 50; //  değiştir
 
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 

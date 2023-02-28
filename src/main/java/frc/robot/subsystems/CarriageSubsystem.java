@@ -12,6 +12,7 @@ import com.ctre.phoenixpro.hardware.TalonFX;
 import com.ctre.phoenixpro.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -31,6 +32,7 @@ public class CarriageSubsystem extends SubsystemBase {
 
   private final TalonFX carriageMaster = new TalonFX(CarriageConstants.carriageMasterID, Constants.CANIVORE_CANBUS);
   private final DutyCycleEncoder m_encoder = new DutyCycleEncoder(CarriageConstants.encoderID);
+  private final Timer m_timer = new Timer();
 
   private final MotionMagicTorqueCurrentFOC m_motionMagic = new MotionMagicTorqueCurrentFOC(0,0,0, false);
   private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0,0,1,false); 
@@ -42,6 +44,7 @@ public class CarriageSubsystem extends SubsystemBase {
   private double targetOutput = 0.0;
   private SuperStructureState targetState = new SuperStructureState();
   private double lastDemandedRotation;
+  private double lastAbsoluteTime;
 
   public CarriageControlState m_controlState = CarriageControlState.OPEN_LOOP;
 
@@ -72,7 +75,7 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
     configs.MotionMagic.MotionMagicJerk = 180; //  değiştir
     
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
     configs.MotorOutput.DutyCycleNeutralDeadband = CarriageConstants.dutyCycleNeutralDeadband;
 
@@ -83,9 +86,12 @@ public class CarriageSubsystem extends SubsystemBase {
 
     carriageMaster.getConfigurator().apply(configs);
 
+    m_timer.reset();
+    m_timer.start();
     m_encoder.reset();
 
     lastDemandedRotation = getRotation();
+    lastAbsoluteTime = m_timer.get();
   }
 
   public static CarriageSubsystem getInstance() {
@@ -182,6 +188,7 @@ public class CarriageSubsystem extends SubsystemBase {
   public void resetToAbsolute() {
     double position = getAbsolutePosition();
     carriageMaster.setRotorPosition((position / 360) * falconGearbox.getRatio());
+    lastAbsoluteTime = m_timer.get();
   }
 
   public double getAbsolutePosition() {
@@ -200,6 +207,9 @@ public class CarriageSubsystem extends SubsystemBase {
     return masterCurrent.getValue();
   }
 
+  public void autoCalibration(){
+    if(getRotation() > 40 && getRotation() < 60 && (m_timer.get() - lastAbsoluteTime) > 5) resetToAbsolute();
+  }
   public void maybeShouldStop(){
     var currentVel = carriageMaster.getRotorVelocity();
     currentVel.refresh();
