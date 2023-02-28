@@ -42,7 +42,7 @@ public class ZeroElevator extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_timer.stop();
-    m_elevator.updateLastDemandedHeight(45);
+    m_elevator.updateLastDemandedHeight(40);
   }
 
   // Returns true when the command should end.

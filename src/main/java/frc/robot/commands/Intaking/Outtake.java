@@ -29,7 +29,7 @@ public class Outtake extends CommandBase {
       m_isFinished = true;
 
     }*/
-    m_intake.extendIntake();
+    //m_intake.extendIntake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,7 +43,7 @@ public class Outtake extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_intake.stop();
-    m_intake.retractIntake();
+    //m_intake.retractIntake();
     m_grabber.stop();
     
     m_isFinished = false;

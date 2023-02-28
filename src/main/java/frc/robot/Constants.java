@@ -312,4 +312,9 @@ public class Constants {
 
     }
 
+    public static final class AddressableLedConstants {
+        public static final int ledPort = 0; // TODO: Config PWM Port
+        public static final int ledLength = 15; // 15 leds will be lit
+    }
+
 }

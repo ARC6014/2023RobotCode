@@ -12,11 +12,14 @@ import com.ctre.phoenixpro.hardware.TalonFX;
 import com.ctre.phoenixpro.signals.InvertedValue;
 import com.ctre.phoenixpro.signals.NeutralModeValue;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.team6014.SuperStructureState;
+import frc.team6014.lib.drivers.LimitSwitch;
 import frc.team6014.lib.math.Gearbox;
 import frc.team6014.lib.util.Util;
 
@@ -41,6 +44,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double targetOutput = 0.0;
   private SuperStructureState targetState = new SuperStructureState();
   private double lastDemandedHeight;
+
+  private final LimitSwitch m_limitSwitch = new LimitSwitch(9);
+  private final Debouncer m_switchBouncer = new Debouncer(0.01, DebounceType.kFalling);
   
   public ElevatorControlState m_controlState = ElevatorControlState.OPEN_LOOP;
 
@@ -52,10 +58,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 3.2;
-    configs.Slot0.kI = 5;
-    configs.Slot0.kD = 0.6;
-    configs.Slot0.kS = 3;
+    configs.Slot0.kP = 3.8;
+    configs.Slot0.kI = 0;
+    configs.Slot0.kD = 0;
+    configs.Slot0.kS = 0.0;
     configs.Slot0.kV = 0;
 
     configs.Slot1.kP = 4;
@@ -68,18 +74,18 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.Voltage.PeakReverseVoltage = -6;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 60; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 80; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 50; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 150; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 100; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 500; //  değiştir
 
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 
     configs.CurrentLimits.StatorCurrentLimit = 500;
-    configs.CurrentLimits.StatorCurrentLimitEnable = true;
+    configs.CurrentLimits.StatorCurrentLimitEnable = false;
     configs.CurrentLimits.SupplyCurrentLimit = 300;
-    configs.CurrentLimits.SupplyCurrentLimitEnable = true;
+    configs.CurrentLimits.SupplyCurrentLimitEnable = false;
 
     elevatorMaster.getConfigurator().apply(configs);
     elevatorSlave.getConfigurator().apply(configs);
@@ -113,6 +119,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         break;
     }
 
+    switchTriggered();
+
     SmartDashboard.putString("Elevator State: ", m_controlState.toString());
     SmartDashboard.putNumber("Elevator Height", getHeight());
     SmartDashboard.putNumber("Elevator Current", getCurrent());
@@ -135,7 +143,7 @@ public class ElevatorSubsystem extends SubsystemBase {
       m_controlState =  ElevatorControlState.MOTION_MAGIC;
     }
     targetState = state;
-    lastDemandedHeight = targetState.getHeight();
+    lastDemandedHeight = getHeight();
   }
 
   public synchronized void holdElevatorPosition(){
@@ -189,6 +197,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void resetToMax(){
     overrideHeight(125.047); //Max Height
+  }
+
+  public void switchTriggered(){
+    if(m_switchBouncer.calculate(m_limitSwitch.isThereAThing()))
+    overrideHeight(122.935);
   }
 
   public double getHeight(){

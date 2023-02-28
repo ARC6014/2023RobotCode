@@ -75,7 +75,7 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
     configs.MotionMagic.MotionMagicJerk = 180; //  değiştir
     
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
     configs.MotorOutput.DutyCycleNeutralDeadband = CarriageConstants.dutyCycleNeutralDeadband;
 
@@ -121,6 +121,8 @@ public class CarriageSubsystem extends SubsystemBase {
         stop();
         break;
     }
+
+    autoCalibration();
 
     SmartDashboard.putString("Carriage State: ", m_controlState.toString());
 
@@ -208,7 +210,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void autoCalibration(){
-    if(getRotation() > 40 && getRotation() < 60 && (m_timer.get() - lastAbsoluteTime) > 5) resetToAbsolute();
+    if(getRotation() > 40 && getRotation() < 60 && (m_timer.get() - lastAbsoluteTime) > 2) resetToAbsolute();
   }
   public void maybeShouldStop(){
     var currentVel = carriageMaster.getRotorVelocity();

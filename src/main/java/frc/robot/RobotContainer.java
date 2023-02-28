@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveByJoystick;
+import frc.robot.commands.SetLedState;
 import frc.robot.commands.SuperStructureToTarget;
 import frc.robot.commands.Auto.TestAuto;
 import frc.robot.commands.Deneme.CarriageDeneme;
@@ -18,6 +19,7 @@ import frc.robot.commands.Deneme.ElevatorDeneme;
 import frc.robot.commands.Deneme.TelescopicDeneme;
 import frc.robot.commands.Grabbing.RelaseCommand;
 import frc.robot.commands.Intaking.IntakeCommand;
+import frc.robot.commands.Intaking.Outtake;
 import frc.robot.commands.Resetting.ZeroElevator;
 import frc.robot.commands.Resetting.ZeroTelescopic;
 import frc.robot.subsystems.CarriageSubsystem;
@@ -57,11 +59,13 @@ public class RobotContainer {
   private final IntakeCommand m_intaking = new IntakeCommand();
   private final RelaseCommand m_RelaseCommand = new RelaseCommand();
 
+  private final SetLedState m_ledCommand = new SetLedState();
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_drive.setDefaultCommand(driveByJoystick);
-    //m_elevator.setDefaultCommand(m_Eeneme);
+    //m_drive.setDefaultCommand(driveByJoystick);
+    m_elevator.setDefaultCommand(m_Eeneme);
     //m_telescop.setDefaultCommand(m_Teneme);
     //m_carriage.setDefaultCommand(m_Aeneme);
     // Configure the trigger bindings
@@ -72,14 +76,14 @@ public class RobotContainer {
   private void configureBindings() {
     
     //Kolaj anlaşılsın diye constantlara ekledim mantıksız da olabilir :/
-    new JoystickButton(m_driver, 3).whileTrue(m_coneStateStore);
+    /*new JoystickButton(m_driver, 3).whileTrue(m_coneStateStore);
     new JoystickButton(m_driver, 1).whileTrue(m_coneStateHigh);
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
 
-    new JoystickButton(m_driver, 7).onTrue(new InstantCommand());
+    new JoystickButton(m_driver, 7).onTrue(new InstantCommand());*/
     new JoystickButton(m_driver, 6).onTrue(new ZeroElevator());
-    new JoystickButton(m_driver, 2).whileTrue(m_intaking);
-    new JoystickButton(m_driver, 4).whileTrue(m_RelaseCommand);
+    //new JoystickButton(m_driver, 2).whileTrue(m_intaking);
+    //new JoystickButton(m_driver, 4).whileTrue(new Outtake());
 
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
   }

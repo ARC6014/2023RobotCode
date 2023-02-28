@@ -35,16 +35,16 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   // m_intake.intakeCube();
+    m_intake.intakeCube();
     m_grabber.grab();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   // m_intake.stop();
+    m_intake.stop();
    // m_intake.retractIntake();
-    m_grabber.setOutput(0.1);
+    m_grabber.setOutput(0.0);
     
     m_isFinished = false;
   }

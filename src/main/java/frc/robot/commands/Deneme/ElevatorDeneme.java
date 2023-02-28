@@ -13,7 +13,7 @@ import frc.team6014.SuperStructureState;
 
 public class ElevatorDeneme extends CommandBase {
   private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
-  private final SuperStructureState targetState = new SuperStructureState(124, 0, 0);
+  private final SuperStructureState targetState = new SuperStructureState(80, 0, 0);
   private final DoubleSupplier joystick;
   private final BooleanSupplier m_button;
   private final BooleanSupplier m_secondButton;
@@ -42,6 +42,7 @@ public class ElevatorDeneme extends CommandBase {
       m_elevator.setElevatorPosition(targetState);
     }else{
       m_elevator.holdElevatorPosition();
+
     }
      /* 
     if(m_secondButton.getAsBoolean()){
