@@ -65,9 +65,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //m_drive.setDefaultCommand(driveByJoystick);
-    m_elevator.setDefaultCommand(m_Eeneme);
+    //m_elevator.setDefaultCommand(m_Eeneme);
     //m_telescop.setDefaultCommand(m_Teneme);
-    //m_carriage.setDefaultCommand(m_Aeneme);
+    m_carriage.setDefaultCommand(m_Aeneme);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -81,7 +81,7 @@ public class RobotContainer {
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
 
     new JoystickButton(m_driver, 7).onTrue(new InstantCommand());*/
-    new JoystickButton(m_driver, 6).onTrue(new ZeroElevator());
+    //new JoystickButton(m_driver, 6).onTrue(new ZeroElevator());
     //new JoystickButton(m_driver, 2).whileTrue(m_intaking);
     //new JoystickButton(m_driver, 4).whileTrue(new Outtake());
 

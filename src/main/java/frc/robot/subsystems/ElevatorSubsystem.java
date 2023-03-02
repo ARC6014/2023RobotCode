@@ -58,11 +58,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 3.8;
-    configs.Slot0.kI = 0;
-    configs.Slot0.kD = 0;
-    configs.Slot0.kS = 0.0;
-    configs.Slot0.kV = 0;
+    configs.Slot0.kP = 11;
+    configs.Slot0.kI = 2.9;
+    configs.Slot0.kD = 0.05;
+    configs.Slot0.kS = 0.85;
+    configs.Slot0.kV = 0.12;
 
     configs.Slot1.kP = 4;
     configs.Slot1.kI = 0;
@@ -74,9 +74,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.Voltage.PeakReverseVoltage = -6;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 150; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 100; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 500; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 400; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 70; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 800; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
@@ -125,6 +125,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Elevator Height", getHeight());
     SmartDashboard.putNumber("Elevator Current", getCurrent());
     SmartDashboard.putNumber("LastDemandElevator", lastDemandedHeight);
+    //System.out.println(targetOutput);
 
     //RobotState.getInstance().updateHeight(getHeight());
     // This method will be called once per scheduler run

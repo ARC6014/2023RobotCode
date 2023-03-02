@@ -56,14 +56,15 @@ public class CarriageSubsystem extends SubsystemBase {
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
     configs.Slot0.kP = 20;
-    configs.Slot0.kI = 5;
-    configs.Slot0.kD = 0.0;
-    configs.Slot0.kS = 0.7;
+    configs.Slot0.kI = 4.5;
+    configs.Slot0.kD = 0.2;
+    configs.Slot0.kS = 0.65
+    ;
     configs.Slot0.kV = 0.0;
 
     configs.Slot1.kP = 1.55;
     configs.Slot1.kI = 0.0;
-    configs.Slot1.kD = 0.0;
+    configs.Slot1.kD = 0.02;
     configs.Slot1.kS = 0.25;
     configs.Slot1.kV = 0.0;
 
@@ -71,9 +72,9 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.Voltage.PeakReverseVoltage = CarriageConstants.peakReverseVoltage;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 150;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 150;;
-    configs.MotionMagic.MotionMagicAcceleration = 200; // değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 250; // değiştir
     configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 180; //  değiştir
+    configs.MotionMagic.MotionMagicJerk = 450; //  değiştir
     
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
@@ -123,7 +124,7 @@ public class CarriageSubsystem extends SubsystemBase {
     }
 
     autoCalibration();
-
+    
     SmartDashboard.putString("Carriage State: ", m_controlState.toString());
 
     //RobotState.getInstance().updateDegree(getRotation());
@@ -210,7 +211,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void autoCalibration(){
-    if(getRotation() > 40 && getRotation() < 60 && (m_timer.get() - lastAbsoluteTime) > 2) resetToAbsolute();
+    if(getRotation() > 40 && getRotation() < 60 && (m_timer.get() - lastAbsoluteTime) > 4 && m_controlState == CarriageControlState.OPEN_LOOP) resetToAbsolute();
   }
   public void maybeShouldStop(){
     var currentVel = carriageMaster.getRotorVelocity();
