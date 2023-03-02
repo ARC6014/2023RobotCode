@@ -16,6 +16,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotState;
 import frc.robot.Constants.TelescobicArmConstants;
 import frc.team6014.SuperStructureState;
 import frc.team6014.lib.math.Gearbox;
@@ -112,10 +113,12 @@ public class TelescobicSubsystem extends SubsystemBase {
         break;
     }
 
+    setTelescopicControlState(TelescopicControlState.HOMING);
+
     SmartDashboard.putString("Telescopic State: ", m_controlState.toString());
     SmartDashboard.putNumber("Telescopic Length", getLength());
 
-    //RobotState.getInstance().updateLength(getLength());
+    RobotState.getInstance().updateLength(getLength());
     // This method will be called once per scheduler run
   }
 
@@ -180,10 +183,11 @@ public class TelescobicSubsystem extends SubsystemBase {
   }
 
   public double getLength(){
-    var masterRot = telescobicMaster.getRotorPosition();
+    /*var masterRot = telescobicMaster.getRotorPosition();
     masterRot.refresh(); 
     double pulleyRotation = masterRot.getValue() / falconGearbox.getRatio();
-    return pulleyRotation * pulleyCircumferenceInCM;
+    return pulleyRotation * pulleyCircumferenceInCM;*/
+    return 92.225;
   }
 
   public double getCurrent(){

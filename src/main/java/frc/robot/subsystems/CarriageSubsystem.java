@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenixpro.configs.MotionMagicConfigs;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.controls.MotionMagicTorqueCurrentFOC;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotState;
 import frc.robot.Constants.CarriageConstants;
 import frc.team6014.SuperStructureState;
 import frc.team6014.lib.math.Gearbox;
@@ -127,7 +129,7 @@ public class CarriageSubsystem extends SubsystemBase {
     
     SmartDashboard.putString("Carriage State: ", m_controlState.toString());
 
-    //RobotState.getInstance().updateDegree(getRotation());
+    RobotState.getInstance().updateDegree(getRotation());
     // This method will be called once per scheduler run
   }
 
@@ -186,6 +188,22 @@ public class CarriageSubsystem extends SubsystemBase {
       m_controlState =  CarriageControlState.HOMING;
     }
     carriageMaster.stopMotor();
+  }
+
+  public void slowCarriage(){
+    MotionMagicConfigs need = new MotionMagicConfigs();
+    need.MotionMagicAcceleration = 120; // değiştir
+    need.MotionMagicCruiseVelocity = 30; // değiştir
+    need.MotionMagicJerk = 300; //  değiştir
+    carriageMaster.getConfigurator().apply(need);
+  }
+
+  public void fastCarriage(){
+    MotionMagicConfigs need = new MotionMagicConfigs();
+    need.MotionMagicAcceleration = 250; // değiştir
+    need.MotionMagicCruiseVelocity = 150; // değiştir
+    need.MotionMagicJerk = 450; //  değiştir
+    carriageMaster.getConfigurator().apply(need);
   }
 
   public void resetToAbsolute() {

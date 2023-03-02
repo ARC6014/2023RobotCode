@@ -18,6 +18,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotState;
 import frc.team6014.SuperStructureState;
 import frc.team6014.lib.drivers.LimitSwitch;
 import frc.team6014.lib.math.Gearbox;
@@ -127,7 +128,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("LastDemandElevator", lastDemandedHeight);
     //System.out.println(targetOutput);
 
-    //RobotState.getInstance().updateHeight(getHeight());
+    RobotState.getInstance().updateHeight(getHeight());
     // This method will be called once per scheduler run
   }
 
