@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotState;
 import frc.robot.subsystems.CarriageSubsystem;
@@ -16,7 +17,7 @@ public class SmartMove extends CommandBase {
 
   private SuperStructureState m_currentState;
   private final SuperStructureState m_targetState;
-  private final SuperStructureState m_pivotState = new SuperStructureState(124,93,0);
+  private final SuperStructureState m_pivotState = new SuperStructureState(125,93,0);
   private boolean needToSwitch = true;
   /** Creates a new SmartMove. */
   public SmartMove(SuperStructureState targetState) {
@@ -39,14 +40,23 @@ public class SmartMove extends CommandBase {
   @Override
   public void execute() {
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
-    needToSwitch = m_currentState.isInSameSide(m_targetState);
-    if(needToSwitch){
+    needToSwitch = !m_currentState.isInSameSide(m_targetState);
+    SmartDashboard.putBoolean("switch", needToSwitch);
+    SmartDashboard.putBoolean("zone", isZone());
+    if(needToSwitch || isZone()){
+      System.out.println("alo");
       m_elevator.setElevatorPosition(m_pivotState);
-      m_carriage.setCarriagePosition(m_targetState);
+      System.err.println("Carriage" + m_currentState.getDegree()) ;
       if(isDeadzone()){
         m_carriage.stop();
+      }else{
+        /*if(!m_elevator.isAtSetpoint()){
+          m_carriage.stop();
+        }*/
+        m_carriage.setCarriagePosition(m_targetState);
       }
     }else{
+      System.out.println("alo amk");
       m_carriage.setCarriagePosition(m_targetState);
       m_elevator.setElevatorPosition(m_targetState);
     }
@@ -69,5 +79,9 @@ public class SmartMove extends CommandBase {
   public boolean isDeadzone(){
     if(m_currentState.getAbsoluteHeight() > 30) return false;
     return true;
+  }
+
+  public boolean isZone(){
+    return m_currentState.getDegree() > -18.0 && m_currentState.getDegree() < 13.0;
   }
 }

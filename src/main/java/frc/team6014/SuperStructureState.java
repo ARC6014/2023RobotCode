@@ -21,7 +21,7 @@ public class SuperStructureState {
         this.height = height;
         this.length = length;
         this.degree = degree;
-        if(this.degree < -5){
+        if(this.degree < -8){
             this.isRobotSide = true;
         }else{
             this.isRobotSide = false;
@@ -64,7 +64,7 @@ public class SuperStructureState {
 
     public void setDegree(double degree){
         this.degree = degree;
-        if(this.degree < -5){
+        if(this.degree < -8){
             this.isRobotSide = true;
         }else{
             this.isRobotSide = false;

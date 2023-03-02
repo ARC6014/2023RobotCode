@@ -126,10 +126,15 @@ public class CarriageSubsystem extends SubsystemBase {
     }
 
     autoCalibration();
+
+    if(!(m_controlState == CarriageControlState.TORQUE_CONTROL)){
+      lastDemandedRotation = getRotation();
+    }
     
     SmartDashboard.putString("Carriage State: ", m_controlState.toString());
 
     RobotState.getInstance().updateDegree(getRotation());
+    //System.out.println(RobotState.getInstance().getCurrentSuperStructureState().getAbsoluteHeight());
     // This method will be called once per scheduler run
   }
 
@@ -192,9 +197,9 @@ public class CarriageSubsystem extends SubsystemBase {
 
   public void slowCarriage(){
     MotionMagicConfigs need = new MotionMagicConfigs();
-    need.MotionMagicAcceleration = 120; // değiştir
-    need.MotionMagicCruiseVelocity = 30; // değiştir
-    need.MotionMagicJerk = 300; //  değiştir
+    need.MotionMagicAcceleration = 200; // değiştir
+    need.MotionMagicCruiseVelocity = 80; // değiştir
+    need.MotionMagicJerk = 550; //  değiştir
     carriageMaster.getConfigurator().apply(need);
   }
 

@@ -65,8 +65,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.Slot0.kS = 0.85;
     configs.Slot0.kV = 0.12;
 
-    configs.Slot1.kP = 4;
-    configs.Slot1.kI = 0;
+    configs.Slot1.kP = 4.5;
+    configs.Slot1.kI = 0.2;
     configs.Slot1.kD = 0;
     configs.Slot1.kS = 0.5;
     configs.Slot1.kV = 0;
@@ -75,9 +75,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.Voltage.PeakReverseVoltage = -6;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 400; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 70; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 800; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 450; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 100; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 900; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
