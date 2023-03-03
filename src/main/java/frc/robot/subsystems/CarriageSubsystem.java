@@ -75,8 +75,8 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 150;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 150;;
     configs.MotionMagic.MotionMagicAcceleration = 250; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 450; //  değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 100; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 650; //  değiştir
     
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
@@ -197,9 +197,9 @@ public class CarriageSubsystem extends SubsystemBase {
 
   public void slowCarriage(){
     MotionMagicConfigs need = new MotionMagicConfigs();
-    need.MotionMagicAcceleration = 200; // değiştir
-    need.MotionMagicCruiseVelocity = 80; // değiştir
-    need.MotionMagicJerk = 550; //  değiştir
+    need.MotionMagicAcceleration = 70; // değiştir
+    need.MotionMagicCruiseVelocity = 30; // değiştir
+    need.MotionMagicJerk = 250; //  değiştir
     carriageMaster.getConfigurator().apply(need);
   }
 

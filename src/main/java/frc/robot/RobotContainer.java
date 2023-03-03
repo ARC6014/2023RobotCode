@@ -69,7 +69,7 @@ public class RobotContainer {
     //m_drive.setDefaultCommand(driveByJoystick);
     //m_elevator.setDefaultCommand(m_Eeneme);
     //m_telescop.setDefaultCommand(m_Teneme);
-    //m_carriage.setDefaultCommand(m_Aeneme);
+    m_carriage.setDefaultCommand(m_Aeneme);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -83,11 +83,12 @@ public class RobotContainer {
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
 
     new JoystickButton(m_driver, 7).onTrue(new InstantCommand());*/
+    new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     //new JoystickButton(m_driver, 6).onTrue(new ZeroElevator());
-    new JoystickButton(m_driver, 2).whileTrue(m_coneStateLow);
-    new JoystickButton(m_driver, 4).whileTrue(m_intaking);
-    new JoystickButton(m_driver, 3).whileTrue(m_intak);
-    new JoystickButton(m_driver, 1).whileTrue(m_RelaseCommand);
+    //new JoystickButton(m_driver, 2).whileTrue(m_coneStateLow);
+    //new JoystickButton(m_driver, 4).whileTrue(m_intaking);
+    //new JoystickButton(m_driver, 3).whileTrue(m_intak);
+    //new JoystickButton(m_driver, 1).whileTrue(m_RelaseCommand);
 
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
   }

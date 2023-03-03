@@ -52,10 +52,10 @@ public class TelescobicSubsystem extends SubsystemBase {
     telescobicMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 17;
-    configs.Slot0.kI = 1.2;
+    configs.Slot0.kP = 1;
+    configs.Slot0.kI = 0.1;
     configs.Slot0.kD = 0.0;
-    configs.Slot0.kS = 1;
+    configs.Slot0.kS = 0.1;
     configs.Slot0.kV = 0;
 
     configs.Slot1.kP = 0.45;
@@ -68,9 +68,9 @@ public class TelescobicSubsystem extends SubsystemBase {
     configs.Voltage.PeakReverseVoltage = -6;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 60; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 50; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 70; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 50; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 20; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 120; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
@@ -113,7 +113,7 @@ public class TelescobicSubsystem extends SubsystemBase {
         break;
     }
 
-    setTelescopicControlState(TelescopicControlState.HOMING);
+    //setTelescopicControlState(TelescopicControlState.HOMING);
 
     SmartDashboard.putString("Telescopic State: ", m_controlState.toString());
     SmartDashboard.putNumber("Telescopic Length", getLength());
@@ -183,11 +183,11 @@ public class TelescobicSubsystem extends SubsystemBase {
   }
 
   public double getLength(){
-    /*var masterRot = telescobicMaster.getRotorPosition();
+    var masterRot = telescobicMaster.getRotorPosition();
     masterRot.refresh(); 
     double pulleyRotation = masterRot.getValue() / falconGearbox.getRatio();
-    return pulleyRotation * pulleyCircumferenceInCM;*/
-    return 92.225;
+    return pulleyRotation * pulleyCircumferenceInCM;
+    //return 92.225;
   }
 
   public double getCurrent(){
