@@ -47,6 +47,7 @@ public class CarriageSubsystem extends SubsystemBase {
   private SuperStructureState targetState = new SuperStructureState();
   private double lastDemandedRotation;
   private double lastAbsoluteTime;
+  private boolean isSlow = false; 
 
   public CarriageControlState m_controlState = CarriageControlState.OPEN_LOOP;
 
@@ -57,12 +58,11 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 20;
-    configs.Slot0.kI = 4.5;
-    configs.Slot0.kD = 0.2;
-    configs.Slot0.kS = 0.65
-    ;
-    configs.Slot0.kV = 0.0;
+    configs.Slot0.kP = 24;
+    configs.Slot0.kI = 5;
+    configs.Slot0.kD = 0.17;
+    configs.Slot0.kS = 0.65;
+    configs.Slot0.kV = 0.02;
 
     configs.Slot1.kP = 1.55;
     configs.Slot1.kI = 0.0;
@@ -196,19 +196,23 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void slowCarriage(){
+    if(isSlow == true) return;
     MotionMagicConfigs need = new MotionMagicConfigs();
-    need.MotionMagicAcceleration = 70; // değiştir
+    need.MotionMagicAcceleration = 100; // değiştir
     need.MotionMagicCruiseVelocity = 30; // değiştir
     need.MotionMagicJerk = 250; //  değiştir
     carriageMaster.getConfigurator().apply(need);
+    isSlow = true;
   }
 
   public void fastCarriage(){
+    if(isSlow == false);
     MotionMagicConfigs need = new MotionMagicConfigs();
     need.MotionMagicAcceleration = 250; // değiştir
-    need.MotionMagicCruiseVelocity = 150; // değiştir
-    need.MotionMagicJerk = 450; //  değiştir
+    need.MotionMagicCruiseVelocity = 100; // değiştir
+    need.MotionMagicJerk = 650; //  değiştir
     carriageMaster.getConfigurator().apply(need);
+    isSlow = false;
   }
 
   public void resetToAbsolute() {
@@ -218,7 +222,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public double getAbsolutePosition() {
-    return (((m_encoder.getAbsolutePosition() * 360) / encoderGearbox.getRatio() * -1) + 89.57 - 0.8);
+    return (((m_encoder.getAbsolutePosition() * 360) / encoderGearbox.getRatio() * -1) + 89.57 - 0.8 +2.05);
   }
 
   public double getRotation() {
@@ -234,8 +238,9 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void autoCalibration(){
-    if(getRotation() > 40 && getRotation() < 60 && (m_timer.get() - lastAbsoluteTime) > 4 && m_controlState == CarriageControlState.OPEN_LOOP) resetToAbsolute();
+    if((getRotation() > 15 && getRotation() < 40 || getRotation() > 55 && getRotation() < 65)  && (m_timer.get() - lastAbsoluteTime) > 4) resetToAbsolute();
   }
+
   public void maybeShouldStop(){
     var currentVel = carriageMaster.getRotorVelocity();
     currentVel.refresh();
@@ -246,7 +251,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getDegree() - getRotation()) <= 3;
+    return Math.abs(targetState.getDegree() - getRotation()) <= 1.5;
   }
 
 }

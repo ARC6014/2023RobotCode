@@ -52,29 +52,29 @@ public class TelescobicSubsystem extends SubsystemBase {
     telescobicMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 1;
-    configs.Slot0.kI = 0.1;
-    configs.Slot0.kD = 0.0;
-    configs.Slot0.kS = 0.1;
+    configs.Slot0.kP = 27;
+    configs.Slot0.kI = 1.5;
+    configs.Slot0.kD = 0.08;
+    configs.Slot0.kS = 0.01;
     configs.Slot0.kV = 0;
 
-    configs.Slot1.kP = 0.45;
-    configs.Slot1.kI = 0.07;
-    configs.Slot1.kD = 0.0;
-    configs.Slot1.kS = 0.15;
+    configs.Slot1.kP = 6;
+    configs.Slot1.kI = 0.85;
+    configs.Slot1.kD = 0.02;
+    configs.Slot1.kS = 0.0;
     configs.Slot1.kV = 0;
 
     configs.Voltage.PeakForwardVoltage = 6;
     configs.Voltage.PeakReverseVoltage = -6;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 50; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 20; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 120; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 450; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 120; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 1000; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
-    configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
+    configs.MotorOutput.DutyCycleNeutralDeadband = 0.02;
 
     configs.CurrentLimits.StatorCurrentLimit = TelescobicArmConstants.statorCurrentLimit;
     configs.CurrentLimits.StatorCurrentLimitEnable = TelescobicArmConstants.statorCurrentLimitEnable;
@@ -117,6 +117,7 @@ public class TelescobicSubsystem extends SubsystemBase {
 
     SmartDashboard.putString("Telescopic State: ", m_controlState.toString());
     SmartDashboard.putNumber("Telescopic Length", getLength());
+    SmartDashboard.putNumber("Telescopic Current", getCurrent());
 
     RobotState.getInstance().updateLength(getLength());
     // This method will be called once per scheduler run
@@ -146,6 +147,10 @@ public class TelescobicSubsystem extends SubsystemBase {
 
   public void setTelescopicControlState(TelescopicControlState state){
     m_controlState = state;
+  }
+
+  public void updateLastDemandedLength(double length){
+    lastDemandedLength = length;
   }
 
   public void setMotorOutput(){

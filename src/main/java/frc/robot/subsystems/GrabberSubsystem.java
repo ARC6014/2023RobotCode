@@ -5,7 +5,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotState;
 import frc.robot.Constants.GrabberConstants;
+import frc.robot.RobotState.pieceState;
 
 public class GrabberSubsystem extends SubsystemBase{
 
@@ -31,11 +33,19 @@ public class GrabberSubsystem extends SubsystemBase{
     }
 
     public void grab() {
-        grabberMotorMaster.set(ControlMode.PercentOutput, 0.7);
+        if(RobotState.getInstance().getPiece() == pieceState.CONE){
+            grabberMotorMaster.set(ControlMode.PercentOutput, 0.7);
+        }else{
+            grabberMotorMaster.set(ControlMode.PercentOutput, .3);
+        }
     }
 
     public void release() {
-        grabberMotorMaster.set(ControlMode.PercentOutput, -0.2);
+        if(RobotState.getInstance().getPiece() == pieceState.CONE){
+            grabberMotorMaster.set(ControlMode.PercentOutput, -0.1);
+        }else{
+            grabberMotorMaster.set(ControlMode.PercentOutput, -.4);
+        }
     }
 
     public void stop() {

@@ -5,6 +5,8 @@
 package frc.robot.commands.Intaking;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotState;
+import frc.robot.RobotState.pieceState;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.IntakeSubsytem;
 
@@ -23,19 +25,18 @@ public class IntakeCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // numVal=0 : cube
-    // numVal=1 : cone
-   /*  if (RobotState.getInstance().getModeNum() == 1) {
-      m_isFinished = true;
-
+   /*  if(RobotState.getInstance().getPiece() == pieceState.CONE){
+      m_intake.extendIntake();
     }*/
-   // m_intake.extendIntake();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.intakeCube();
+    if(RobotState.getInstance().getPiece() == pieceState.CONE){
+      m_intake.stop();
+    }else m_intake.intakeCube();
     m_grabber.grab();
   }
 
@@ -43,7 +44,7 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_intake.stop();
-   // m_intake.retractIntake();
+    //m_intake.retractIntake();
     m_grabber.setOutput(0.08);
     
     m_isFinished = false;

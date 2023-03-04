@@ -14,69 +14,105 @@ public class RobotState{
         return mInstance;
     }
 
-    //Log.ToString(name = "Robot Mode")
-    private robotState state = robotState.cubeMode;
+    private SuperStructureState currentStructureState = new SuperStructureState();
+    private pieceState m_targetPiece = pieceState.CONE;
+    private scoreLevel m_level = scoreLevel.HOMING;
 
-    private SuperStructureState currenStructureState = new SuperStructureState();
+    private double m_endEffector = 30.05;
 
-    private enum robotState {
-        cubeMode(0), coneMode(1);
+    public enum pieceState {
+        CUBE,
+        CONE
+    }
 
-        private int numVal;
+    public enum scoreLevel {
+        Intake,
+        Ground,
+        FirstLevel,
+        SecondLevel,
+        HOMING
+    }
 
-        robotState(int numVal) {
-            this.numVal = numVal;
-        }
-
-        public int getNumVal() {
-            return numVal;
-        }
-
-        public robotState setMode(int numVal) {
-            switch (numVal) {
-                case 0:
-                    numVal = 0;
-                    return cubeMode;
-                case 1:
-                    numVal = 1;
-                    return coneMode;
-                default:
-                    numVal = 0;
-                    return cubeMode;
-            }
+    public void setCube() {
+        if(m_targetPiece != pieceState.CUBE){
+            m_targetPiece = pieceState.CUBE;
+            m_endEffector = 30.4;
         }
     }
 
-    public void setMode(int numVal) {
-        state = state.setMode(numVal);
+    public void setCone() {
+        if(m_targetPiece != pieceState.CONE){
+            m_targetPiece = pieceState.CONE;
+            m_endEffector = 30.05;
+        }
     }
 
-    public void setMode(robotState state) {
-        state = state.setMode(state.getNumVal());
+    public pieceState getPiece(){
+        return m_targetPiece;
     }
 
-    public robotState getMode() {
-        return state;
-    }
-
-    public int getModeNum() {
-        return state.getNumVal();
+    public void setScoreLevel(scoreLevel level){
+        if(m_level != level){
+            m_level = level;
+        }
     }
 
     public void updateHeight(double height){
-        currenStructureState.setHeight(height);
+        currentStructureState.setHeight(height);
     }
 
     public void updateLength(double length){
-        currenStructureState.setLength(length);
+        currentStructureState.setLength(length);
     }
 
     public void updateDegree(double degree){
-        currenStructureState.setDegree(degree);
+        currentStructureState.setDegree(degree);
+    }
+
+    public double getEndEffector(){
+        return m_endEffector;
     }
 
     public SuperStructureState getCurrentSuperStructureState(){
-        return currenStructureState;
+        return currentStructureState;
     }
+
+    public SuperStructureState getTargetState(){
+         if(m_level == scoreLevel.Intake){
+            if(m_targetPiece == pieceState.CUBE){
+                return intakeCube;
+            }
+            return intakeCone;
+        }else if(m_level == scoreLevel.Ground){
+            if(m_targetPiece == pieceState.CUBE){
+                return groundCube;
+            }
+            return groundCone;
+        }else if(m_level == scoreLevel.FirstLevel){
+            if(m_targetPiece == pieceState.CUBE){
+                return firstCube;
+            }
+            return firstCone;
+        }else if(m_level == scoreLevel.SecondLevel){
+            if(m_targetPiece == pieceState.CUBE){
+                return secondCube;
+            }
+            return secondCone;
+        }
+        return homingState;
+    }
+
+    private final SuperStructureState homingState = new SuperStructureState(120, 92.2, -20);
+
+    private final SuperStructureState intakeCube = new SuperStructureState(91,92.2, -45);
+    private final SuperStructureState groundCube = new SuperStructureState(120,92.5, 50);
+    private final SuperStructureState firstCube = new SuperStructureState(115,93, 72.5);
+    private final SuperStructureState secondCube = new SuperStructureState(124,105, 90);
+
+    private final SuperStructureState intakeCone = new SuperStructureState(115,92.5, 90);
+    private final SuperStructureState groundCone = new SuperStructureState(120,95, 50);
+    private final SuperStructureState firstCone = new SuperStructureState(71,93, 124);
+    private final SuperStructureState secondCone = new SuperStructureState(96,130, 115);
+
 
 }

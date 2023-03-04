@@ -59,11 +59,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 11;
-    configs.Slot0.kI = 2.9;
-    configs.Slot0.kD = 0.05;
+    configs.Slot0.kP = 28.5;
+    configs.Slot0.kI = 2.8;
+    configs.Slot0.kD = 0.175;
     configs.Slot0.kS = 0.85;
-    configs.Slot0.kV = 0.12;
+    configs.Slot0.kV = 0.08;
 
     configs.Slot1.kP = 4.5;
     configs.Slot1.kI = 0.2;
@@ -71,13 +71,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.Slot1.kS = 0.5;
     configs.Slot1.kV = 0;
 
-    configs.Voltage.PeakForwardVoltage = 6;
-    configs.Voltage.PeakReverseVoltage = -6;
+    configs.Voltage.PeakForwardVoltage = 7;
+    configs.Voltage.PeakReverseVoltage = -7;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 450; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 100; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 900; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 300; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 85; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 750; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 

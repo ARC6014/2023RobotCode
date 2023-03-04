@@ -10,6 +10,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.TelescobicSubsystem;
 import frc.team6014.SuperStructureState;
 
 public class CarriageDeneme extends CommandBase {
@@ -43,14 +44,15 @@ public class CarriageDeneme extends CommandBase {
     }else{
       m_carriage.holdCarriagePosition();
     }
-    ElevatorSubsystem.getInstance().setElevatorPosition(targetState);/* 
-    if(m_secondButton.getAsBoolean()){
+    ElevatorSubsystem.getInstance().setElevatorPosition(targetState);
+    //TelescobicSubsystem.getInstance().holdTelescopicPosition();/* 
+    /*if(m_secondButton.getAsBoolean()){
       m_carriage.holdCarriagePosition();
     }else if(m_button.getAsBoolean()){
       m_carriage.setCarriagePosition(targetState);
     }else{
       m_carriage.setCarriageOpenLoop(joystick.getAsDouble());
-    }
+    }*/
     
   /*   System.out.println(
     RobotState.getInstance().getCurrentSuperStructureState().getHeight() );*/

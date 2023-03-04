@@ -58,7 +58,6 @@ public class DriveByJoystick extends CommandBase {
       m_slewX.reset(0);
       m_slewY.reset(0);
       m_slewRot.reset(0);
-      m_drive.resetSnapPID();
     }
 
     m_drive.swerveDrive(xSpeed, ySpeed, rotation, fieldOrient);

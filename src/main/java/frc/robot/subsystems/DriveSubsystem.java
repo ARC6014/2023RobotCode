@@ -151,10 +151,10 @@ public class DriveSubsystem extends SubsystemBase{
 
     public void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
 
-       // rot = calculateSnapValue(xSpeed, ySpeed, rot);
+        //rot = calculateSnapValue(xSpeed, ySpeed, rot);
 
         desiredChassisSpeeds = fieldRelative
-                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getDriverCentericRotation2d())
+                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getRotation2d())
                 : new ChassisSpeeds(xSpeed, ySpeed, rot);
 
         states = Constants.kinematics.toSwerveModuleStates(desiredChassisSpeeds);
