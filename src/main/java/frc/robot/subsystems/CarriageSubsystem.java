@@ -198,9 +198,9 @@ public class CarriageSubsystem extends SubsystemBase {
   public void slowCarriage(){
     if(isSlow == true) return;
     MotionMagicConfigs need = new MotionMagicConfigs();
-    need.MotionMagicAcceleration = 100; // değiştir
-    need.MotionMagicCruiseVelocity = 30; // değiştir
-    need.MotionMagicJerk = 250; //  değiştir
+    need.MotionMagicAcceleration = 50; // değiştir
+    need.MotionMagicCruiseVelocity = 15; // değiştir
+    need.MotionMagicJerk = 150; //  değiştir
     carriageMaster.getConfigurator().apply(need);
     isSlow = true;
   }
