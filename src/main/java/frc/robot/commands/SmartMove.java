@@ -62,9 +62,8 @@ public class SmartMove extends CommandBase {
     }
 
     if(needToSwitch || isDangerZone){
-      m_elevator.setElevatorPosition(m_pivotState);
-      m_telescop.setTelescopicPosition(m_pivotState);
-
+        m_elevator.setElevatorPosition(m_pivotState);
+        m_telescop.setTelescopicPosition(m_pivotState);
       if(shouldWait){
         m_carriage.stop();
       }else {
@@ -72,13 +71,11 @@ public class SmartMove extends CommandBase {
       }
 
     }else{
-
       if(shouldWait){
         m_elevator.stop();
       }else {
         m_elevator.setElevatorPosition(m_targetState);
       }
-
       m_carriage.setCarriagePosition(m_targetState);
       m_telescop.setTelescopicPosition(m_targetState);
 

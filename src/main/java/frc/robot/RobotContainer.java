@@ -109,7 +109,7 @@ public class RobotContainer {
     new JoystickButton(m_operator, 3).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake)));
     new JoystickButton(m_operator, 4).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)));
 
-    RobotState.getInstance().setScoreLevel(scoreLevelSelector.getSelected());
+//    RobotState.getInstance().setScoreLevel(scoreLevelSelector.getSelected());
 
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     //new JoystickButton(m_driver, 6).onTrue(new ZeroElevator());

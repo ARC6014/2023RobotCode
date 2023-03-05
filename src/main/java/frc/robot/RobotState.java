@@ -18,8 +18,6 @@ public class RobotState{
     private pieceState m_targetPiece = pieceState.CONE;
     private scoreLevel m_level = scoreLevel.HOMING;
 
-    private double m_endEffector = 30.05;
-
     public enum pieceState {
         CUBE,
         CONE
@@ -36,14 +34,12 @@ public class RobotState{
     public void setCube() {
         if(m_targetPiece != pieceState.CUBE){
             m_targetPiece = pieceState.CUBE;
-            m_endEffector = 30.4;
         }
     }
 
     public void setCone() {
         if(m_targetPiece != pieceState.CONE){
             m_targetPiece = pieceState.CONE;
-            m_endEffector = 30.05;
         }
     }
 
@@ -70,7 +66,13 @@ public class RobotState{
     }
 
     public double getEndEffector(){
-        return m_endEffector;
+        if(m_targetPiece == pieceState.CUBE){
+            if(currentStructureState.getDegree() < - 15){
+                return 20.8;
+            }
+            return 30.4;
+        }
+        return 30.05;
     }
 
     public SuperStructureState getCurrentSuperStructureState(){
