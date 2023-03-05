@@ -198,9 +198,9 @@ public class CarriageSubsystem extends SubsystemBase {
   public void slowCarriage(){
     if(isSlow == true) return;
     MotionMagicConfigs need = new MotionMagicConfigs();
-    need.MotionMagicAcceleration = 50; // değiştir
-    need.MotionMagicCruiseVelocity = 15; // değiştir
-    need.MotionMagicJerk = 150; //  değiştir
+    need.MotionMagicAcceleration = 65; // değiştir
+    need.MotionMagicCruiseVelocity = 25; // değiştir
+    need.MotionMagicJerk = 220; //  değiştir
     carriageMaster.getConfigurator().apply(need);
     isSlow = true;
   }
@@ -208,9 +208,9 @@ public class CarriageSubsystem extends SubsystemBase {
   public void fastCarriage(){
     if(isSlow == false);
     MotionMagicConfigs need = new MotionMagicConfigs();
-    need.MotionMagicAcceleration = 250; // değiştir
-    need.MotionMagicCruiseVelocity = 100; // değiştir
-    need.MotionMagicJerk = 650; //  değiştir
+    need.MotionMagicAcceleration = 200; // değiştir
+    need.MotionMagicCruiseVelocity = 80; // değiştir
+    need.MotionMagicJerk = 500; //  değiştir
     carriageMaster.getConfigurator().apply(need);
     isSlow = false;
   }

@@ -67,10 +67,10 @@ public class RobotState{
 
     public double getEndEffector(){
         if(m_targetPiece == pieceState.CUBE){
-            if(currentStructureState.getDegree() < - 15){
-                return 20.8;
+            if(currentStructureState.getDegree() < - 17.5){
+                return 23;
             }
-            return 30.4;
+            return 30.5;
         }
         return 30.05;
     }
@@ -106,12 +106,12 @@ public class RobotState{
 
     private final SuperStructureState homingState = new SuperStructureState(120, 92.2, -20);
 
-    private final SuperStructureState intakeCube = new SuperStructureState(91,92.2, -45);
+    private final SuperStructureState intakeCube = new SuperStructureState(105,92.2, -40);
     private final SuperStructureState groundCube = new SuperStructureState(120,92.5, 50);
     private final SuperStructureState firstCube = new SuperStructureState(115,93, 72.5);
     private final SuperStructureState secondCube = new SuperStructureState(124,105, 90);
 
-    private final SuperStructureState intakeCone = new SuperStructureState(115,92.5, 90);
+    private final SuperStructureState intakeCone = new SuperStructureState(100,92.5, 90);
     private final SuperStructureState groundCone = new SuperStructureState(120,95, 50);
     private final SuperStructureState firstCone = new SuperStructureState(71,93, 124);
     private final SuperStructureState secondCone = new SuperStructureState(96,130, 115);

@@ -113,7 +113,7 @@ public class RobotContainer {
 
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     //new JoystickButton(m_driver, 6).onTrue(new ZeroElevator());
-    new JoystickButton(m_driver, 1).whileTrue(m_superStructure);
+    new JoystickButton(m_operator, 8).whileTrue(m_superStructure);
     new JoystickButton(m_driver, 4).whileTrue(m_intaking);
     new JoystickButton(m_driver, 2).whileTrue(m_RelaseCommand);
 

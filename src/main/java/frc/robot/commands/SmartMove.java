@@ -36,9 +36,10 @@ public class SmartMove extends CommandBase {
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
     m_targetState = RobotState.getInstance().getTargetState();
     needToSwitch = m_currentState.isInSameSide(m_targetState);
-    if(needToSwitch){
+    /*if(needToSwitch){
       m_carriage.slowCarriage();
-    }
+    }*/
+    m_carriage.fastCarriage();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -54,12 +55,13 @@ public class SmartMove extends CommandBase {
     SmartDashboard.putBoolean("zone", isDangerZone);
     SmartDashboard.putBoolean("shouldwait", shouldWait);
 
-    if(m_currentState.getRobotSide()){
+    /*if(m_currentState.getRobotSide()){
       m_carriage.slowCarriage();
       System.out.println("alo");
     } else {
       m_carriage.fastCarriage();
-    }
+    }*/
+    //m_carriage.fastCarriage();
 
     if(needToSwitch || isDangerZone){
         m_elevator.setElevatorPosition(m_pivotState);
@@ -71,11 +73,14 @@ public class SmartMove extends CommandBase {
       }
 
     }else{
+
       if(shouldWait){
         m_elevator.stop();
       }else {
         m_elevator.setElevatorPosition(m_targetState);
       }
+
+
       m_carriage.setCarriagePosition(m_targetState);
       m_telescop.setTelescopicPosition(m_targetState);
 

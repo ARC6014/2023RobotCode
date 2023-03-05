@@ -45,7 +45,7 @@ public class IntakeCommand extends CommandBase {
   public void end(boolean interrupted) {
     m_intake.stop();
     //m_intake.retractIntake();
-    m_grabber.setOutput(0.08);
+    m_grabber.setOutput(0.15);
     
     m_isFinished = false;
   }
