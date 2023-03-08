@@ -8,6 +8,8 @@ import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -104,10 +106,20 @@ public class RobotContainer {
     new JoystickButton(m_operator, 2).whileTrue(new InstantCommand(() -> RobotState.getInstance().setCube()));
 
     new JoystickButton(m_operator, 11).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)));
+    Shuffleboard.getTab("GamePieces").add("Ground", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground))).withWidget(BuiltInWidgets.kToggleButton);
+
     new JoystickButton(m_operator, 9).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel)));
+    Shuffleboard.getTab("GamePieces").add("FirstLevel", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel))).withWidget(BuiltInWidgets.kToggleButton);
+
     new JoystickButton(m_operator, 7).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel)));
+    Shuffleboard.getTab("GamePieces").add("SecondLevel", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel))).withWidget(BuiltInWidgets.kToggleButton);
+
     new JoystickButton(m_operator, 3).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake)));
+    Shuffleboard.getTab("GamePieces").add("Intake", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake))).withWidget(BuiltInWidgets.kToggleButton);
+
     new JoystickButton(m_operator, 4).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)));
+    Shuffleboard.getTab("GamePieces").add("HOMING", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING))).withWidget(BuiltInWidgets.kToggleButton);
+
 
 //    RobotState.getInstance().setScoreLevel(scoreLevelSelector.getSelected());
 
