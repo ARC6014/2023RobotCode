@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -13,8 +15,9 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
@@ -29,44 +32,68 @@ public class PoseEstimatorSubsystem extends SubsystemBase{
 
 private static PoseEstimatorSubsystem m_instance;
 
+public static PoseEstimatorSubsystem getInstance(){
+  if(m_instance == null){
+      m_instance = new PoseEstimatorSubsystem();
+  }
+  return m_instance;
+}
+
 private final DriveSubsystem m_drive = DriveSubsystem.getInstance();
-private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(5));
-private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(10));
+private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.1, 0.1, 2.5);
+private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(0.5, 0.5, 0.05);
 
 
-private final SwerveDrivePoseEstimator poseEstimator;
+private final SwerveDrivePoseEstimator m_poseEstimator;
 
   /** Creates a new PoseEstimatorSubsystem. */
   public PoseEstimatorSubsystem() {
-    poseEstimator = new SwerveDrivePoseEstimator(Constants.kinematics, m_drive.getRotation2d(), m_drive.getModulePositions(), new Pose2d(), stateStdDevs, visionMeasurementStdDevs);
+    m_poseEstimator = new SwerveDrivePoseEstimator(Constants.kinematics, m_drive.getRotation2d(), m_drive.getModulePositions(), new Pose2d(), stateStdDevs, visionMeasurementStdDevs);
   }
 
-  public static PoseEstimatorSubsystem getInstance(){
-    if(m_instance == null){
-        m_instance = new PoseEstimatorSubsystem();
-    }
-    return m_instance;
-}
+
 
   @Override
   public void periodic() {
+    m_poseEstimator.update(m_drive.getRotation2d(), m_drive.getModulePositions());
+
+    LimelightHelpers.Results visionResult = LimelightHelpers.getLatestResults("limelight").targetingResults;
+
+    var vpose = LimelightHelpers.toPose2D(visionResult.botpose_wpiblue);
+    SmartDashboard.putString("Vision Pose", String.format("(%.3f, %.3f) %.2f degrees", 
+    vpose.getX(), 
+    vpose.getY(),
+    vpose.getRotation().getDegrees()));
+
+    if(!(visionResult.botpose[0] == 0 && visionResult.botpose[1] == 0)){
+      System.out.println("alo amk");
+      var pose = LimelightHelpers.toPose2D(visionResult.botpose_wpiblue);
+      m_poseEstimator.addVisionMeasurement(pose, Timer.getFPGATimestamp() - (visionResult.latency_capture / 1000) - (visionResult.latency_pipeline / 1000));
+    }
+
+    SmartDashboard.putBoolean("Vision", visionResult.valid);
+
+    //System.out.println(getFomattedPose());
+    SmartDashboard.putString("Pose Estimator", getFomattedPose());
 
   }
 
   public void resetOdometry(Pose2d pose){
     m_drive.m_gyro.reset();
     m_drive.m_gyro.setYaw(pose.getRotation().times(DriveConstants.invertGyro? -1 : 1).getDegrees());
-    poseEstimator.resetPosition(m_drive.getRotation2d(), m_drive.getModulePositions(), pose);
+    m_poseEstimator.resetPosition(m_drive.getRotation2d(), m_drive.getModulePositions(), pose);
+  }
+
+  private String getFomattedPose() {
+    var pose = getPose();
+    return String.format("(%.3f, %.3f) %.2f degrees", 
+        pose.getX(), 
+        pose.getY(),
+        pose.getRotation().getDegrees());
   }
 
   public Pose2d getPose(){
-    return poseEstimator.getEstimatedPosition();
+    return m_poseEstimator.getEstimatedPosition();
   }
-
-  public PathPoint getPathPoint(Pose2d targetPose2d){
-    return DriverStation.getAlliance() == Alliance.Blue ?
-    new PathPoint(new Translation2d(getPose().getX(), getPose().getY()), Rotation2d.fromDegrees(ARCTrajectoryGenerator.getHeadingforPoints(getPose(), targetPose2d) - 90) , m_drive.getRotation2d()) : 
-    new PathPoint(new Translation2d(getPose().getX(), getPose().getY()), Rotation2d.fromDegrees(-ARCTrajectoryGenerator.getHeadingforPoints(getPose(), AllianceFlipUtil.apply(targetPose2d)) - 90), m_drive.getRotation2d());
-}
 
 }

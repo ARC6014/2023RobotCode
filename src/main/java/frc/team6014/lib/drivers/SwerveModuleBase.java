@@ -31,7 +31,7 @@ public class SwerveModuleBase {
 
     private SimpleMotorFeedforward m_driveFF;
 
-    private boolean isDriveMotorInverted = true;
+    private boolean isDriveMotorInverted = false;
     private boolean isAngleMotorInverted = true;
     private boolean isRotEncoderInverted = false;
     

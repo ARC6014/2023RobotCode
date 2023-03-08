@@ -111,7 +111,7 @@ public class DriveSubsystem extends SubsystemBase{
                 mod.setNeutralMode2Brake(true);
             }
         }, () -> {
-            Timer.delay(2);
+            Timer.delay(1.5);
             for (SwerveModuleBase mod : m_swerveModules) {
                 mod.setNeutralMode2Brake(false);
             }
@@ -140,6 +140,8 @@ public class DriveSubsystem extends SubsystemBase{
        /*  SmartDashboard.putNumber("x", getPose().getX());
         SmartDashboard.putNumber("Y", getPose().getY());*/
 
+        SmartDashboard.putString("Drive Pose", getFomattedPose());
+
 
         brakeModeTrigger.whileTrue(brakeModeCommand);
 
@@ -154,7 +156,7 @@ public class DriveSubsystem extends SubsystemBase{
         //rot = calculateSnapValue(xSpeed, ySpeed, rot);
 
         desiredChassisSpeeds = fieldRelative
-                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getRotation2d())
+                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getDriverCentericRotation2d())
                 : new ChassisSpeeds(xSpeed, ySpeed, rot);
 
         states = Constants.kinematics.toSwerveModuleStates(desiredChassisSpeeds);
@@ -327,6 +329,14 @@ public class DriveSubsystem extends SubsystemBase{
         }
         return output;
     }
+
+    private String getFomattedPose() {
+        var pose = getPose();
+        return String.format("(%.3f, %.3f) %.2f degrees", 
+            pose.getX(), 
+            pose.getY(),
+            pose.getRotation().getDegrees());
+      }
 
     /*
      * Velocity-Angle Displays for Shuffleboard
