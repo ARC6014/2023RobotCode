@@ -54,7 +54,7 @@ public class OnTheFlyPathGeneration extends CommandBase {
     m_drive.setClosedLoopStates(new ChassisSpeeds(0, 0, 0));
     Timer.delay(AutoConstants.OnTheFlyPathGenerationTreshold);
     m_drive.lockSwerve(false);
-    m_trajectory = ARCTrajectoryGenerator.generateTrajectory(m_targetPose);
+   // m_trajectory = ARCTrajectoryGenerator.generateTrajectory(m_targetPose);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

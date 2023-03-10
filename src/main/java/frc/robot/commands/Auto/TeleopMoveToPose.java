@@ -17,15 +17,15 @@ public class TeleopMoveToPose extends SequentialCommandGroup {
   /** Creates a new TeleopMoveToPose. */
   public TeleopMoveToPose(Pose2d firtPose, Pose2d secondPose, Pose2d thirdPose) {
     // Add your commands in the addCommands() call, e.g.
-    final MoveToPose getFirstPivotPoint = new MoveToPose(firtPose);
-    final MoveToPose getSeconPivotPoint = new MoveToPose(secondPose);
-    final MoveToPose getTargetPose = new MoveToPose(thirdPose);
+    //final MoveToPose getFirstPivotPoint = new MoveToPose(firtPose);
+    //final MoveToPose getSeconPivotPoint = new MoveToPose(secondPose);
+    //final MoveToPose getTargetPose = new MoveToPose(thirdPose);
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(() -> SmartDashboard.putString("Target Pose : ", thirdPose.toString())),
-      getFirstPivotPoint,
-      getSeconPivotPoint,
-      getTargetPose
+      new InstantCommand(() -> SmartDashboard.putString("Target Pose : ", thirdPose.toString()))
+      //getFirstPivotPoint,
+      //getSeconPivotPoint,
+      //getTargetPose
     );
     
   }

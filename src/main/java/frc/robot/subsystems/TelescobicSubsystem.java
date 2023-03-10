@@ -97,23 +97,25 @@ public class TelescobicSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     //maybeShouldStop();   
+
+    setTelescopicControlState(TelescopicControlState.HOMING);
    
     switch(m_controlState){
       case OPEN_LOOP:
-        setMotorOutput();
+        //setMotorOutput();
         break;
       case MOTION_MAGIC:
-        setLength();
+        //setLength();
         break;
       case TORQUE_CONTROL:
-        holdPosition();
+        //holdPosition();
         break;
       default:
         stop();
         break;
     }
 
-    //setTelescopicControlState(TelescopicControlState.HOMING);
+
 
     SmartDashboard.putString("Telescopic State: ", m_controlState.toString());
     SmartDashboard.putNumber("Telescopic Length", getLength());
@@ -188,11 +190,11 @@ public class TelescobicSubsystem extends SubsystemBase {
   }
 
   public double getLength(){
-    var masterRot = telescobicMaster.getRotorPosition();
+    /*var masterRot = telescobicMaster.getRotorPosition();
     masterRot.refresh(); 
     double pulleyRotation = masterRot.getValue() / falconGearbox.getRatio();
-    return pulleyRotation * pulleyCircumferenceInCM;
-    //return 92.225;
+    return pulleyRotation * pulleyCircumferenceInCM;*/
+    return 92.225;
   }
 
   public double getCurrent(){

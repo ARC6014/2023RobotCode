@@ -101,22 +101,22 @@ public class Constants {
 
     public static final class AutoConstants {
 
-        public static final double kMaxSpeed = 3.5;
-        public static final double kMaxAcceleration = 3;
+        public static final double kMaxSpeed = 3;
+        public static final double kMaxAcceleration = 1.5;
 
         public static final double kPXController = 1.05;
         public static final double kPYController = 1.05;
         public static final double kPThetaController = 5;
 
-        public static final double kPdriveOnTeleop = 1.05;
-        public static final double kDdriveOnTeleop = 0.005;
-        public static final double kPturnOnTeleop = 2.25;
-        public static final double kDturnOnTeleop = 0.05;
+        public static final double kPdriveOnTeleop = 1.2;
+        public static final double kDdriveOnTeleop = 0.01;
+        public static final double kPturnOnTeleop = 1.25;
+        public static final double kDturnOnTeleop = 0.01;
         public static final double onTheFlyMoveTreshold = 0.5;
 
         public static final double kMaxAngularSpeed = Math.PI * 0.8;
 
-        public static final double kMaxAngularAccel = Math.pow(kMaxAngularSpeed, 1.8);
+        public static final double kMaxAngularAccel = Math.pow(kMaxAngularSpeed, 2.1);
 
         public static final double OnTheFlyPathGenerationTreshold = 0.5;
         public static final double kMaxAccelerationOnTeleop = 3;

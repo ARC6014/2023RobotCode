@@ -48,7 +48,7 @@ public class DriveByJoystick extends CommandBase {
     
     m_drive.lockSwerve(m_isLocked.getAsBoolean());
 
-    double scalar = m_rush.getAsBoolean()? 1 : scalarValue;   
+    double scalar = m_rush.getAsBoolean()? 1 : scalarValue;
 
     double xSpeed = m_slewX.calculate(inputTransform(m_x.getAsDouble()) * DriveConstants.maxSpeed) * scalar;
     double ySpeed = m_slewY.calculate(inputTransform(m_y.getAsDouble()) * DriveConstants.maxSpeed) * scalar;

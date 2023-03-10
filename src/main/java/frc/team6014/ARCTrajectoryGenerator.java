@@ -25,7 +25,7 @@ import frc.team6014.lib.math.AllianceFlipUtil;
 /** Add your docs here. */
 public class ARCTrajectoryGenerator {
 
-    private static DriveSubsystem m_drive = DriveSubsystem.getInstance();
+   /*  private static DriveSubsystem m_drive = DriveSubsystem.getInstance();
     //private static PoseEstimatorSubsystem m_poseEstimator = PoseEstimatorSubsystem.getInstance();
 
     public static PathPlannerTrajectory generateTrajectory(Pose2d targetPose2d){
@@ -48,7 +48,7 @@ public class ARCTrajectoryGenerator {
         return DriverStation.getAlliance() == Alliance.Blue ?
         new PathPoint(pose.getTranslation(), Rotation2d.fromDegrees(getHeadingforPoints(initial, pose) - 90), pose.getRotation()) : 
         new PathPoint(AllianceFlipUtil.apply(pose).getTranslation(), Rotation2d.fromDegrees(-getHeadingforPoints(initial, AllianceFlipUtil.apply(pose)) - 90), AllianceFlipUtil.apply(pose.getRotation()));
-    }
+    }*/
 
 
 

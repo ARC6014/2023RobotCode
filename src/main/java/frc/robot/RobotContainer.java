@@ -58,7 +58,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private final DriveByJoystick driveByJoystick = new DriveByJoystick(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawAxis(0) * -1, () -> m_driver.getRawAxis(2) * -1, () -> m_driver.getRawButton(7), () -> m_driver.getRawButton(8));
-  private final MoveToPose m_autoMove = new MoveToPose(new Pose2d(14.5,4.5,  Rotation2d.fromDegrees(-180)));
+  private final MoveToPose m_autoMove = new MoveToPose( new Pose2d(14.65,3.842,  Rotation2d.fromDegrees(180)));
 
   private final ElevatorDeneme m_Eeneme = new ElevatorDeneme(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawButton(1), () -> m_driver.getRawButton(2));
   private final TelescopicDeneme m_Teneme = new TelescopicDeneme(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawButton(1), () -> m_driver.getRawButton(2));

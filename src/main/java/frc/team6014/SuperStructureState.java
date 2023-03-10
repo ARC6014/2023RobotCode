@@ -81,6 +81,10 @@ public class SuperStructureState {
        return this.height - (this.length * Math.cos(Math.toRadians(this.degree)));
     }
 
+    public double getAbsoluteExtension(){
+        return  (this.length * Math.sin(Math.toRadians(this.degree))) - 12.94;
+    }
+
     public boolean isInSameSide(SuperStructureState other){
         return other.isRobotSide == this.isRobotSide;
     }

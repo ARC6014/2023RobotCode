@@ -40,8 +40,8 @@ public static PoseEstimatorSubsystem getInstance(){
 }
 
 private final DriveSubsystem m_drive = DriveSubsystem.getInstance();
-private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.1, 0.1, 2.5);
-private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(0.5, 0.5, 0.05);
+private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.5, 0.5, 3);
+private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(1.5, 1.5, 0.5);
 
 
 private final SwerveDrivePoseEstimator m_poseEstimator;

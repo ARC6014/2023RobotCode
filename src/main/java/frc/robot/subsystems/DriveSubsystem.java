@@ -180,11 +180,11 @@ public class DriveSubsystem extends SubsystemBase{
 
     }
 
-    public void angleAlignDrive(double xSpeed, double ySpeed, boolean fieldRelative,
+    /*public void angleAlignDrive(double xSpeed, double ySpeed, boolean fieldRelative,
             double targetHeading) {
         double rotation = snapPIDController.calculate(getRotation2d().getRadians(), Math.toRadians(targetHeading));
         swerveDrive(xSpeed, ySpeed, rotation, fieldRelative);
-    }
+    }*/
 
     /*
      * Auto Swerve States Method
@@ -281,16 +281,6 @@ public class DriveSubsystem extends SubsystemBase{
 
     public Pose2d getPose() {
         return m_odometry.getPoseMeters();
-    }
-
-    public PathPoint getPathPoint(Pose2d targetPose2d) {
-        return DriverStation.getAlliance() == Alliance.Blue
-                ? new PathPoint(new Translation2d(getPose().getX(), getPose().getY()), Rotation2d.fromDegrees(
-                        ARCTrajectoryGenerator.getHeadingforPoints(getPose(), targetPose2d) - 90), getRotation2d())
-                : new PathPoint(new Translation2d(getPose().getX(), getPose().getY()), Rotation2d.fromDegrees(
-                        -ARCTrajectoryGenerator.getHeadingforPoints(getPose(), AllianceFlipUtil.apply(targetPose2d))
-                                - 90),
-                        getRotation2d());
     }
 
     SwerveModulePosition[] getModulePositions() {
