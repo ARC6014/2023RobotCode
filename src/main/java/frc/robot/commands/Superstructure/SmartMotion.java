@@ -21,7 +21,7 @@ public class SmartMotion extends CommandBase {
 
   private SuperStructureState m_currentState;
   private SuperStructureState m_targetState;
-  private final SuperStructureState m_pivotState = new SuperStructureState(126,92,0);
+  private final SuperStructureState m_pivotState = new SuperStructureState(126,92.5,0);
   //private final SuperStructureState m_autoExtendState = new SuperStructureState(95, 95,0);
   private boolean needToSwitch = true;
   private boolean isDangerZone = true;
@@ -39,7 +39,7 @@ public class SmartMotion extends CommandBase {
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
     m_targetState = RobotState.getInstance().getTargetState();
     needToSwitch = m_currentState.isInSameSide(m_targetState);
-    m_carriage.slowCarriage();
+    //m_carriage.slowCarriage();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -68,7 +68,28 @@ public class SmartMotion extends CommandBase {
 
     }else{
 
-      if(m_currentState.getRobotSide()){
+      if(m_targetState.getRobotSide()){
+        if(shouldWait){
+          m_elevator.stop();
+        }else{
+          m_elevator.setElevatorPosition(m_targetState);
+        }
+      }
+      m_elevator.setElevatorPosition(m_targetState);
+
+
+      m_carriage.setCarriagePosition(m_targetState);
+
+      if(!m_targetState.getRobotSide()){
+        if(m_currentState.getDegree() > extensionAngle() && m_elevator.isAtSetpoint()){
+          m_telescop.setTelescopicPosition(m_targetState);
+        }else{
+          m_telescop.holdTelescopicPosition();
+        }
+      }
+      m_telescop.setTelescopicPosition(m_targetState);
+
+      /*if(m_currentState.getRobotSide()){
         if(m_currentState.getDegree() > m_targetState.getDegree()){
           if(shouldWait){
             m_elevator.stop();
@@ -99,7 +120,7 @@ public class SmartMotion extends CommandBase {
           m_telescop.setTelescopicPosition(m_targetState);
         }
 
-      }
+      }*/
 
 
     }
@@ -123,7 +144,7 @@ public class SmartMotion extends CommandBase {
 
   private double extensionAngle(){
     double absHeight = 90 - m_elevator.getHeight();
-    double radian = Math.atan(absHeight / 80);
+    double radian = Math.atan(absHeight / 70);
     return Math.toDegrees(radian) + 90;
   }
 

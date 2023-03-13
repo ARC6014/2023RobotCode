@@ -2,21 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Resetting;
+package frc.robot.commands.Superstructure.Resetting;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.TelescobicSubsystem;
 
-public class ZeroElevator extends CommandBase {
-  /** Creates a new ZeroElevator. */
-  private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
+public class ZeroTelescopic extends CommandBase {
+  /** Creates a new ZeroTelescopic. */
+  private final TelescobicSubsystem m_telescobicArmSubsystem = TelescobicSubsystem.getInstance();
   private Timer m_timer = new Timer();
   private boolean m_isFinished;
 
-  public ZeroElevator() {
+  public ZeroTelescopic() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_elevator);
+    addRequirements(m_telescobicArmSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -25,15 +25,17 @@ public class ZeroElevator extends CommandBase {
     m_timer.reset();
     m_timer.start();
     m_isFinished = false;
-    m_elevator.setElevatorOpenLoop(-0.2);
+    System.out.println("alo");
+  //  m_telescobicArmSubsystem.setMotorOutput(-0.1);
+  m_telescobicArmSubsystem.setTelescopicOpenLoop(-0.1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_timer.get() > 0.5 && m_elevator.getCurrent() > 20) {
-      m_elevator.stop();
-      m_elevator.resetToZero();
+    if (m_timer.get() > 0.5 && m_telescobicArmSubsystem.getCurrent() > 12) {
+      m_telescobicArmSubsystem.stop();
+      m_telescobicArmSubsystem.resetToZero();
       m_isFinished = true;
     }
   }
@@ -42,7 +44,8 @@ public class ZeroElevator extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_timer.stop();
-    m_elevator.updateLastDemandedHeight(45);
+    m_telescobicArmSubsystem.stop();
+    m_telescobicArmSubsystem.updateLastDemandedLength(94);
   }
 
   // Returns true when the command should end.

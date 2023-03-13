@@ -9,14 +9,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotState.scoreLevel;
+import frc.robot.commands.AutoScore;
 import frc.robot.commands.DriveByJoystick;
-import frc.robot.commands.Deneme.CarriageDeneme;
-import frc.robot.commands.Deneme.ElevatorDeneme;
-import frc.robot.commands.Deneme.TelescopicDeneme;
 import frc.robot.commands.Grabbing.RelaseCommand;
 import frc.robot.commands.Intaking.IntakeCommand;
-import frc.robot.commands.Resetting.ZeroTelescopic;
 import frc.robot.commands.Superstructure.SmartMotion;
+import frc.robot.commands.Superstructure.Deneme.CarriageDeneme;
+import frc.robot.commands.Superstructure.Deneme.ElevatorDeneme;
+import frc.robot.commands.Superstructure.Deneme.TelescopicDeneme;
+import frc.robot.commands.Superstructure.Resetting.ZeroTelescopic;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -52,7 +53,8 @@ public class RobotContainer {
   private final TelescopicDeneme m_Teneme = new TelescopicDeneme(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawButton(1), () -> m_driver.getRawButton(2));
   private final CarriageDeneme m_Aeneme = new CarriageDeneme(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawButton(1), () -> m_driver.getRawButton(2));
 
-  //private final SmartMotion m_superStructure = new SmartMotion();
+  private final SmartMotion m_superStructure = new SmartMotion();
+  private final AutoScore m_score = new AutoScore();
   private final IntakeCommand m_intaking = new IntakeCommand();
   private final RelaseCommand m_RelaseCommand = new RelaseCommand();
 
@@ -62,7 +64,7 @@ public class RobotContainer {
 
     //m_drive.setDefaultCommand(driveByJoystick);
     //m_elevator.setDefaultCommand(m_Eeneme);
-    m_telescop.setDefaultCommand(m_Teneme);
+    //m_telescop.setDefaultCommand(m_Teneme);
     //m_carriage.setDefaultCommand(m_Aeneme);
     // Configure the trigger bindings
 
@@ -79,7 +81,7 @@ public class RobotContainer {
         RobotState.getInstance().setCone();
     }*/
 
-    /*new JoystickButton(m_operator, 1).whileTrue(new InstantCommand(() -> RobotState.getInstance().setCone()));
+    new JoystickButton(m_operator, 1).whileTrue(new InstantCommand(() -> RobotState.getInstance().setCone()));
     new JoystickButton(m_operator, 2).whileTrue(new InstantCommand(() -> RobotState.getInstance().setCube()));
 
     new JoystickButton(m_operator, 11).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)));
@@ -90,14 +92,15 @@ public class RobotContainer {
 
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     //new JoystickButton(m_driver, 6).onTrue(new ZeroElevator());
-    new JoystickButton(m_operator, 8).whileTrue(m_superStructure);*/
-    /*new JoystickButton(m_driver, 4).whileTrue(m_intaking);
-    new JoystickButton(m_driver, 2).whileTrue(m_RelaseCommand);
+    new JoystickButton(m_operator, 8).whileTrue(m_superStructure);
+    new JoystickButton(m_driver, 4).whileTrue(m_intaking);
+    new JoystickButton(m_driver, 1).whileTrue(m_score);
+    /*new JoystickButton(m_driver, 2).whileTrue(m_RelaseCommand);
 
     new JoystickButton(m_driver, 1).whileTrue(m_autoMove);
     new JoystickButton(m_driver, 2).whileTrue(m_SautoMove);*/
 
-    new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
+    //new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
 
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
   }

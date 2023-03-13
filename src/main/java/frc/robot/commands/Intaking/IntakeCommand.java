@@ -39,6 +39,7 @@ public class IntakeCommand extends CommandBase {
     }else{
       m_intake.intakeCube();
     }
+    System.out.println("alo");
     m_grabber.grab();
   }
 

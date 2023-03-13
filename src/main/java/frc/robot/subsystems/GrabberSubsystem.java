@@ -42,7 +42,7 @@ public class GrabberSubsystem extends SubsystemBase{
 
     public void release() {
         if(RobotState.getInstance().getPiece() == pieceState.CONE){
-            grabberMotorMaster.set(ControlMode.PercentOutput, -0.1);
+            grabberMotorMaster.set(ControlMode.PercentOutput, -0.12);
         }else{
             grabberMotorMaster.set(ControlMode.PercentOutput, -0.35);
         }
