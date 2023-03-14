@@ -144,7 +144,7 @@ public class NodeSelector {
 
 
 
-                
+
         // Second Level - Cube
         Shuffleboard.getTab("GamePieces")
                 .add("LEVEL2 Cube", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
@@ -167,37 +167,37 @@ public class NodeSelector {
 
         // Second Level - Cone
         Shuffleboard.getTab("GamePieces")
-                .add("LEVEL1 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
+                .add("LEVEL2 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
                 .withWidget(BuiltInWidgets.kCommand)
                 .withPosition(0, 0)
                 .withSize(1, 1)
                 .withProperties(Map.of("ID", 18));
         Shuffleboard.getTab("GamePieces")
-                .add("LEVEL1 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
+                .add("LEVEL2 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
                 .withWidget(BuiltInWidgets.kCommand)
                 .withPosition(2, 0)
                 .withSize(1, 1)
                 .withProperties(Map.of("ID", 20));
         Shuffleboard.getTab("GamePieces")
-                .add("LEVEL1 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
+                .add("LEVEL2 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
                 .withWidget(BuiltInWidgets.kCommand)
                 .withPosition(3, 0)
                 .withSize(1, 1)
                 .withProperties(Map.of("ID", 21));
         Shuffleboard.getTab("GamePieces")
-                .add("LEVEL1 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
+                .add("LEVEL2 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
                 .withWidget(BuiltInWidgets.kCommand)
                 .withPosition(5, 0)
                 .withSize(1, 1)
                 .withProperties(Map.of("ID", 23));
         Shuffleboard.getTab("GamePieces")
-                .add("LEVEL1 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
+                .add("LEVEL2 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
                 .withWidget(BuiltInWidgets.kCommand)
                 .withPosition(6, 0)
                 .withSize(1, 1)
                 .withProperties(Map.of("ID", 24));
         Shuffleboard.getTab("GamePieces")
-                .add("LEVEL1 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
+                .add("LEVEL2 Cone", new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)))
                 .withWidget(BuiltInWidgets.kCommand)
                 .withPosition(8, 0)
                 .withSize(1, 1)
