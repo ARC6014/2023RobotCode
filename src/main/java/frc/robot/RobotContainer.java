@@ -56,6 +56,8 @@ public class RobotContainer {
   private final IntakeCommand m_intaking = new IntakeCommand();
   private final RelaseCommand m_RelaseCommand = new RelaseCommand();
 
+  private final NodeSelector m_nodeSelector = NodeSelector.getInstance();
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
