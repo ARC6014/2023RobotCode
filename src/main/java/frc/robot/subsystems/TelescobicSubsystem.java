@@ -52,9 +52,9 @@ public class TelescobicSubsystem extends SubsystemBase {
     telescobicMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 27;
-    configs.Slot0.kI = 1.5;
-    configs.Slot0.kD = 0.08;
+    configs.Slot0.kP = 28;
+    configs.Slot0.kI = 1.6;
+    configs.Slot0.kD = 0.075;
     configs.Slot0.kS = 0.01;
     configs.Slot0.kV = 0;
 
@@ -215,7 +215,7 @@ public class TelescobicSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getLength() - getLength()) < 0.4; 
+    return Math.abs(targetState.getLength() - getLength()) < 0.5; 
   } 
 
 

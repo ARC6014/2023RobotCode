@@ -146,14 +146,14 @@ public class RobotState{
         return AllianceFlipUtil.apply(firstNodePose);
     }
 
-    private final SuperStructureState homingState = new SuperStructureState(120, 92.8, -20);
+    private final SuperStructureState homingState = new SuperStructureState(125, 93.1, 5);
 
-    private final SuperStructureState intakeCube = new SuperStructureState(105,92.8, -40);
-    private final SuperStructureState groundCube = new SuperStructureState(120,92.8, 50);
-    private final SuperStructureState firstCube = new SuperStructureState(115,93, 72.5);
+    private final SuperStructureState intakeCube = new SuperStructureState(105,93.1, -40);
+    private final SuperStructureState groundCube = new SuperStructureState(120,93.1, 50);
+    private final SuperStructureState firstCube = new SuperStructureState(115,93.1, 72.5);
     private final SuperStructureState secondCube = new SuperStructureState(124,105, 90);
 
-    private final SuperStructureState intakeCone = new SuperStructureState(100,92.8, 90);
+    private final SuperStructureState intakeCone = new SuperStructureState(100,93.1, 90);
     private final SuperStructureState groundCone = new SuperStructureState(60,95, 55);
     private final SuperStructureState firstCone = new SuperStructureState(71,93, 124);
     private final SuperStructureState secondCone = new SuperStructureState(96,130, 115);

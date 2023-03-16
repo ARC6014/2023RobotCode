@@ -12,7 +12,7 @@ public class SuperStructureState {
     private boolean isRobotSide;
 
     private double[] kTolerances = {
-        0.4,
+        0.5,
         1,
         1.5
     };

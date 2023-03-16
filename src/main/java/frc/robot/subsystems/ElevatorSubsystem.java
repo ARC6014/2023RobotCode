@@ -65,17 +65,17 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.Slot0.kS = 0.85;
     configs.Slot0.kV = 0.08;
 
-    configs.Slot1.kP = 4.7;
-    configs.Slot1.kI = 0.27;
-    configs.Slot1.kD = 0.06;
-    configs.Slot1.kS = 0.6;
-    configs.Slot1.kV = 0;
+    configs.Slot1.kP = 20;
+    configs.Slot1.kI = 2;
+    configs.Slot1.kD = 0.05;
+    configs.Slot1.kS = 0.85;
+    configs.Slot1.kV = 0.01;
 
-    configs.Slot2.kP = 5.5;
-    configs.Slot2.kI = 0.7;
-    configs.Slot2.kD = 0.8;
-    configs.Slot2.kS = 0.05;
-    configs.Slot2.kV = 0.01;
+    configs.Slot2.kP = 5;
+    configs.Slot2.kI = 0.6;
+    configs.Slot2.kD = 0.9;
+    configs.Slot2.kS = 0.04;
+    configs.Slot2.kV = 0.005;
 
     configs.Voltage.PeakForwardVoltage = 8;
     configs.Voltage.PeakReverseVoltage = -6;

@@ -6,7 +6,9 @@ package frc.robot.commands.Superstructure;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.RobotState;
+import frc.robot.RobotState.scoreLevel;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsytem;
@@ -49,8 +51,10 @@ public class SmartMotion extends CommandBase {
 
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
 
+    double outsideAngle = RobotState.getInstance().getScoreTarget() == scoreLevel.HOMING? 4.5 : 15.5;
+
     needToSwitch = !m_currentState.isInSameSide(m_targetState);
-    isDangerZone = m_currentState.getDegree() > -10 && m_currentState.getDegree() < 15.5;
+    isDangerZone = m_currentState.getDegree() > -10 && m_currentState.getDegree() < outsideAngle;
     shouldWait = !(m_currentState.getAbsoluteHeight() > RobotState.getInstance().getEndEffector());
 
     SmartDashboard.putBoolean("switch", needToSwitch);
@@ -75,8 +79,8 @@ public class SmartMotion extends CommandBase {
           m_elevator.setElevatorPosition(m_targetState);
         }
       }
-      m_elevator.setElevatorPosition(m_targetState);
 
+      m_elevator.setElevatorPosition(m_targetState);
 
       m_carriage.setCarriagePosition(m_targetState);
 
@@ -144,7 +148,7 @@ public class SmartMotion extends CommandBase {
 
   private double extensionAngle(){
     double absHeight = 90 - m_elevator.getHeight();
-    double radian = Math.atan(absHeight / 70);
+    double radian = Math.atan(absHeight / 60);
     return Math.toDegrees(radian) + 90;
   }
 
