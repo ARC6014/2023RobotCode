@@ -15,7 +15,7 @@ import frc.team6014.SuperStructureState;
 
 public class CarriageDeneme extends CommandBase {
   private final CarriageSubsystem m_carriage = CarriageSubsystem.getInstance();
-  private final SuperStructureState targetState = new SuperStructureState(125, 0, 90);
+  private final SuperStructureState targetState = new SuperStructureState(124, 0, 90);
   private final DoubleSupplier joystick;
   private final BooleanSupplier m_button;
   private final BooleanSupplier m_secondButton;

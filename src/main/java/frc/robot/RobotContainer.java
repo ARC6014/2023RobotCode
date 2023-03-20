@@ -5,8 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotState.scoreLevel;
 import frc.robot.commands.DriveByJoystick;
@@ -15,6 +17,7 @@ import frc.robot.commands.Deneme.ElevatorDeneme;
 import frc.robot.commands.Deneme.TelescopicDeneme;
 import frc.robot.commands.Grabbing.RelaseCommand;
 import frc.robot.commands.Intaking.IntakeCommand;
+import frc.robot.commands.Resetting.ZeroElevator;
 import frc.robot.commands.Resetting.ZeroTelescopic;
 import frc.robot.commands.Superstructure.SmartMotion;
 import frc.robot.subsystems.CarriageSubsystem;
@@ -33,6 +36,7 @@ import frc.team6014.MoveToPose;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  
   private final DriveSubsystem m_drive = DriveSubsystem.getInstance();
   private final PoseEstimatorSubsystem m_poseEstimator = PoseEstimatorSubsystem.getInstance(); 
   private final IntakeSubsytem m_intake = IntakeSubsytem.getInstance();
@@ -40,6 +44,7 @@ public class RobotContainer {
   private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
   private final TelescobicSubsystem m_telescop = TelescobicSubsystem.getInstance();
   private final CarriageSubsystem m_carriage = CarriageSubsystem.getInstance();
+  private final RobotState m_robotState = RobotState.getInstance();
   private final Joystick m_driver = new Joystick(0);
   private final Joystick m_operator = new Joystick(1);
   // The robot's subsystems and commands are defined here...
@@ -55,24 +60,42 @@ public class RobotContainer {
   //private final SmartMotion m_superStructure = new SmartMotion();
   private final IntakeCommand m_intaking = new IntakeCommand();
   private final RelaseCommand m_RelaseCommand = new RelaseCommand();
+  private final SmartMotion m_motion = new SmartMotion();
 
   private final NodeSelector m_nodeSelector = NodeSelector.getInstance();
+  private final RobotState m_state = RobotState.getInstance();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    //m_drive.setDefaultCommand(driveByJoystick);
+    m_drive.setDefaultCommand(driveByJoystick);
     //m_elevator.setDefaultCommand(m_Eeneme);
-    m_telescop.setDefaultCommand(m_Teneme);
+    //m_telescop.setDefaultCommand(m_Teneme);
     //m_carriage.setDefaultCommand(m_Aeneme);
     // Configure the trigger bindings
-
+    m_nodeSelector.ConfigureWidgets();
+    
     configureBindings();
   }
 
 
   private void configureBindings() {
+    //new JoystickButton(m_operator, 1).whileTrue(m_RelaseCommand);
+    //new JoystickButton(m_operator, 2).whileTrue(m_intaking);
+/* 
+    new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
+    new JoystickButton(m_driver, 1).whileTrue(m_motion);
+    new JoystickButton(m_driver, 4).whileTrue(m_intaking);
+    new JoystickButton(m_driver, 2).whileTrue(m_RelaseCommand);
+
+    new JoystickButton(m_driver, 8).onTrue(new RunCommand(()-> m_intake.extendIntake(), m_intake));
+    new JoystickButton(m_driver, 7).onTrue(new RunCommand(()-> m_intake.retractIntake(), m_intake));
+    new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
+    new JoystickButton(m_operator, 1).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)));
+*/ 
+    
+
     /* 
     switch(robotStateSelector.getSelected()){
       case 1:
@@ -99,7 +122,7 @@ public class RobotContainer {
     new JoystickButton(m_driver, 1).whileTrue(m_autoMove);
     new JoystickButton(m_driver, 2).whileTrue(m_SautoMove);*/
 
-    new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
+    //new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
 
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
   }

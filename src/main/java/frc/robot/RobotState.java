@@ -2,10 +2,14 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team6014.SuperStructureState;
 import frc.team6014.lib.math.AllianceFlipUtil;
 
-public class RobotState{
+public class RobotState extends SubsystemBase{
 
     private static RobotState mInstance;
 
@@ -17,10 +21,19 @@ public class RobotState{
         return mInstance;
     }
 
+    public void periodic() {
+        SmartDashboard.putString("State", m_targetPiece.toString());
+        SmartDashboard.putString("Target Pose", m_targetPose.toString());
+        SmartDashboard.putString("Level", m_level.toString());
+        SmartDashboard.putString("Intake Level", m_intakeLevel.toString());
+        SmartDashboard.putNumber("Absolute Height", currentStructureState.getAbsoluteHeight());
+    }
+
     private SuperStructureState currentStructureState = new SuperStructureState();
     private pieceState m_targetPiece = pieceState.CONE;
     private scoreLevel m_level = scoreLevel.HOMING;
     private targetScorePose m_targetPose = targetScorePose.secondNode;
+    private intakeLevel m_intakeLevel = intakeLevel.doubleStation;
 
     public enum pieceState {
         CUBE,
@@ -33,6 +46,12 @@ public class RobotState{
         FirstLevel,
         SecondLevel,
         HOMING
+    }
+
+    public enum intakeLevel {
+        ground,
+        doubleStation,
+        singleStation
     }
 
     public enum targetScorePose{
@@ -69,6 +88,12 @@ public class RobotState{
         }
     }
 
+    public void setIntakeLevel(intakeLevel level){
+        if(m_intakeLevel != level){
+            m_intakeLevel = level;
+        }
+    }
+
     public void setTargetPose(targetScorePose pose){
         if(m_targetPose != pose){
             m_targetPose = pose;
@@ -90,11 +115,11 @@ public class RobotState{
     public double getEndEffector(){
         if(m_targetPiece == pieceState.CUBE){
             if(currentStructureState.getDegree() < - 17.5){
-                return 24.5;
+                return 26;
             }
-            return 30.5;
+            return 29;
         }
-        return 30.05;
+        return 28.3;
     }
 
     public SuperStructureState getCurrentSuperStructureState(){
@@ -107,10 +132,15 @@ public class RobotState{
 
     public SuperStructureState getTargetState(){
          if(m_level == scoreLevel.Intake){
-            if(m_targetPiece == pieceState.CUBE){
-                return intakeCube;
+            if(m_intakeLevel == intakeLevel.ground){
+                if(m_targetPiece == pieceState.CUBE){
+                    return intakeCubeFromGround;
+                }
+                return intakeConeFromGround;
             }
-            return intakeCone;
+            if(m_intakeLevel == intakeLevel.doubleStation) return intakeFromDoubleStataion;
+            if(m_intakeLevel == intakeLevel.singleStation) return intakeFromSingleStataion;
+
         }else if(m_level == scoreLevel.Ground){
             if(m_targetPiece == pieceState.CUBE){
                 return groundCube;
@@ -131,7 +161,9 @@ public class RobotState{
     }
 
     public Pose2d getTargetPose(){
-        return new Pose2d(getScorePose().getX() + 0.2, getScorePose().getY(), getScorePose().getRotation());
+        return DriverStation.getAlliance() == Alliance.Blue ?
+        new Pose2d(getScorePose().getX() + 0.25, getScorePose().getY(), getScorePose().getRotation()) :
+        new Pose2d(getScorePose().getX() - 0.25, getScorePose().getY(), getScorePose().getRotation());
     }
 
     public Pose2d getScorePose(){
@@ -146,17 +178,19 @@ public class RobotState{
         return AllianceFlipUtil.apply(firstNodePose);
     }
 
-    private final SuperStructureState homingState = new SuperStructureState(120, 92.2, -20);
+    private final SuperStructureState homingState = new SuperStructureState(124, 94.4, -20);
+    private final SuperStructureState intakeFromDoubleStataion = new SuperStructureState(100, 94.4, 90);
+    private final SuperStructureState intakeFromSingleStataion = new SuperStructureState(110, 94.4, 90);
 
-    private final SuperStructureState intakeCube = new SuperStructureState(105,92.2, -40);
-    private final SuperStructureState groundCube = new SuperStructureState(120,92.5, 50);
-    private final SuperStructureState firstCube = new SuperStructureState(115,93, 72.5);
+    private final SuperStructureState intakeCubeFromGround = new SuperStructureState(105,94.4, -40);
+    private final SuperStructureState groundCube = new SuperStructureState(120,94.4, 50);
+    private final SuperStructureState firstCube = new SuperStructureState(115,94.4, 72.5);
     private final SuperStructureState secondCube = new SuperStructureState(124,105, 90);
 
-    private final SuperStructureState intakeCone = new SuperStructureState(100,92.5, 90);
+    private final SuperStructureState intakeConeFromGround = new SuperStructureState(100,92.5, 90);
     private final SuperStructureState groundCone = new SuperStructureState(120,95, 50);
-    private final SuperStructureState firstCone = new SuperStructureState(71,93, 124);
-    private final SuperStructureState secondCone = new SuperStructureState(96,130, 115);
+    private final SuperStructureState firstCone = new SuperStructureState(71,94.4, 124);
+    private final SuperStructureState secondCone = new SuperStructureState(94.5,130, 118);
 
     private static final Pose2d firstNodePose = new Pose2d(1.85, 4.95, Rotation2d.fromDegrees(0));
     private static final Pose2d firstCubePose = new Pose2d(1.85, 4.40, Rotation2d.fromDegrees(0));

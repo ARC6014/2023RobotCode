@@ -7,11 +7,7 @@ import java.util.Map;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotState.*;
 
 public class NodeSelector {
@@ -31,75 +27,76 @@ public class NodeSelector {
 
                 // Ground Hybrid
                 Shuffleboard.getTab("GamePieces")
-                                .add("G9", new InstantCommand(() -> applyNode(0)))
+                                .add("G9", new InstantCommand(() -> applyNode(0), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(8, 2)
+                                .withPosition(0, 0)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 0));
+                
                 Shuffleboard.getTab("GamePieces")
-                                .add("G8", new InstantCommand(() -> applyNode(1)))
+                                .add("G8", new InstantCommand(() -> applyNode(1), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(7, 2)
+                                .withPosition(1, 0)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 1));
                 Shuffleboard.getTab("GamePieces")
-                                .add("G7", new InstantCommand(() -> applyNode(2)))
+                                .add("G7", new InstantCommand(() -> applyNode(2), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(6, 2)
+                                .withPosition(2, 0)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 2));
                 Shuffleboard.getTab("GamePieces")
-                                .add("G6", new InstantCommand(() -> applyNode(3)))
+                                .add("G6", new InstantCommand(() -> applyNode(3), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(5, 2)
+                                .withPosition(3, 0)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 3));
                 Shuffleboard.getTab("GamePieces")
-                                .add("G5", new InstantCommand(() -> applyNode(4)))
+                                .add("G5", new InstantCommand(() -> applyNode(4), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(4, 2)
+                                .withPosition(4, 0)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 4));
                 Shuffleboard.getTab("GamePieces")
-                                .add("G4", new InstantCommand(() -> applyNode(5)))
+                                .add("G4", new InstantCommand(() -> applyNode(5), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(3, 2)
+                                .withPosition(5, 0)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 5));
                 Shuffleboard.getTab("GamePieces")
-                                .add("G3", new InstantCommand(() -> applyNode(6)))
+                                .add("G3", new InstantCommand(() -> applyNode(6), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(2, 2)
+                                .withPosition(6, 0)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 6));
                 Shuffleboard.getTab("GamePieces")
-                                .add("G2", new InstantCommand(() -> applyNode(7)))
+                                .add("G2", new InstantCommand(() -> applyNode(7), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(1, 2)
+                                .withPosition(7, 0)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 7));
                 Shuffleboard.getTab("GamePieces")
-                                .add("G1", new InstantCommand(() -> applyNode(8)))
+                                .add("G1", new InstantCommand(() -> applyNode(8), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(0, 2)
+                                .withPosition(8, 0)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 8));
 
                 // First Level - Cube
                 Shuffleboard.getTab("GamePieces")
-                                .add("1ST-Cube3", new InstantCommand(() -> applyNode(10)))
+                                .add("1ST-Cube3", new InstantCommand(() -> applyNode(10), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
                                 .withPosition(1, 1)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 10));
                 Shuffleboard.getTab("GamePieces")
-                                .add("1ST-Cube2", new InstantCommand(() -> applyNode(13)))
+                                .add("1ST-Cube2", new InstantCommand(() -> applyNode(13), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
                                 .withPosition(4, 1)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 13));
                 Shuffleboard.getTab("GamePieces")
-                                .add("1ST-Cube1", new InstantCommand(() -> applyNode(16)))
+                                .add("1ST-Cube1", new InstantCommand(() -> applyNode(16), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
                                 .withPosition(7, 1)
                                 .withSize(1, 1)
@@ -107,38 +104,38 @@ public class NodeSelector {
 
                 // First Level - Cone
                 Shuffleboard.getTab("GamePieces")
-                                .add("1ST-Cone6", new InstantCommand(() -> applyNode(9)))
+                                .add("1ST-Cone6", new InstantCommand(() -> applyNode(9), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
                                 .withPosition(0, 1)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 9));
                 Shuffleboard.getTab("GamePieces")
-                                .add("1ST-Cone5", new InstantCommand(() -> applyNode(11)))
+                                .add("1ST-Cone5", new InstantCommand(() -> applyNode(11), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
                                 .withWidget(BuiltInWidgets.kCommand)
                                 .withPosition(2, 1)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 11));
                 Shuffleboard.getTab("GamePieces")
-                                .add("1ST-Cone4", new InstantCommand(() -> applyNode(12)))
+                                .add("1ST-Cone4", new InstantCommand(() -> applyNode(12), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand).withWidget(BuiltInWidgets.kCommand)
                                 .withPosition(3, 1)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 12));
                 Shuffleboard.getTab("GamePieces")
-                                .add("1ST-Cone3", new InstantCommand(() -> applyNode(14)))
+                                .add("1ST-Cone3", new InstantCommand(() -> applyNode(14), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand).withWidget(BuiltInWidgets.kCommand)
                                 .withPosition(5, 1)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 14));
                 Shuffleboard.getTab("GamePieces")
-                                .add("1ST-Cone2", new InstantCommand(() -> applyNode(15)))
+                                .add("1ST-Cone2", new InstantCommand(() -> applyNode(15), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand).withWidget(BuiltInWidgets.kCommand)
                                 .withPosition(6, 1)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 15));
                 Shuffleboard.getTab("GamePieces")
-                                .add("1ST-Cone1", new InstantCommand(() -> applyNode(17)))
+                                .add("1ST-Cone1", new InstantCommand(() -> applyNode(17), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand).withWidget(BuiltInWidgets.kCommand)
                                 .withPosition(8, 1)
                                 .withSize(1, 1)
@@ -146,61 +143,91 @@ public class NodeSelector {
 
                 // Second Level - Cube
                 Shuffleboard.getTab("GamePieces")
-                                .add("2ND-Cube3", new InstantCommand(() -> applyNode(19)))
+                                .add("2ND-Cube3", new InstantCommand(() -> applyNode(19), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(1, 0)
+                                .withPosition(1, 2)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 19));
                 Shuffleboard.getTab("GamePieces")
-                                .add("2ND-Cube2", new InstantCommand(() -> applyNode(22)))
+                                .add("2ND-Cube2", new InstantCommand(() -> applyNode(22), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(4, 0)
+                                .withPosition(4, 2)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 22));
                 Shuffleboard.getTab("GamePieces")
-                                .add("2ND-Cube1", new InstantCommand(() -> applyNode(25)))
+                                .add("2ND-Cube1", new InstantCommand(() -> applyNode(25), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(7, 0)
+                                .withPosition(7, 2)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 25));
 
                 // Second Level - Cone
                 Shuffleboard.getTab("GamePieces")
-                                .add("2ND-Cone6", new InstantCommand(() -> applyNode(18)))
+                                .add("2ND-Cone6", new InstantCommand(() -> applyNode(18), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(0, 0)
+                                .withPosition(0, 2)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 18));
                 Shuffleboard.getTab("GamePieces")
-                                .add("2ND-Cone5", new InstantCommand(() -> applyNode(20)))
+                                .add("2ND-Cone5", new InstantCommand(() -> applyNode(20), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(2, 0)
+                                .withPosition(2, 2)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 20));
                 Shuffleboard.getTab("GamePieces")
-                                .add("2ND-Cone4", new InstantCommand(() -> applyNode(21)))
+                                .add("2ND-Cone4", new InstantCommand(() -> applyNode(21), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(3, 0)
+                                .withPosition(3, 2)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 21));
                 Shuffleboard.getTab("GamePieces")
-                                .add("2ND-Cone3", new InstantCommand(() -> applyNode(23)))
+                                .add("2ND-Cone3", new InstantCommand(() -> applyNode(23), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(5, 0)
+                                .withPosition(5, 2)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 23));
                 Shuffleboard.getTab("GamePieces")
-                                .add("2ND-Cone2", new InstantCommand(() -> applyNode(24)))
+                                .add("2ND-Cone2", new InstantCommand(() -> applyNode(24), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(6, 0)
+                                .withPosition(6, 2)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 24));
                 Shuffleboard.getTab("GamePieces")
-                                .add("2ND-Cone1", new InstantCommand(() -> applyNode(26)))
+                                .add("2ND-Cone1", new InstantCommand(() -> applyNode(26), m_robotState))
                                 .withWidget(BuiltInWidgets.kCommand)
-                                .withPosition(8, 0)
+                                .withPosition(8, 2)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 26));
+                Shuffleboard.getTab("GamePieces")
+                                .add("Ground Intake", new InstantCommand(() -> applyNode(50), m_robotState))
+                                .withWidget(BuiltInWidgets.kCommand)
+                                .withPosition(3, 4)
+                                .withSize(1, 1)
+                                .withProperties(Map.of("ID", 50));
+                Shuffleboard.getTab("GamePieces")
+                                .add("Double Intake", new InstantCommand(() -> applyNode(51), m_robotState))
+                                .withWidget(BuiltInWidgets.kCommand)
+                                .withPosition(4, 4)
+                                .withSize(1, 1)
+                                .withProperties(Map.of("ID", 51));
+                Shuffleboard.getTab("GamePieces")
+                                .add("Single Intake", new InstantCommand(() -> applyNode(52), m_robotState))
+                                .withWidget(BuiltInWidgets.kCommand)
+                                .withPosition(5, 4)
+                                .withSize(1, 1)
+                                .withProperties(Map.of("ID", 52));
+                Shuffleboard.getTab("GamePieces")
+                                .add("Cone", new InstantCommand(() -> applyNode(53), m_robotState))
+                                .withWidget(BuiltInWidgets.kCommand)
+                                .withPosition(4, 3)
+                                .withSize(1, 1)
+                                .withProperties(Map.of("ID", 53));
+                Shuffleboard.getTab("GamePieces")
+                                .add("Cube", new InstantCommand(() -> applyNode(54), m_robotState))
+                                .withWidget(BuiltInWidgets.kCommand)
+                                .withPosition(5, 3)
+                                .withSize(1, 1)
+                                .withProperties(Map.of("ID", 54));
         }
 
         public void applyNode(int id) {
@@ -208,143 +235,189 @@ public class NodeSelector {
 
                 // For Ground (Hybrid) Positions
                 if (id == 0) {
-                        RobotState.getInstance().setCone(); // TODO: Change this for ground mode
-                        RobotState.getInstance().setScoreLevel(scoreLevel.Ground);
-                        RobotState.getInstance().setTargetPose(targetScorePose.sixthNode);
+                        //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
+                        m_robotState.setScoreLevel(scoreLevel.Ground);
+                        m_robotState.setTargetPose(targetScorePose.sixthNode);
+                        System.out.println("G added");
                 }
                 if (id == 1) {
-                        RobotState.getInstance().setCone(); // TODO: Change this for ground mode
-                        RobotState.getInstance().setScoreLevel(scoreLevel.Ground);
-                        RobotState.getInstance().setTargetPose(targetScorePose.thirdCube);
+                        //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
+                        m_robotState.setScoreLevel(scoreLevel.Ground);
+                        m_robotState.setTargetPose(targetScorePose.thirdCube);
+                        System.out.println("G added");
                 }
                 if (id == 2) {
-                        RobotState.getInstance().setCone(); // TODO: Change this for ground mode
-                        RobotState.getInstance().setScoreLevel(scoreLevel.Ground);
-                        RobotState.getInstance().setTargetPose(targetScorePose.fifthNode);
+                        //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
+                        m_robotState.setScoreLevel(scoreLevel.Ground);
+                        m_robotState.setTargetPose(targetScorePose.fifthNode);
+                        System.out.println("G added");
                 }
                 if (id == 3) {
-                        RobotState.getInstance().setCone(); // TODO: Change this for ground mode
-                        RobotState.getInstance().setScoreLevel(scoreLevel.Ground);
-                        RobotState.getInstance().setTargetPose(targetScorePose.fourthNode);
+                        //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
+                        m_robotState.setScoreLevel(scoreLevel.Ground);
+                        m_robotState.setTargetPose(targetScorePose.fourthNode);
+                        System.out.println("G added");
                 }
                 if (id == 4) {
-                        RobotState.getInstance().setCone(); // TODO: Change this for ground mode
-                        RobotState.getInstance().setScoreLevel(scoreLevel.Ground);
-                        RobotState.getInstance().setTargetPose(targetScorePose.secondCube);
+                        //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
+                        m_robotState.setScoreLevel(scoreLevel.Ground);
+                        m_robotState.setTargetPose(targetScorePose.secondCube);
+                        System.out.println("G added");
                 }
                 if (id == 5) {
-                        RobotState.getInstance().setCone(); // TODO: Change this for ground mode
-                        RobotState.getInstance().setScoreLevel(scoreLevel.Ground);
-                        RobotState.getInstance().setTargetPose(targetScorePose.thirdNode);
+                        //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
+                        m_robotState.setScoreLevel(scoreLevel.Ground);
+                        m_robotState.setTargetPose(targetScorePose.thirdNode);
+                        System.out.println("G added");
                 }
                 if (id == 6) {
-                        RobotState.getInstance().setCone(); // TODO: Change this for ground mode
-                        RobotState.getInstance().setScoreLevel(scoreLevel.Ground);
-                        RobotState.getInstance().setTargetPose(targetScorePose.secondNode);
+                        //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
+                        m_robotState.setScoreLevel(scoreLevel.Ground);
+                        m_robotState.setTargetPose(targetScorePose.secondNode);
+                        System.out.println("G added");
                 }
                 if (id == 7) {
-                        RobotState.getInstance().setCone(); // TODO: Change this for ground mode
-                        RobotState.getInstance().setScoreLevel(scoreLevel.Ground);
-                        RobotState.getInstance().setTargetPose(targetScorePose.firstCube);
+                        //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
+                        m_robotState.setScoreLevel(scoreLevel.Ground);
+                        m_robotState.setTargetPose(targetScorePose.firstCube);
+                        System.out.println("G added");
                 }
                 if (id == 8) {
-                        RobotState.getInstance().setCone(); // TODO: Change this for ground mode
-                        RobotState.getInstance().setScoreLevel(scoreLevel.Ground);
-                        RobotState.getInstance().setTargetPose(targetScorePose.firstNode);
+                        //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
+                        m_robotState.setScoreLevel(scoreLevel.Ground);
+                        m_robotState.setTargetPose(targetScorePose.firstNode);
+                        System.out.println("G added");
                 }
 
                 // For First Level Placement
                 if (id == 9) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.sixthNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.FirstLevel);
+                        m_robotState.setTargetPose(targetScorePose.sixthNode);
+                        System.out.println("FL added");
                 }
                 if (id == 10) {
-                        RobotState.getInstance().setCube();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.thirdCube);
+                        m_robotState.setCube();
+                        m_robotState.setScoreLevel(scoreLevel.FirstLevel);
+                        m_robotState.setTargetPose(targetScorePose.thirdCube);
+                        System.out.println("FL added");
                 }
                 if (id == 11) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.fifthNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.FirstLevel);
+                        m_robotState.setTargetPose(targetScorePose.fifthNode);
+                        System.out.println("FL added");
                 }
                 if (id == 12) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.fourthNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.FirstLevel);
+                        m_robotState.setTargetPose(targetScorePose.fourthNode);
+                        System.out.println("FL added");
                 }
                 if (id == 13) {
-                        RobotState.getInstance().setCube();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.secondCube);
+                        m_robotState.setCube();
+                        m_robotState.setScoreLevel(scoreLevel.FirstLevel);
+                        m_robotState.setTargetPose(targetScorePose.secondCube);
+                        System.out.println("FL added");
                 }
                 if (id == 14) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.thirdNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.FirstLevel);
+                        m_robotState.setTargetPose(targetScorePose.thirdNode);
+                        System.out.println("FL added");
                 }
                 if (id == 15) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.secondNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.FirstLevel);
+                        m_robotState.setTargetPose(targetScorePose.secondNode);
+                        System.out.println("FL added");
                 }
                 if (id == 16) {
-                        RobotState.getInstance().setCube();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.firstCube);
+                        m_robotState.setCube();
+                        m_robotState.setScoreLevel(scoreLevel.FirstLevel);
+                        m_robotState.setTargetPose(targetScorePose.firstCube);
+                        System.out.println("FL added");
                 }
                 if (id == 17) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.firstNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.FirstLevel);
+                        m_robotState.setTargetPose(targetScorePose.firstNode);
+                        System.out.println("FL added");
                 }
 
                 // For Second-Level Placement
                 if (id == 18) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.sixthNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.SecondLevel);
+                        m_robotState.setTargetPose(targetScorePose.sixthNode);
+                        System.out.println("SL added");
                 }
                 if (id == 19) {
-                        RobotState.getInstance().setCube();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.thirdCube);
+                        m_robotState.setCube();
+                        m_robotState.setScoreLevel(scoreLevel.SecondLevel);
+                        m_robotState.setTargetPose(targetScorePose.thirdCube);
+                        System.out.println("SL added");
                 }
                 if (id == 20) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.fifthNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.SecondLevel);
+                        m_robotState.setTargetPose(targetScorePose.fifthNode);
+                        System.out.println("SL added");
                 }
                 if (id == 21) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.fourthNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.SecondLevel);
+                        m_robotState.setTargetPose(targetScorePose.fourthNode);
+                        System.out.println("SL added");
                 }
                 if (id == 22) {
-                        RobotState.getInstance().setCube();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.secondCube);
+                        m_robotState.setCube();
+                        m_robotState.setScoreLevel(scoreLevel.SecondLevel);
+                        m_robotState.setTargetPose(targetScorePose.secondCube);
+                        System.out.println("SL added");
                 }
                 if (id == 23) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.thirdNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.SecondLevel);
+                        m_robotState.setTargetPose(targetScorePose.thirdNode);
+                        System.out.println("SL added");
                 }
                 if (id == 24) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.secondNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.SecondLevel);
+                        m_robotState.setTargetPose(targetScorePose.secondNode);
+                        System.out.println("SL added");
                 }
                 if (id == 25) {
-                        RobotState.getInstance().setCube();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.firstCube);
+                        m_robotState.setCube();
+                        m_robotState.setScoreLevel(scoreLevel.SecondLevel);
+                        m_robotState.setTargetPose(targetScorePose.firstCube);
+                        System.out.println("SL added");
                 }
                 if (id == 26) {
-                        RobotState.getInstance().setCone();
-                        RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel);
-                        RobotState.getInstance().setTargetPose(targetScorePose.firstNode);
+                        m_robotState.setCone();
+                        m_robotState.setScoreLevel(scoreLevel.SecondLevel);
+                        m_robotState.setTargetPose(targetScorePose.firstNode);
+                        System.out.println("SL added");
+                }
+                
+                if (id == 50) {
+                        m_robotState.setScoreLevel(scoreLevel.Intake);
+                        m_robotState.setIntakeLevel(intakeLevel.ground);
+                }
+                if (id == 51) {
+                        m_robotState.setScoreLevel(scoreLevel.Intake);
+                        m_robotState.setIntakeLevel(intakeLevel.doubleStation);
+                }
+                if (id == 52) {
+                        m_robotState.setScoreLevel(scoreLevel.Intake);
+                        m_robotState.setIntakeLevel(intakeLevel.singleStation);
+                }
+                if (id == 53) {
+                        m_robotState.setCone();
+                }
+                if (id == 54) {
+                        m_robotState.setCube();
                 }
         }
 

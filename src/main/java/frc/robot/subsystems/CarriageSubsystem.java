@@ -12,9 +12,12 @@ import com.ctre.phoenixpro.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenixpro.hardware.TalonFX;
 import com.ctre.phoenixpro.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.AnalogEncoder;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotState;
@@ -40,9 +43,7 @@ public class CarriageSubsystem extends SubsystemBase {
   private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0,0,1,false); 
   private final DutyCycleOut m_percentOut = new DutyCycleOut(0, true, false);
 
-  private final Gearbox falconGearbox = new Gearbox(1 * 40 * 10, 75 * 42 * 40);
-  private final Gearbox encoderGearbox = new Gearbox(CarriageConstants.encoderDrivingGear,
-      CarriageConstants.encoderDrivenGear);
+  private final Gearbox falconGearbox = new Gearbox(1 * 32 * 18, 60 * 64 * 40);
   private double targetOutput = 0.0;
   private SuperStructureState targetState = new SuperStructureState();
   private double lastDemandedRotation;
@@ -58,25 +59,25 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 24;
-    configs.Slot0.kI = 5;
-    configs.Slot0.kD = 0.2;
-    configs.Slot0.kS = 0.65;
-    configs.Slot0.kV = 0.025;
+    configs.Slot0.kP = 25;
+    configs.Slot0.kI = 1.2;
+    configs.Slot0.kD = 0.6;
+    configs.Slot0.kS = 0.05;
+    configs.Slot0.kV = 0.01;
 
-    configs.Slot1.kP = 3;
-    configs.Slot1.kI = 0.5;
-    configs.Slot1.kD = 0.1;
-    configs.Slot1.kS = 0.48;
-    configs.Slot1.kV = 0.0;
+    configs.Slot1.kP = 8;
+    configs.Slot1.kI = 2;
+    configs.Slot1.kD = 0.08;
+    configs.Slot1.kS = 0.5;
+    configs.Slot1.kV = 0.025;
 
-    configs.Voltage.PeakForwardVoltage = CarriageConstants.peakForwardVoltage;
-    configs.Voltage.PeakReverseVoltage = CarriageConstants.peakReverseVoltage;
+    configs.Voltage.PeakForwardVoltage = 10;
+    configs.Voltage.PeakReverseVoltage = -10;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 180;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 180;;
-    configs.MotionMagic.MotionMagicAcceleration = 500; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 1050; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 400; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 120; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 800; //  değiştir
     
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
@@ -95,6 +96,9 @@ public class CarriageSubsystem extends SubsystemBase {
 
     lastDemandedRotation = getRotation();
     lastAbsoluteTime = m_timer.get();
+
+    new InstantCommand(() -> m_encoder.setPositionOffset(0.1), this);
+    m_encoder.setPositionOffset(0.055);
   }
 
   public static CarriageSubsystem getInstance() {
@@ -110,6 +114,7 @@ public class CarriageSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Carriage Falcon Degree", getRotation());
     SmartDashboard.putNumber("Carriage Current", getCurrent());
 
+    SmartDashboard.putNumber("ofsett", m_encoder.getPositionOffset());
     switch(m_controlState){
       case OPEN_LOOP:
         setMotorOutput();
@@ -222,7 +227,13 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public double getAbsolutePosition() {
-    return (((m_encoder.getAbsolutePosition() * 360) / encoderGearbox.getRatio() * -1) + 89.57 - 0.8 +2.05);
+    if(m_encoder.getAbsolutePosition() > 0 && m_encoder.getAbsolutePosition() < 0.5){
+      return m_encoder.getAbsolutePosition() * -360 + 17.8;
+    }
+    return m_encoder.getAbsolutePosition() * -360 + 360 + 17.8;
+
+
+
   }
 
   public double getRotation() {
@@ -238,7 +249,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void autoCalibration(){
-    if(( (getRotation() > 15 && getRotation() < 40) || (getRotation() > 55 && getRotation() < 65) )  && (m_timer.get() - lastAbsoluteTime) > 1.5){ 
+    if( (m_timer.get() - lastAbsoluteTime) > 1.5){ 
     resetToAbsolute();
     lastAbsoluteTime = m_timer.get();
     }

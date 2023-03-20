@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.TelescobicSubsystem;
 
 /**
@@ -23,6 +25,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  private NodeSelector m_nodeSelector;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -34,6 +37,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_nodeSelector = new NodeSelector();
+    
   }
 
   /**
@@ -62,6 +67,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    
     DriveSubsystem.getInstance().resetToAbsolute();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -69,6 +75,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+     
   }
 
   /** This function is called periodically during autonomous. */
@@ -78,6 +85,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     DriveSubsystem.getInstance().resetToAbsolute();
+    CarriageSubsystem.getInstance().resetToAbsolute();
     
     new InstantCommand(() -> ElevatorSubsystem.getInstance().updateLastDemandedHeight(ElevatorSubsystem.getInstance().getHeight()) , ElevatorSubsystem.getInstance());
     new InstantCommand(() -> TelescobicSubsystem.getInstance().updateLastDemandedLength(TelescobicSubsystem.getInstance().getLength()), TelescobicSubsystem.getInstance());
@@ -86,9 +94,11 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+     
   }
 
   /** This function is called periodically during operator control. */

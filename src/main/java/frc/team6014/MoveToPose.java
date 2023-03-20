@@ -45,7 +45,6 @@ public class MoveToPose extends CommandBase {
   @Override
   public void initialize() {
     m_targetPose = targetpose.get();
-    LimelightHelpers.setLEDMode_ForceOff("limelight");
     x_pid.reset(m_poseEstimatorSubsystem.getPose().getX());
     y_pid.reset(m_poseEstimatorSubsystem.getPose().getY());
     m_thetaController.reset(m_poseEstimatorSubsystem.getPose().getRotation().getRadians());
@@ -74,10 +73,9 @@ public class MoveToPose extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    LimelightHelpers.setLEDMode_ForceOn("limelight");
     m_drive.stop();
     m_drive.resetSnapPID();
-    SmartDashboard.putBoolean("Auto", true);
+    SmartDashboard.putBoolean("Auto Move", true);
   }
 
   // Returns true when the command should end.
