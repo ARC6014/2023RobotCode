@@ -228,6 +228,12 @@ public class NodeSelector {
                                 .withPosition(5, 3)
                                 .withSize(1, 1)
                                 .withProperties(Map.of("ID", 54));
+                Shuffleboard.getTab("GamePieces")
+                                .add("Homing", new InstantCommand(() -> applyNode(55), m_robotState))
+                                .withWidget(BuiltInWidgets.kCommand)
+                                .withPosition(3, 3)
+                                .withSize(1, 1)
+                                .withProperties(Map.of("ID", 55));
         }
 
         public void applyNode(int id) {
@@ -418,6 +424,9 @@ public class NodeSelector {
                 }
                 if (id == 54) {
                         m_robotState.setCube();
+                }
+                if (id == 55) {
+                        m_robotState.setScoreLevel(scoreLevel.HOMING);
                 }
         }
 

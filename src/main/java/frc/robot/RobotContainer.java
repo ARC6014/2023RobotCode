@@ -83,17 +83,17 @@ public class RobotContainer {
   private void configureBindings() {
     //new JoystickButton(m_operator, 1).whileTrue(m_RelaseCommand);
     //new JoystickButton(m_operator, 2).whileTrue(m_intaking);
-/* 
+ 
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     new JoystickButton(m_driver, 1).whileTrue(m_motion);
     new JoystickButton(m_driver, 4).whileTrue(m_intaking);
     new JoystickButton(m_driver, 2).whileTrue(m_RelaseCommand);
 
-    new JoystickButton(m_driver, 8).onTrue(new RunCommand(()-> m_intake.extendIntake(), m_intake));
-    new JoystickButton(m_driver, 7).onTrue(new RunCommand(()-> m_intake.retractIntake(), m_intake));
+    //new JoystickButton(m_driver, 8).onTrue(new RunCommand(()-> m_intake.extendIntake(), m_intake));
+    //new JoystickButton(m_driver, 7).onTrue(new RunCommand(()-> m_intake.retractIntake(), m_intake));
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     new JoystickButton(m_operator, 1).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)));
-*/ 
+
     
 
     /* 

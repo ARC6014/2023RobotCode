@@ -182,7 +182,7 @@ public class RobotState extends SubsystemBase{
     private final SuperStructureState intakeFromDoubleStataion = new SuperStructureState(100, 94.4, 90);
     private final SuperStructureState intakeFromSingleStataion = new SuperStructureState(110, 94.4, 90);
 
-    private final SuperStructureState intakeCubeFromGround = new SuperStructureState(105,94.4, -40);
+    private final SuperStructureState intakeCubeFromGround = new SuperStructureState(100,94.4, -45);
     private final SuperStructureState groundCube = new SuperStructureState(120,94.4, 50);
     private final SuperStructureState firstCube = new SuperStructureState(115,94.4, 72.5);
     private final SuperStructureState secondCube = new SuperStructureState(124,105, 90);
