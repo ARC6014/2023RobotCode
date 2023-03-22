@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,6 +29,7 @@ import frc.robot.subsystems.IntakeSubsytem;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.TelescobicSubsystem;
 import frc.team6014.MoveToPose;
+import frc.team6014.lib.drivers.AddressableLed;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -64,6 +66,8 @@ public class RobotContainer {
 
   private final NodeSelector m_nodeSelector = NodeSelector.getInstance();
   private final RobotState m_state = RobotState.getInstance();
+
+  private final AddressableLed m_led = AddressableLed.getInstance();
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

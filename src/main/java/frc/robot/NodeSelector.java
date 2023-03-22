@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotState.*;
+import frc.team6014.lib.drivers.AddressableLed;
 
 public class NodeSelector {
 
@@ -22,6 +23,8 @@ public class NodeSelector {
 
                 return mInstance;
         }
+
+        private static AddressableLed m_led = AddressableLed.getInstance();
 
         public void ConfigureWidgets() {
 
@@ -244,54 +247,63 @@ public class NodeSelector {
                         //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
                         m_robotState.setScoreLevel(scoreLevel.Ground);
                         m_robotState.setTargetPose(targetScorePose.sixthNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("G added");
                 }
                 if (id == 1) {
                         //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
                         m_robotState.setScoreLevel(scoreLevel.Ground);
                         m_robotState.setTargetPose(targetScorePose.thirdCube);
+                        m_led.nodeTriggered(true);
                         System.out.println("G added");
                 }
                 if (id == 2) {
                         //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
                         m_robotState.setScoreLevel(scoreLevel.Ground);
                         m_robotState.setTargetPose(targetScorePose.fifthNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("G added");
                 }
                 if (id == 3) {
                         //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
                         m_robotState.setScoreLevel(scoreLevel.Ground);
                         m_robotState.setTargetPose(targetScorePose.fourthNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("G added");
                 }
                 if (id == 4) {
                         //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
                         m_robotState.setScoreLevel(scoreLevel.Ground);
                         m_robotState.setTargetPose(targetScorePose.secondCube);
+                        m_led.nodeTriggered(true);
                         System.out.println("G added");
                 }
                 if (id == 5) {
                         //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
                         m_robotState.setScoreLevel(scoreLevel.Ground);
                         m_robotState.setTargetPose(targetScorePose.thirdNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("G added");
                 }
                 if (id == 6) {
                         //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
                         m_robotState.setScoreLevel(scoreLevel.Ground);
                         m_robotState.setTargetPose(targetScorePose.secondNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("G added");
                 }
                 if (id == 7) {
                         //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
                         m_robotState.setScoreLevel(scoreLevel.Ground);
                         m_robotState.setTargetPose(targetScorePose.firstCube);
+                        m_led.nodeTriggered(true);
                         System.out.println("G added");
                 }
                 if (id == 8) {
                         //RobotState.getInstance().setCone(); // TODO: Change this for ground mode
                         m_robotState.setScoreLevel(scoreLevel.Ground);
                         m_robotState.setTargetPose(targetScorePose.firstNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("G added");
                 }
 
@@ -300,54 +312,63 @@ public class NodeSelector {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.FirstLevel);
                         m_robotState.setTargetPose(targetScorePose.sixthNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("FL added");
                 }
                 if (id == 10) {
                         m_robotState.setCube();
                         m_robotState.setScoreLevel(scoreLevel.FirstLevel);
                         m_robotState.setTargetPose(targetScorePose.thirdCube);
+                        m_led.nodeTriggered(true);
                         System.out.println("FL added");
                 }
                 if (id == 11) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.FirstLevel);
                         m_robotState.setTargetPose(targetScorePose.fifthNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("FL added");
                 }
                 if (id == 12) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.FirstLevel);
                         m_robotState.setTargetPose(targetScorePose.fourthNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("FL added");
                 }
                 if (id == 13) {
                         m_robotState.setCube();
                         m_robotState.setScoreLevel(scoreLevel.FirstLevel);
                         m_robotState.setTargetPose(targetScorePose.secondCube);
+                        m_led.nodeTriggered(true);
                         System.out.println("FL added");
                 }
                 if (id == 14) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.FirstLevel);
                         m_robotState.setTargetPose(targetScorePose.thirdNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("FL added");
                 }
                 if (id == 15) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.FirstLevel);
                         m_robotState.setTargetPose(targetScorePose.secondNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("FL added");
                 }
                 if (id == 16) {
                         m_robotState.setCube();
                         m_robotState.setScoreLevel(scoreLevel.FirstLevel);
                         m_robotState.setTargetPose(targetScorePose.firstCube);
+                        m_led.nodeTriggered(true);
                         System.out.println("FL added");
                 }
                 if (id == 17) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.FirstLevel);
                         m_robotState.setTargetPose(targetScorePose.firstNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("FL added");
                 }
 
@@ -356,68 +377,80 @@ public class NodeSelector {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.SecondLevel);
                         m_robotState.setTargetPose(targetScorePose.sixthNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("SL added");
                 }
                 if (id == 19) {
                         m_robotState.setCube();
                         m_robotState.setScoreLevel(scoreLevel.SecondLevel);
                         m_robotState.setTargetPose(targetScorePose.thirdCube);
+                        m_led.nodeTriggered(true);
                         System.out.println("SL added");
                 }
                 if (id == 20) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.SecondLevel);
                         m_robotState.setTargetPose(targetScorePose.fifthNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("SL added");
                 }
                 if (id == 21) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.SecondLevel);
                         m_robotState.setTargetPose(targetScorePose.fourthNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("SL added");
                 }
                 if (id == 22) {
                         m_robotState.setCube();
                         m_robotState.setScoreLevel(scoreLevel.SecondLevel);
                         m_robotState.setTargetPose(targetScorePose.secondCube);
+                        m_led.nodeTriggered(true);
                         System.out.println("SL added");
                 }
                 if (id == 23) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.SecondLevel);
                         m_robotState.setTargetPose(targetScorePose.thirdNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("SL added");
                 }
                 if (id == 24) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.SecondLevel);
                         m_robotState.setTargetPose(targetScorePose.secondNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("SL added");
                 }
                 if (id == 25) {
                         m_robotState.setCube();
                         m_robotState.setScoreLevel(scoreLevel.SecondLevel);
                         m_robotState.setTargetPose(targetScorePose.firstCube);
+                        m_led.nodeTriggered(true);
                         System.out.println("SL added");
                 }
                 if (id == 26) {
                         m_robotState.setCone();
                         m_robotState.setScoreLevel(scoreLevel.SecondLevel);
                         m_robotState.setTargetPose(targetScorePose.firstNode);
+                        m_led.nodeTriggered(true);
                         System.out.println("SL added");
                 }
                 
                 if (id == 50) {
                         m_robotState.setScoreLevel(scoreLevel.Intake);
                         m_robotState.setIntakeLevel(intakeLevel.ground);
+                        
                 }
                 if (id == 51) {
                         m_robotState.setScoreLevel(scoreLevel.Intake);
                         m_robotState.setIntakeLevel(intakeLevel.doubleStation);
+                        
                 }
                 if (id == 52) {
                         m_robotState.setScoreLevel(scoreLevel.Intake);
                         m_robotState.setIntakeLevel(intakeLevel.singleStation);
+                        
                 }
                 if (id == 53) {
                         m_robotState.setCone();

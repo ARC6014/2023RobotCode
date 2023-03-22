@@ -4,6 +4,12 @@
 
 package frc.robot.commands;
 
+import frc.robot.Robot;
+import frc.robot.RobotState;
+import frc.robot.RobotState.pieceState;
+
+import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team6014.lib.drivers.AddressableLed;
@@ -11,6 +17,7 @@ import frc.team6014.lib.drivers.AddressableLed;
 public class SetLedState extends CommandBase {
   /** Creates a new SetLedState. */
   private AddressableLed m_addressableLed = AddressableLed.getInstance();
+  private Timer m_timer = new Timer();
 
   public SetLedState() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -20,12 +27,27 @@ public class SetLedState extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    AddressableLed.setLEDColor(Color.kGreen);
+    m_timer.reset();
+    m_timer.start();
+   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double currentTime = m_timer.get();
+
+
+
+        if(RobotState.getInstance().getPiece() == pieceState.CONE) {
+          AddressableLed.setLEDColor(255, 180, 0);
+        }
+  
+        if(RobotState.getInstance().getPiece() == pieceState.CUBE) {
+          AddressableLed.setLEDColor(77, 0, 207);
+        }
+    
+    
     
   }
 
