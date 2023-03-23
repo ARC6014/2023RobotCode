@@ -16,7 +16,7 @@ import frc.team6014.SuperStructureState;
 
 public class TelescopicDeneme extends CommandBase {
   private final TelescobicSubsystem m_telescop = TelescobicSubsystem.getInstance();
-  private final SuperStructureState targetState = new SuperStructureState(100, 110, 90);
+  private final SuperStructureState targetState = new SuperStructureState(115, 110, 90);
   private final DoubleSupplier joystick;
   private final BooleanSupplier m_button;
   private final BooleanSupplier m_secondButton;

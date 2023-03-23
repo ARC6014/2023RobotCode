@@ -21,7 +21,7 @@ public class SmartMotion extends CommandBase {
 
   private SuperStructureState m_currentState;
   private SuperStructureState m_targetState;
-  private final SuperStructureState m_pivotState = new SuperStructureState(126.5,94.4,0);
+  private final SuperStructureState m_pivotState = new SuperStructureState(126,92,0);
   //private final SuperStructureState m_autoExtendState = new SuperStructureState(95, 95,0);
   private boolean needToSwitch = true;
   private boolean isDangerZone = true;
@@ -39,7 +39,7 @@ public class SmartMotion extends CommandBase {
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
     m_targetState = RobotState.getInstance().getTargetState();
     needToSwitch = m_currentState.isInSameSide(m_targetState);
-    //m_carriage.slowCarriage();
+    m_carriage.slowCarriage();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,7 +50,7 @@ public class SmartMotion extends CommandBase {
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
 
     needToSwitch = !m_currentState.isInSameSide(m_targetState);
-    isDangerZone = m_currentState.getDegree() > -15 && m_currentState.getDegree() < 10;
+    isDangerZone = m_currentState.getDegree() > -10 && m_currentState.getDegree() < 15.5;
     shouldWait = !(m_currentState.getAbsoluteHeight() > RobotState.getInstance().getEndEffector());
 
     SmartDashboard.putBoolean("switch", needToSwitch);
@@ -67,7 +67,7 @@ public class SmartMotion extends CommandBase {
       }
 
     }else{
-/* 
+
       if(m_currentState.getRobotSide()){
         if(m_currentState.getDegree() > m_targetState.getDegree()){
           if(shouldWait){
@@ -99,17 +99,7 @@ public class SmartMotion extends CommandBase {
           m_telescop.setTelescopicPosition(m_targetState);
         }
 
-
-      }*/
-
-      if(shouldWait){
-        m_elevator.stop();
-      }else {
-        m_elevator.setElevatorPosition(m_targetState);
       }
-      m_telescop.setTelescopicPosition(m_targetState);
-      m_carriage.setCarriagePosition(m_targetState);
-      
 
 
     }
