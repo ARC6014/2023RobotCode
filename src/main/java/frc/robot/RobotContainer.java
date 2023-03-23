@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotState.scoreLevel;
 import frc.robot.commands.DriveByJoystick;
+import frc.robot.commands.SetLedState;
 import frc.robot.commands.Auto.SideAuto;
 import frc.robot.commands.Auto.LoadingAuto;
 import frc.robot.commands.Deneme.CarriageDeneme;
@@ -40,6 +41,7 @@ import frc.robot.subsystems.PoseEstimatorSubsystem;
 import frc.robot.subsystems.TelescobicSubsystem;
 import frc.robot.subsystems.UsbCam;
 import frc.team6014.MoveToPose;
+import frc.team6014.lib.drivers.AddressableLed;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -60,6 +62,7 @@ public class RobotContainer {
   private final Joystick m_driver = new Joystick(0);
   private final Joystick m_operator = new Joystick(1);
   private final UsbCam m_cam = new UsbCam();
+  private final AddressableLed m_ledRight = new AddressableLed(7);
   // The robot's subsystems and commands are defined here...
 
   private final DriveByJoystick driveByJoystick = new DriveByJoystick(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawAxis(0) * -1, () -> m_driver.getRawAxis(2) * -1, () -> m_driver.getRawButton(7), () -> m_driver.getRawButton(8));
@@ -93,10 +96,11 @@ public class RobotContainer {
     autonomouChooser.addOption("Loading Zone", "loadingZone");
     autonomouChooser.addOption("Side ", "side");
 
-    m_drive.setDefaultCommand(driveByJoystick);
+    //m_drive.setDefaultCommand(driveByJoystick);
     //m_elevator.setDefaultCommand(m_Eeneme);
     //m_telescop.setDefaultCommand(m_Teneme);
     //m_carriage.setDefaultCommand(m_Aeneme);
+    m_ledRight.setDefaultCommand(new SetLedState(m_ledRight));
     // Configure the trigger bindings
     m_nodeSelector.ConfigureWidgets();
 
@@ -107,14 +111,14 @@ public class RobotContainer {
 
 
   private void configureBindings() {
-    new JoystickButton(m_operator, 4).whileTrue(m_autoMove);
-    new JoystickButton(m_operator, 5).whileTrue(m_SautoMove);
+    //new JoystickButton(m_operator, 4).whileTrue(m_autoMove);
+    //new JoystickButton(m_operator, 5).whileTrue(m_SautoMove);
 
     /*new JoystickButton(m_operator, 1).whileTrue(autoIntake).toggleOnFalse(
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)).andThen(
       m_motion));*/
     
-    new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
+    /*new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     new JoystickButton(m_driver, 1).whileTrue(m_motion1);
 
     new JoystickButton(m_operator, 2).whileTrue(new ParallelCommandGroup(

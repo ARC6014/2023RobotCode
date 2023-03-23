@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotState.*;
+import frc.team6014.lib.drivers.AddressableLed;
+import frc.robot.Robot;
 
 public class NodeSelector {
 
@@ -24,9 +26,12 @@ public class NodeSelector {
                 return mInstance;
         }
 
+       // private final AddressableLed m_ledleft = new AddressableLed(7);
+
+
         public void ConfigureWidgets() {
 
-                Shuffleboard.getTab("Camera").add("Intake view", new UsbCamera("Intake", 0)).withWidget(BuiltInWidgets.kCameraStream).withSize(5, 5);
+                //Shuffleboard.getTab("Camera").add("Intake view", new UsbCamera("Intake", 0)).withWidget(BuiltInWidgets.kCameraStream).withSize(5, 5);
 
                 // Ground Hybrid
                 Shuffleboard.getTab("GamePieces")
@@ -241,6 +246,9 @@ public class NodeSelector {
 
         public void applyNode(int id) {
                 id = transformID(id);
+
+                //m_ledleft.setTriggered(true);
+                
 
                 // For Ground (Hybrid) Positions
                 if (id == 0) {
