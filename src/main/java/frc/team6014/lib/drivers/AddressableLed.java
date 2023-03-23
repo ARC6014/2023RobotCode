@@ -48,6 +48,7 @@ public class AddressableLed extends SubsystemBase implements Loggable {
     }if(RobotState.getInstance().getPiece() == pieceState.CUBE){
       setLEDColor(Color.kGreen);      
     }
+    setLEDTailColor(Color.kBlack);
     if(m_timer.get() > 0.8){
       m_timer.stop();
       setTriggered(false);
@@ -60,12 +61,20 @@ public class AddressableLed extends SubsystemBase implements Loggable {
     if(triggered){
       color = Color.kBlue;
     }
-    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+    for (int i = 0; i < m_ledBuffer.getLength()-5; i++) {
       m_ledBuffer.setLED(i, color);
     }
     m_led.setData(m_ledBuffer);
 
   }
+
+    public void setLEDTailColor(Color color) {
+        for (int i = m_ledBuffer.getLength(); i >= m_ledBuffer.getLength()-5; i--) {
+        m_ledBuffer.setLED(i, color);
+        }
+        m_led.setData(m_ledBuffer);
+
+    }
 
   public void setTriggered(boolean state){
     triggered = state;

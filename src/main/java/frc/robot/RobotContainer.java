@@ -86,7 +86,7 @@ public class RobotContainer {
   private final AutoScore autoScore = new AutoScore();
   private final AutoIntake autoIntake = new AutoIntake();
 
-  private final NodeSelector m_nodeSelector = NodeSelector.getInstance();
+  private final NodeSelector m_nodeSelector = NodeSelector.getInstance(m_ledRight);
   private final RobotState m_state = RobotState.getInstance();
 
 

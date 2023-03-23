@@ -38,9 +38,8 @@ public class SetLedState extends CommandBase {
     }if(RobotState.getInstance().getPiece() == pieceState.CUBE){
       m_addressableLed.setLEDColor(Color.kGreen);      
     }
-    if(m_addressableLed.getTriggered()){
-      
-    }
+
+    m_addressableLed.setLEDTailColor(Color.kBlack);
 
   }
 

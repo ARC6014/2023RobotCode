@@ -18,7 +18,19 @@ public class NodeSelector {
         private static NodeSelector mInstance;
         RobotState m_robotState = RobotState.getInstance();
 
+        private static AddressableLed m_led;
+
         public static NodeSelector getInstance() {
+                if (mInstance == null) {
+                        mInstance = new NodeSelector();
+                }
+
+                return mInstance;
+        }
+        public static NodeSelector getInstance(AddressableLed led) {
+
+                m_led = led;
+
                 if (mInstance == null) {
                         mInstance = new NodeSelector();
                 }
@@ -247,8 +259,7 @@ public class NodeSelector {
         public void applyNode(int id) {
                 id = transformID(id);
 
-                //m_ledleft.setTriggered(true);
-                
+                m_led.setTriggered(true);
 
                 // For Ground (Hybrid) Positions
                 if (id == 0) {
