@@ -149,7 +149,7 @@ public class DriveSubsystem extends SubsystemBase{
 
     public void swerveDrive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
 
-        rot = calculateSnapValue(xSpeed, ySpeed, rot);
+        //rot = calculateSnapValue(xSpeed, ySpeed, rot);
 
         desiredChassisSpeeds = fieldRelative
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, getDriverCentericRotation2d())
@@ -310,7 +310,7 @@ public class DriveSubsystem extends SubsystemBase{
 
         if (timeSinceRot < 0.5) {
             snapAngle = getRotation2d().getRadians();
-        } else if (Math.abs(rot) < 0.05 && timeSinceDrive < 0.25) {
+        } else if (Math.abs(rot) < 0.05 && timeSinceDrive < 0.2) {
             output = snapPIDController.calculate(getRotation2d().getRadians(), snapAngle);
         }
         return output;

@@ -39,16 +39,18 @@ public class IntakeCommand extends CommandBase {
     }else{
       m_intake.intakeCube();
     }
-    System.out.println("alo");
-    m_grabber.grab();
+    //m_grabber.grab();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_intake.stop();
-    //m_intake.retractIntake();
-    m_grabber.setOutput(0.15);
+    if(RobotState.getInstance().getCurrentSuperStructureState().getDegree() > - 18){
+      m_intake.retractIntake();
+    }
+
+    //m_grabber.setOutput(-0.05);
     
     m_isFinished = false;
   }

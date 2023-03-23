@@ -52,9 +52,9 @@ public class TelescobicSubsystem extends SubsystemBase {
     telescobicMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 28;
-    configs.Slot0.kI = 1.6;
-    configs.Slot0.kD = 0.075;
+    configs.Slot0.kP = 27;
+    configs.Slot0.kI = 1.5;
+    configs.Slot0.kD = 0.08;
     configs.Slot0.kS = 0.01;
     configs.Slot0.kV = 0;
 
@@ -64,13 +64,13 @@ public class TelescobicSubsystem extends SubsystemBase {
     configs.Slot1.kS = 0.0;
     configs.Slot1.kV = 0;
 
-    configs.Voltage.PeakForwardVoltage = 5;
-    configs.Voltage.PeakReverseVoltage = -5;
-    configs.TorqueCurrent.PeakForwardTorqueCurrent = 100;
-    configs.TorqueCurrent.PeakReverseTorqueCurrent = 100;
-    configs.MotionMagic.MotionMagicAcceleration = 450; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 130; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 950; //  değiştir
+    configs.Voltage.PeakForwardVoltage = 4;
+    configs.Voltage.PeakReverseVoltage = -4;
+    configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
+    configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
+    configs.MotionMagic.MotionMagicAcceleration = 470; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 140; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 1050; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
@@ -122,8 +122,6 @@ public class TelescobicSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Telescopic Current", getCurrent());
 
     RobotState.getInstance().updateLength(getLength());
-
-    //System.out.println(lastDemandedLength);
     // This method will be called once per scheduler run
   }
 
@@ -184,7 +182,7 @@ public class TelescobicSubsystem extends SubsystemBase {
   }
 
   public void resetToZero(){
-    overrideLength(92.8); //Min Length
+    overrideLength(92.225); //Min Length
   }
 
   public void resetToMax(){
@@ -215,7 +213,7 @@ public class TelescobicSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getLength() - getLength()) < 0.5; 
+    return Math.abs(targetState.getLength() - getLength()) < 0.25; 
   } 
 
 

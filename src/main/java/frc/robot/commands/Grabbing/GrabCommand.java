@@ -31,7 +31,7 @@ public class GrabCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_grabber.stop();
+    m_grabber.setOutput(-0.05);
     
   }
 

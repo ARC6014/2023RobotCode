@@ -6,9 +6,7 @@ package frc.robot.commands.Superstructure;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotState;
-import frc.robot.RobotState.scoreLevel;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsytem;
@@ -23,7 +21,7 @@ public class SmartMotion extends CommandBase {
 
   private SuperStructureState m_currentState;
   private SuperStructureState m_targetState;
-  private final SuperStructureState m_pivotState = new SuperStructureState(126,92.5,0);
+  private final SuperStructureState m_pivotState = new SuperStructureState(126.5,94.4,0);
   //private final SuperStructureState m_autoExtendState = new SuperStructureState(95, 95,0);
   private boolean needToSwitch = true;
   private boolean isDangerZone = true;
@@ -51,10 +49,8 @@ public class SmartMotion extends CommandBase {
 
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
 
-    double outsideAngle = RobotState.getInstance().getScoreTarget() == scoreLevel.HOMING? 4.5 : 15.5;
-
     needToSwitch = !m_currentState.isInSameSide(m_targetState);
-    isDangerZone = m_currentState.getDegree() > -10 && m_currentState.getDegree() < outsideAngle;
+    isDangerZone = m_currentState.getDegree() > -15 && m_currentState.getDegree() < 10;
     shouldWait = !(m_currentState.getAbsoluteHeight() > RobotState.getInstance().getEndEffector());
 
     SmartDashboard.putBoolean("switch", needToSwitch);
@@ -71,29 +67,8 @@ public class SmartMotion extends CommandBase {
       }
 
     }else{
-
-      if(m_targetState.getRobotSide()){
-        if(shouldWait){
-          m_elevator.stop();
-        }else{
-          m_elevator.setElevatorPosition(m_targetState);
-        }
-      }
-
-      m_elevator.setElevatorPosition(m_targetState);
-
-      m_carriage.setCarriagePosition(m_targetState);
-
-      if(!m_targetState.getRobotSide()){
-        if(m_currentState.getDegree() > extensionAngle() && m_elevator.isAtSetpoint()){
-          m_telescop.setTelescopicPosition(m_targetState);
-        }else{
-          m_telescop.holdTelescopicPosition();
-        }
-      }
-      m_telescop.setTelescopicPosition(m_targetState);
-
-      /*if(m_currentState.getRobotSide()){
+/* 
+      if(m_currentState.getRobotSide()){
         if(m_currentState.getDegree() > m_targetState.getDegree()){
           if(shouldWait){
             m_elevator.stop();
@@ -124,7 +99,14 @@ public class SmartMotion extends CommandBase {
           m_telescop.setTelescopicPosition(m_targetState);
         }
 
+
       }*/
+
+      m_elevator.setElevatorPosition(m_targetState);
+      m_carriage.setCarriagePosition(m_targetState);
+      if(m_currentState.getDegree() > extensionAngle() && m_elevator.isAtSetpoint()){
+        m_telescop.setTelescopicPosition(m_targetState);
+      }
 
 
     }
@@ -137,7 +119,6 @@ public class SmartMotion extends CommandBase {
     m_elevator.holdElevatorPosition();
     m_carriage.holdCarriagePosition();
     m_telescop.holdTelescopicPosition();
-    System.out.println("AAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOO");
   }
 
   // Returns true when the command should end.

@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -13,13 +16,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsytem extends SubsystemBase {
   /** Creates a new IntakeSubsytem. */
-  private final CANSparkMax intakeMotor = new CANSparkMax(Constants.IntakeConstants.intakeMotorID, MotorType.kBrushless);
+  private final TalonFX intakeMotor = new TalonFX(IntakeConstants.intakeMotorID);
 
   private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
-      Constants.IntakeConstants.intakeDoubleSolenoidPort1, Constants.IntakeConstants.intakeDoubleSolenoidPort2);
+      IntakeConstants.intakeDoubleSolenoidPort1, IntakeConstants.intakeDoubleSolenoidPort2);
 
 
   private static IntakeSubsytem m_instance;
@@ -27,11 +31,7 @@ public class IntakeSubsytem extends SubsystemBase {
   public IntakeSubsytem() {
 
     intakeMotor.setInverted(Constants.IntakeConstants.isIntakeInverted);
-    intakeMotor.setIdleMode(Constants.IntakeConstants.idleMode);
-
-    intakeMotor.setSmartCurrentLimit(Constants.IntakeConstants.stallCurrentLimit, Constants.IntakeConstants.freeCurrentLimit, (int) Constants.IntakeConstants.RPM);
-
-    intakeMotor.burnFlash();
+    intakeMotor.setNeutralMode(NeutralMode.Brake);
 
   }
 
@@ -60,23 +60,23 @@ public class IntakeSubsytem extends SubsystemBase {
   }
 
   public void intakeCube() {
-    intakeMotor.set(Constants.IntakeConstants.intakeSpeed);
+    intakeMotor.set(ControlMode.PercentOutput, 0.7);
   }
 
   public void releaseCube() {
-    intakeMotor.set(Constants.IntakeConstants.outtakeSpeed);
+    intakeMotor.set(ControlMode.PercentOutput, 0.25);
   }
 
   public void stop() {
-    intakeMotor.stopMotor();
+    intakeMotor.set(ControlMode.PercentOutput, 0.0);
   }
 
   public double getCurrent(){
-    return intakeMotor.getOutputCurrent();
+    return intakeMotor.getStatorCurrent();
   }
 
   public void maybeShouldOpen(){
-    if(CarriageSubsystem.getInstance().getRotation() < - 25){
+    if(CarriageSubsystem.getInstance().getRotation() < -18){
       extendIntake();
     }else{
       retractIntake();

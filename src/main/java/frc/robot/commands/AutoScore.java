@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotState;
 import frc.robot.RobotState.scoreLevel;
 import frc.robot.commands.Grabbing.RelaseCommand;
@@ -21,21 +20,14 @@ public class AutoScore extends SequentialCommandGroup {
   public AutoScore() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    if(RobotState.getInstance().getScoreTarget() != scoreLevel.Intake){
-      addCommands(
-        //new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
-        new SmartMotion(),
-       // new MoveToPose(() -> RobotState.getInstance().getScorePose()),
-        new WaitCommand(0.3),
-        new RelaseCommand().withTimeout(0.65),
-        new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)),
-        //new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
-        new SmartMotion()
-      );
-    }
     addCommands(
-      
+      new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
+      new SmartMotion(),
+      new MoveToPose(() -> RobotState.getInstance().getScorePose()),
+      new RelaseCommand().withTimeout(0.5),
+      new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)),
+      new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
+      new SmartMotion()
     );
-
   }
 }
