@@ -2,56 +2,55 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Deneme;
+package frc.robot.commands.Superstructure.Deneme;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.TelescobicSubsystem;
 import frc.team6014.SuperStructureState;
 
-public class CarriageDeneme extends CommandBase {
-  private final CarriageSubsystem m_carriage = CarriageSubsystem.getInstance();
-  private final SuperStructureState targetState = new SuperStructureState(125, 0, 90);
+public class ElevatorDeneme extends CommandBase {
+  private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
+  private final SuperStructureState targetState = new SuperStructureState(90, 0, 0);
   private final DoubleSupplier joystick;
   private final BooleanSupplier m_button;
   private final BooleanSupplier m_secondButton;
   /** Creates a new ElevatorDeneme. */
-  public CarriageDeneme(DoubleSupplier output, BooleanSupplier button, BooleanSupplier secondButton) {
+  public ElevatorDeneme(DoubleSupplier output, BooleanSupplier button, BooleanSupplier secondButton) {
     joystick = output;
     m_button = button;
     m_secondButton = secondButton;
-    addRequirements(m_carriage);
+    addRequirements(m_elevator);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_carriage.updateLastDemandedRotation(m_carriage.getRotation());
+   m_elevator.updateLastDemandedHeight(m_elevator.getHeight());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     if(joystick.getAsDouble() >= 0.04 || joystick.getAsDouble() <= -0.04){
-      m_carriage.setCarriageOpenLoop(joystick.getAsDouble());
+ 
+    if(joystick.getAsDouble() >= 0.04 || joystick.getAsDouble() <= -0.04){
+      m_elevator.setElevatorOpenLoop(joystick.getAsDouble());
     }else if(m_button.getAsBoolean()){
-      m_carriage.setCarriagePosition(targetState);
+      m_elevator.setElevatorPosition(targetState);
     }else{
-      m_carriage.holdCarriagePosition();
+      m_elevator.holdElevatorPosition();
+
     }
-    ElevatorSubsystem.getInstance().setElevatorPosition(targetState);
-    //TelescobicSubsystem.getInstance().holdTelescopicPosition();/* 
-    /*if(m_secondButton.getAsBoolean()){
-      m_carriage.holdCarriagePosition();
+     /* 
+    if(m_secondButton.getAsBoolean()){
+      m_elevator.holdElevatorPosition();
     }else if(m_button.getAsBoolean()){
-      m_carriage.setCarriagePosition(targetState);
+      m_elevator.setElevatorPosition(targetState);
     }else{
-      m_carriage.setCarriageOpenLoop(joystick.getAsDouble());
+      m_elevator.setElevatorOpenLoop(joystick.getAsDouble());
     }*/
     
   /*   System.out.println(
@@ -61,7 +60,7 @@ public class CarriageDeneme extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_carriage.stop();
+    m_elevator.stop();
   }
 
   // Returns true when the command should end.

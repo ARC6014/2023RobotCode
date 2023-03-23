@@ -59,31 +59,31 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 29;
-    configs.Slot0.kI = 2.82;
+    configs.Slot0.kP = 29.5;
+    configs.Slot0.kI = 2.85;
     configs.Slot0.kD = 0.175;
     configs.Slot0.kS = 0.85;
     configs.Slot0.kV = 0.08;
 
-    configs.Slot1.kP = 4.7;
-    configs.Slot1.kI = 0.27;
-    configs.Slot1.kD = 0.06;
-    configs.Slot1.kS = 0.6;
-    configs.Slot1.kV = 0;
+    configs.Slot1.kP = 20;
+    configs.Slot1.kI = 2;
+    configs.Slot1.kD = 0.05;
+    configs.Slot1.kS = 0.85;
+    configs.Slot1.kV = 0.01;
 
-    configs.Slot2.kP = 12;
-    configs.Slot2.kI = 1.18;
-    configs.Slot2.kD = 0.22;
-    configs.Slot2.kS = 0.4;
-    configs.Slot2.kV = 0.05;
+    configs.Slot2.kP = 5;
+    configs.Slot2.kI = 0.6;
+    configs.Slot2.kD = 0.9;
+    configs.Slot2.kS = 0.04;
+    configs.Slot2.kV = 0.005;
 
     configs.Voltage.PeakForwardVoltage = 8;
     configs.Voltage.PeakReverseVoltage = -6;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 350; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 95; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 800; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 360; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 100; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 850; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
@@ -244,7 +244,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getHeight() - getHeight()) < 0.75; 
+    return Math.abs(targetState.getHeight() - getHeight()) < 1; 
   } 
 
 }
