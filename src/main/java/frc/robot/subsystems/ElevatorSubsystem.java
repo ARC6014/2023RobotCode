@@ -59,31 +59,31 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 29;
-    configs.Slot0.kI = 2.82;
-    configs.Slot0.kD = 0.175;
-    configs.Slot0.kS = 0.85;
-    configs.Slot0.kV = 0.08;
+    configs.Slot0.kP = 28;
+    configs.Slot0.kI = 2.5;
+    configs.Slot0.kD = 0.18;
+    configs.Slot0.kS = 0.6;
+    configs.Slot0.kV = 0.075;
 
-    configs.Slot1.kP = 4.7;
-    configs.Slot1.kI = 0.27;
-    configs.Slot1.kD = 0.06;
-    configs.Slot1.kS = 0.6;
+    configs.Slot1.kP = 0.1;
+    configs.Slot1.kI = 0.0;
+    configs.Slot1.kD = 0.00;
+    configs.Slot1.kS = 0.005;
     configs.Slot1.kV = 0;
 
-    configs.Slot2.kP = 12;
-    configs.Slot2.kI = 1.18;
+    configs.Slot2.kP = 13;
+    configs.Slot2.kI = 1.2;
     configs.Slot2.kD = 0.22;
     configs.Slot2.kS = 0.4;
-    configs.Slot2.kV = 0.05;
+    configs.Slot2.kV = 0.04;
 
     configs.Voltage.PeakForwardVoltage = 8;
     configs.Voltage.PeakReverseVoltage = -6;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 350; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 95; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 800; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 425; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 115; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 1050; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
@@ -205,7 +205,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void resetToZero(){
-    overrideHeight(39.142); //Min Height
+    overrideHeight(39.9); //Min Height
   }
 
   public void resetToMax(){
@@ -214,7 +214,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void switchTriggered(){
     if(m_switchBouncer.calculate(m_limitSwitch.isThereAThing()))
-    overrideHeight(122.935);
+    overrideHeight(122.5);
   }
 
   public double getHeight(){

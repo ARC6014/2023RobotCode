@@ -4,6 +4,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotState;
 import frc.robot.Constants.GrabberConstants;
@@ -11,17 +15,19 @@ import frc.robot.RobotState.pieceState;
 
 public class GrabberSubsystem extends SubsystemBase{
 
-    private final TalonSRX grabberMotorMaster = new TalonSRX(GrabberConstants.grabberMotorMasterID);
-    private final TalonSRX grabberMotorSlave = new TalonSRX(GrabberConstants.grabberMotorSlaveID);
+    private final CANSparkMax grabberMotorMaster = new CANSparkMax(GrabberConstants.grabberMotorMasterID, MotorType.kBrushless);
+    private final CANSparkMax grabberMotorSlave = new CANSparkMax(GrabberConstants.grabberMotorSlaveID, MotorType.kBrushless);
 
     private static GrabberSubsystem m_instance;
 
     public GrabberSubsystem() {
-        grabberMotorMaster.setNeutralMode(NeutralMode.Brake);
-        grabberMotorSlave.setNeutralMode(NeutralMode.Brake);
-        grabberMotorSlave.setInverted(false);
-        grabberMotorMaster.setInverted(false);
-        grabberMotorSlave.follow(grabberMotorMaster);
+        grabberMotorMaster.setIdleMode(IdleMode.kBrake);
+        grabberMotorSlave.setIdleMode(IdleMode.kBrake);
+        grabberMotorSlave.setInverted(true);
+        grabberMotorMaster.setInverted(true);
+        grabberMotorSlave.follow(grabberMotorMaster, true);
+        grabberMotorMaster.burnFlash();
+        grabberMotorSlave.burnFlash();
 
     }
 
@@ -34,26 +40,27 @@ public class GrabberSubsystem extends SubsystemBase{
 
     public void grab() {
         if(RobotState.getInstance().getPiece() == pieceState.CONE){
-            grabberMotorMaster.set(ControlMode.PercentOutput, .7);
+            grabberMotorMaster.set(-0.7);
         }else{
-            grabberMotorMaster.set(ControlMode.PercentOutput, .25);
+            grabberMotorMaster.set(-0.25);
         }
+        System.out.println("alo");
     }
 
     public void release() {
         if(RobotState.getInstance().getPiece() == pieceState.CONE){
-            grabberMotorMaster.set(ControlMode.PercentOutput, -0.1);
+            grabberMotorMaster.set(0.12);
         }else{
-            grabberMotorMaster.set(ControlMode.PercentOutput, -0.35);
+            grabberMotorMaster.set(0.8);
         }
     }
 
     public void stop() {
-        grabberMotorMaster.set(TalonSRXControlMode.PercentOutput, 0);
+        grabberMotorMaster.set(0);
     }
 
     public void setOutput(double speed) {
-        grabberMotorMaster.set(TalonSRXControlMode.PercentOutput, speed);
+        grabberMotorMaster.set(speed);
     }
 
     @Override

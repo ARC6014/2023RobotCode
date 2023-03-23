@@ -1,0 +1,47 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/GamePieces/1ST-Cone1": "Command",
+      "/Shuffleboard/GamePieces/1ST-Cone2": "Command",
+      "/Shuffleboard/GamePieces/1ST-Cone3": "Command",
+      "/Shuffleboard/GamePieces/1ST-Cone4": "Command",
+      "/Shuffleboard/GamePieces/1ST-Cone5": "Command",
+      "/Shuffleboard/GamePieces/1ST-Cone6": "Command",
+      "/Shuffleboard/GamePieces/1ST-Cube1": "Command",
+      "/Shuffleboard/GamePieces/1ST-Cube2": "Command",
+      "/Shuffleboard/GamePieces/1ST-Cube3": "Command",
+      "/Shuffleboard/GamePieces/2ND-Cone1": "Command",
+      "/Shuffleboard/GamePieces/2ND-Cone2": "Command",
+      "/Shuffleboard/GamePieces/2ND-Cone3": "Command",
+      "/Shuffleboard/GamePieces/2ND-Cone4": "Command",
+      "/Shuffleboard/GamePieces/2ND-Cone5": "Command",
+      "/Shuffleboard/GamePieces/2ND-Cone6": "Command",
+      "/Shuffleboard/GamePieces/2ND-Cube1": "Command",
+      "/Shuffleboard/GamePieces/2ND-Cube2": "Command",
+      "/Shuffleboard/GamePieces/2ND-Cube3": "Command",
+      "/Shuffleboard/GamePieces/G1": "Command",
+      "/Shuffleboard/GamePieces/G2": "Command",
+      "/Shuffleboard/GamePieces/G3": "Command",
+      "/Shuffleboard/GamePieces/G4": "Command",
+      "/Shuffleboard/GamePieces/G5": "Command",
+      "/Shuffleboard/GamePieces/G6": "Command",
+      "/Shuffleboard/GamePieces/G7": "Command",
+      "/Shuffleboard/GamePieces/G8": "Command",
+      "/Shuffleboard/GamePieces/G9": "Command"
+    }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "Shuffleboard": {
+        "GamePieces": {
+          "G9": {
+            "open": true
+          },
+          "open": true
+        },
+        "open": true
+      }
+    }
+  }
+}
