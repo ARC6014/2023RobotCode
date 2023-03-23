@@ -13,7 +13,7 @@ import frc.team6014.SuperStructureState;
 
 public class ElevatorDeneme extends CommandBase {
   private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
-  private final SuperStructureState targetState = new SuperStructureState(100, 0, 0);
+  private final SuperStructureState targetState = new SuperStructureState(90, 0, 0);
   private final DoubleSupplier joystick;
   private final BooleanSupplier m_button;
   private final BooleanSupplier m_secondButton;

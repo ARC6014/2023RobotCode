@@ -4,9 +4,6 @@
 
 package frc.team6014.lib.drivers;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
@@ -21,8 +18,6 @@ public class AddressableLed extends SubsystemBase implements Loggable {
 
   private static AddressableLed m_instance;
 
-  private static boolean m_triggered = false;
-
   public AddressableLed() {
 
     // Must be a PWM header, not MXP or DIO
@@ -33,7 +28,7 @@ public class AddressableLed extends SubsystemBase implements Loggable {
 
     // Set the data
     // m_led.setData(m_ledBuffer);
-    setLEDColor(0, 255, 0);
+    //setLEDColor(0, 255, 0);
     m_led.start();
   }
 
@@ -49,25 +44,17 @@ public class AddressableLed extends SubsystemBase implements Loggable {
     // This method will be called once per scheduler run
   }
 
-  public static void setLEDColor(int r, int g, int b) {
+  public static void setLEDColor(Color color) {
 
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-      m_ledBuffer.setRGB(i, r, g, b);
+      m_ledBuffer.setLED(i, color);
     }
     m_led.setData(m_ledBuffer);
   }
 
   public void turnOffLED() {
-    setLEDColor(0, 0, 0);
+    setLEDColor(Color.kBlack);
     m_led.setData(m_ledBuffer);
   }
 
-  public void nodeTriggered(boolean m_triggered) {
-    if (m_triggered) {
-      setLEDColor(110, 255, 70);
-    }
-  }
-
 }
-
-

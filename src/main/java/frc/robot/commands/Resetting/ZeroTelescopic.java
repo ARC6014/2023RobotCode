@@ -33,7 +33,7 @@ public class ZeroTelescopic extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_timer.get() > 0.5 && m_telescobicArmSubsystem.getCurrent() > 18) {
+    if (m_timer.get() > 0.5 && m_telescobicArmSubsystem.getCurrent() > 10) {
       m_telescobicArmSubsystem.stop();
       m_telescobicArmSubsystem.resetToZero();
       m_isFinished = true;
@@ -44,7 +44,6 @@ public class ZeroTelescopic extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_timer.stop();
-    m_telescobicArmSubsystem.updateLastDemandedLength(m_telescobicArmSubsystem.getLength());
     m_telescobicArmSubsystem.stop();
   }
 
@@ -54,5 +53,3 @@ public class ZeroTelescopic extends CommandBase {
     return m_isFinished;
   }
 }
-
-
