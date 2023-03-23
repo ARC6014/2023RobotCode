@@ -37,7 +37,7 @@ public class TelescobicSubsystem extends SubsystemBase {
   private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0,0,1,false); 
   private final DutyCycleOut m_percentOut = new DutyCycleOut(0, true, false);
 
-  private final Gearbox falconGearbox = new Gearbox(1 * 18, 5 * 24);
+  private final Gearbox falconGearbox = new Gearbox(1 * 18, 4 * 24);
   private final double pulleyCircumferenceInCM = Units.inchesToMeters(1.504) * Math.PI * 100;
   private double targetOutput = 0.0;
   private SuperStructureState targetState = new SuperStructureState();
@@ -52,8 +52,8 @@ public class TelescobicSubsystem extends SubsystemBase {
     telescobicMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 25;
-    configs.Slot0.kI = 1.3;
+    configs.Slot0.kP = 27;
+    configs.Slot0.kI = 1.5;
     configs.Slot0.kD = 0.08;
     configs.Slot0.kS = 0.01;
     configs.Slot0.kV = 0;
@@ -182,11 +182,11 @@ public class TelescobicSubsystem extends SubsystemBase {
   }
 
   public void resetToZero(){
-    overrideLength(94.2); //Min Length
+    overrideLength(92.225); //Min Length
   }
 
   public void resetToMax(){
-    overrideLength(135.715); //Max Length
+    overrideLength(132.015); //Max Length
   }
 
   public double getLength(){
