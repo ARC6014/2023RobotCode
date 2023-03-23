@@ -60,10 +60,10 @@ public class Constants {
         public static final double openLoopRamp = 0;
         public static final double closedLoopRamp = 0;
 
-        public static final double drivePowerScalar = 0.6;
-        public static final double driveSlewRateLimitX = 5;
-        public static final double driveSlewRateLimitY = 5;
-        public static final double driveSlewRateLimitRot = 10;
+        public static final double drivePowerScalar = 0.5;
+        public static final double driveSlewRateLimitX = 7;
+        public static final double driveSlewRateLimitY = 7;
+        public static final double driveSlewRateLimitRot = 12;
 
         public static final double angleGearboxRatio = 22.93;
         public static final double driveGearboxRatio = 6.59340659;
@@ -72,17 +72,17 @@ public class Constants {
         public static final double drivekP = 0.05;
         public static final double drivekI = 0;
         public static final double drivekD = 0;
-        public static final double drivekS = 0.019;
-        public static final double drivekV = 0.205;
+        public static final double drivekS = 0.016;
+        public static final double drivekV = 0.19;
         public static final double drivekA = 0.0;
 
         public static final double anglekP = 0.27;
         public static final double anglekI = 0;
         public static final double anglekD = 0.0;
 
-        public static final double snapkP = 2;
+        public static final double snapkP = 2.5;
         public static final double snapkI = 0.0;
-        public static final double snapkD = 0.0;
+        public static final double snapkD = 0.01;
 
         public static final double maxSpeed = 5;
 
@@ -101,15 +101,15 @@ public class Constants {
 
     public static final class AutoConstants {
 
-        public static final double kMaxSpeed = 3;
-        public static final double kMaxAcceleration = 1.5;
+        public static final double kMaxSpeed = 3.5;
+        public static final double kMaxAcceleration = 3;
 
-        public static final double kPXController = 1.05;
-        public static final double kPYController = 1.05;
-        public static final double kPThetaController = 5;
+        public static final double kPXController = 1;
+        public static final double kPYController = 1;
+        public static final double kPThetaController = 4;
 
-        public static final double kPdriveOnTeleop = 1.8;
-        public static final double kDdriveOnTeleop = 0.01;
+        public static final double kPdriveOnTeleop = 1.85;
+        public static final double kDdriveOnTeleop = 0.008;
         public static final double kPturnOnTeleop = 2.2;
         public static final double kDturnOnTeleop = 0.005;
         public static final double onTheFlyMoveTreshold = 0.5;
@@ -155,7 +155,7 @@ public class Constants {
         public static final int angleMotorID = 0;
         public static final int driveMotorID = 1;
         public static final int cancoderID = 0;
-        public static final double angleOffset = -66.9863;
+        public static final double angleOffset = -66.9863 + 4.8;
         public static final double modulekS = DriveConstants.drivekS;
         public static final double modulekV = DriveConstants.drivekV;
     }
@@ -164,7 +164,7 @@ public class Constants {
         public static final int angleMotorID = 2;
         public static final int driveMotorID = 3;
         public static final int cancoderID = 1;
-        public static final double angleOffset = -192.91 - 6.32;
+        public static final double angleOffset = -192.91 - 6.32 + 9.29;
         public static final double modulekS = DriveConstants.drivekS;
         public static final double modulekV = DriveConstants.drivekV;
     }
@@ -173,7 +173,7 @@ public class Constants {
         public static final int angleMotorID = 4;
         public static final int driveMotorID = 5;
         public static final int cancoderID = 2;
-        public static final double angleOffset = -112.244 - 5.36;
+        public static final double angleOffset = -112.244 - 5.36 + 4.8;
         public static final double modulekS = DriveConstants.drivekS;
         public static final double modulekV = DriveConstants.drivekV;
     }
@@ -182,7 +182,7 @@ public class Constants {
         public static final int angleMotorID = 6;
         public static final int driveMotorID = 7;
         public static final int cancoderID = 3;
-        public static final double angleOffset = -60.8375 - 3.51;
+        public static final double angleOffset = -60.8375 - 3.51 - 5.69;
         public static final double modulekS = DriveConstants.drivekS;
         public static final double modulekV = DriveConstants.drivekV;
     }

@@ -162,8 +162,8 @@ public class RobotState extends SubsystemBase{
 
     public Pose2d getTargetPose(){
         return DriverStation.getAlliance() == Alliance.Blue ?
-        new Pose2d(getScorePose().getX() + 0.25, getScorePose().getY(), getScorePose().getRotation()) :
-        new Pose2d(getScorePose().getX() - 0.25, getScorePose().getY(), getScorePose().getRotation());
+        new Pose2d(getScorePose().getX() + 0.35, getScorePose().getY(), getScorePose().getRotation()) :
+        new Pose2d(getScorePose().getX() - 0.35, getScorePose().getY(), getScorePose().getRotation());
     }
 
     public Pose2d getScorePose(){
@@ -179,10 +179,10 @@ public class RobotState extends SubsystemBase{
     }
 
     private final SuperStructureState homingState = new SuperStructureState(124, 94.4, -20);
-    private final SuperStructureState intakeFromDoubleStataion = new SuperStructureState(100, 94.4, 90);
+    private final SuperStructureState intakeFromDoubleStataion = new SuperStructureState(110, 94.4, 85.5);
     private final SuperStructureState intakeFromSingleStataion = new SuperStructureState(110, 94.4, 90);
 
-    private final SuperStructureState intakeCubeFromGround = new SuperStructureState(100,94.4, -45);
+    private final SuperStructureState intakeCubeFromGround = new SuperStructureState(100,94.4, -483);
     private final SuperStructureState groundCube = new SuperStructureState(120,94.4, 50);
     private final SuperStructureState firstCube = new SuperStructureState(115,94.4, 72.5);
     private final SuperStructureState secondCube = new SuperStructureState(124,105, 90);

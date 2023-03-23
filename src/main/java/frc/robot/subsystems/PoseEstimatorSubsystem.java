@@ -58,7 +58,7 @@ private final SwerveDrivePoseEstimator m_poseEstimator;
 
     if(!(visionResult.botpose[0] == 0 && visionResult.botpose[1] == 0)
       && (visionResult.getBotPose2d().getX() <= -5.93 || visionResult.getBotPose2d().getX() >= 5.93)
-      && ( (rot < 17.5 && rot > -17.5) || (rot > 162.5 && rot < -162.5) )
+      && ( (rot < 17.5 && rot > -17.5) || (rot > 162.5 || rot < -162.5) )
     ){
       //System.out.println("alo");
       var pose = LimelightHelpers.toPose2D(visionResult.botpose_wpiblue);

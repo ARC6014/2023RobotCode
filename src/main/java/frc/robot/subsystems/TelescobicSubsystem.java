@@ -64,8 +64,8 @@ public class TelescobicSubsystem extends SubsystemBase {
     configs.Slot1.kS = 0.0;
     configs.Slot1.kV = 0;
 
-    configs.Voltage.PeakForwardVoltage = 6;
-    configs.Voltage.PeakReverseVoltage = -6;
+    configs.Voltage.PeakForwardVoltage = 4;
+    configs.Voltage.PeakReverseVoltage = -4;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
     configs.MotionMagic.MotionMagicAcceleration = 470; // değiştir

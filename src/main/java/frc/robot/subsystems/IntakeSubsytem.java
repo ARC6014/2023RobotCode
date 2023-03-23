@@ -60,7 +60,7 @@ public class IntakeSubsytem extends SubsystemBase {
   }
 
   public void intakeCube() {
-    intakeMotor.set(ControlMode.PercentOutput, 0.5);
+    intakeMotor.set(ControlMode.PercentOutput, 0.7);
   }
 
   public void releaseCube() {

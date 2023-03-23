@@ -102,14 +102,11 @@ public class SmartMotion extends CommandBase {
 
       }*/
 
-      if(shouldWait){
-        m_elevator.stop();
-      }else {
-        m_elevator.setElevatorPosition(m_targetState);
-      }
-      m_telescop.setTelescopicPosition(m_targetState);
+      m_elevator.setElevatorPosition(m_targetState);
       m_carriage.setCarriagePosition(m_targetState);
-      
+      if(m_currentState.getDegree() > extensionAngle() && m_elevator.isAtSetpoint()){
+        m_telescop.setTelescopicPosition(m_targetState);
+      }
 
 
     }
@@ -122,7 +119,6 @@ public class SmartMotion extends CommandBase {
     m_elevator.holdElevatorPosition();
     m_carriage.holdCarriagePosition();
     m_telescop.holdTelescopicPosition();
-    System.out.println("AAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOO");
   }
 
   // Returns true when the command should end.
@@ -133,7 +129,7 @@ public class SmartMotion extends CommandBase {
 
   private double extensionAngle(){
     double absHeight = 90 - m_elevator.getHeight();
-    double radian = Math.atan(absHeight / 80);
+    double radian = Math.atan(absHeight / 60);
     return Math.toDegrees(radian) + 90;
   }
 

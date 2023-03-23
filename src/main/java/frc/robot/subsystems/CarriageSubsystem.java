@@ -228,9 +228,9 @@ public class CarriageSubsystem extends SubsystemBase {
 
   public double getAbsolutePosition() {
     if(m_encoder.getAbsolutePosition() > 0 && m_encoder.getAbsolutePosition() < 0.5){
-      return m_encoder.getAbsolutePosition() * -360 + 17.8;
+      return m_encoder.getAbsolutePosition() * -360 + 14.6;
     }
-    return m_encoder.getAbsolutePosition() * -360 + 360 + 17.8;
+    return m_encoder.getAbsolutePosition() * -360 + 360 + 14.6;
 
 
 

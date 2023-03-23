@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import java.util.Map;
 
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -24,6 +25,8 @@ public class NodeSelector {
         }
 
         public void ConfigureWidgets() {
+
+                Shuffleboard.getTab("Camera").add("Intake view", new UsbCamera("Intake", 0)).withWidget(BuiltInWidgets.kCameraStream).withSize(5, 5);
 
                 // Ground Hybrid
                 Shuffleboard.getTab("GamePieces")

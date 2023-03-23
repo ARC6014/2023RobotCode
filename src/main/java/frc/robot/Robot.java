@@ -4,7 +4,11 @@
 
 package frc.robot;
 
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -14,6 +18,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.TelescobicSubsystem;
+import io.github.oblarg.oblog.Logger;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -38,7 +43,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_nodeSelector = new NodeSelector();
+    TelescobicSubsystem.getInstance().resetToZero();
     
+    Logger.configureLoggingAndConfig(this, false);
   }
 
   /**
@@ -54,6 +61,7 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    Logger.updateEntries();
     CommandScheduler.getInstance().run();
   }
 
@@ -67,8 +75,11 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    
+    CarriageSubsystem.getInstance().resetToAbsolute();
     DriveSubsystem.getInstance().resetToAbsolute();
+    new InstantCommand(() -> ElevatorSubsystem.getInstance().updateLastDemandedHeight(ElevatorSubsystem.getInstance().getHeight()) , ElevatorSubsystem.getInstance());
+    new InstantCommand(() -> TelescobicSubsystem.getInstance().updateLastDemandedLength(TelescobicSubsystem.getInstance().getLength()), TelescobicSubsystem.getInstance());
+    new InstantCommand(() -> CarriageSubsystem.getInstance().updateLastDemandedRotation(CarriageSubsystem.getInstance().getRotation()), CarriageSubsystem.getInstance());
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
