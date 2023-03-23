@@ -30,7 +30,6 @@ import frc.robot.commands.Intaking.IntakeCommand;
 import frc.robot.commands.Resetting.ZeroElevator;
 import frc.robot.commands.Resetting.ZeroTelescopic;
 import frc.robot.commands.Superstructure.AutoIntake;
-import frc.robot.commands.Superstructure.AutoScore;
 import frc.robot.commands.Superstructure.SmartMotion;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -83,7 +82,6 @@ public class RobotContainer {
   private final RelaseCommand m_RelaseCommand = new RelaseCommand();
   private final SmartMotion m_motion = new SmartMotion();
   private final SmartMotion m_motion1 = new SmartMotion();
-  private final AutoScore autoScore = new AutoScore();
   private final AutoIntake autoIntake = new AutoIntake();
 
   private final NodeSelector m_nodeSelector = NodeSelector.getInstance(m_ledRight);
