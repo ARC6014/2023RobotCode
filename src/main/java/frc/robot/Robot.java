@@ -38,12 +38,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    CommandScheduler.getInstance().setPeriod(0.2);
+    CommandScheduler.getInstance().setPeriod(0.35);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_nodeSelector = new NodeSelector();
-    TelescobicSubsystem.getInstance().resetToZero();
+    TelescobicSubsystem.getInstance().stop();
     
     Logger.configureLoggingAndConfig(this, false);
   }
@@ -77,6 +77,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     CarriageSubsystem.getInstance().resetToAbsolute();
     DriveSubsystem.getInstance().resetToAbsolute();
+    TelescobicSubsystem.getInstance().stop();
     new InstantCommand(() -> ElevatorSubsystem.getInstance().updateLastDemandedHeight(ElevatorSubsystem.getInstance().getHeight()) , ElevatorSubsystem.getInstance());
     new InstantCommand(() -> TelescobicSubsystem.getInstance().updateLastDemandedLength(TelescobicSubsystem.getInstance().getLength()), TelescobicSubsystem.getInstance());
     new InstantCommand(() -> CarriageSubsystem.getInstance().updateLastDemandedRotation(CarriageSubsystem.getInstance().getRotation()), CarriageSubsystem.getInstance());
@@ -97,7 +98,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     DriveSubsystem.getInstance().resetToAbsolute();
     CarriageSubsystem.getInstance().resetToAbsolute();
-    
+    TelescobicSubsystem.getInstance().stop();
     new InstantCommand(() -> ElevatorSubsystem.getInstance().updateLastDemandedHeight(ElevatorSubsystem.getInstance().getHeight()) , ElevatorSubsystem.getInstance());
     new InstantCommand(() -> TelescobicSubsystem.getInstance().updateLastDemandedLength(TelescobicSubsystem.getInstance().getLength()), TelescobicSubsystem.getInstance());
     new InstantCommand(() -> CarriageSubsystem.getInstance().updateLastDemandedRotation(CarriageSubsystem.getInstance().getRotation()), CarriageSubsystem.getInstance());

@@ -20,15 +20,16 @@ public class AutoScore extends SequentialCommandGroup {
   public AutoScore() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    if(RobotState.getInstance().getScoreTarget() != scoreLevel.Intake && RobotState.getInstance().getScoreTarget() != scoreLevel.HOMING){
+    if(RobotState.getInstance().getScoreTarget() != scoreLevel.Intake /*&& RobotState.getInstance().getScoreTarget() != scoreLevel.HOMING*/){
       addCommands(
-        //new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
+        new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
         new SmartMotion(),
-        new WaitCommand(0.5),
-        //new MoveToPose(() -> RobotState.getInstance().getScorePose()),
+        //new WaitCommand(0.5),
+        new MoveToPose(() -> RobotState.getInstance().getScorePose()),
+        new WaitCommand(0.2),
         new RelaseCommand().withTimeout(0.5),
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)),
-        //new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
+        new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
         new SmartMotion()
       );
     }

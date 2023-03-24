@@ -59,23 +59,23 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 28;
-    configs.Slot0.kI = 2.5;
-    configs.Slot0.kD = 0.18;
-    configs.Slot0.kS = 0.6;
-    configs.Slot0.kV = 0.075;
+    configs.Slot0.kP = 30.2;
+    configs.Slot0.kI = 3.2;
+    configs.Slot0.kD = 0.17;
+    configs.Slot0.kS = 0.7;
+    configs.Slot0.kV = 0.08;
 
-    configs.Slot1.kP = 0.1;
-    configs.Slot1.kI = 0.0;
-    configs.Slot1.kD = 0.00;
+    configs.Slot1.kP = 13;
+    configs.Slot1.kI = 0.5;
+    configs.Slot1.kD = 0.1;
     configs.Slot1.kS = 0.005;
     configs.Slot1.kV = 0;
 
-    configs.Slot2.kP = 13;
-    configs.Slot2.kI = 1.2;
-    configs.Slot2.kD = 0.22;
-    configs.Slot2.kS = 0.4;
-    configs.Slot2.kV = 0.04;
+    configs.Slot2.kP = 9;
+    configs.Slot2.kI = 0.63;
+    configs.Slot2.kD = 0.32;
+    configs.Slot2.kS = 0.25;
+    configs.Slot2.kV = 0.005;
 
     configs.Voltage.PeakForwardVoltage = 8;
     configs.Voltage.PeakReverseVoltage = -6;
@@ -218,11 +218,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public double getHeight(){
-    var masterRot = elevatorMaster.getRotorPosition();
+    //var masterRot = elevatorMaster.getRotorPosition();
     var slaveRot = elevatorSlave.getRotorPosition();
-    masterRot.refresh(); 
+    //masterRot.refresh(); 
     slaveRot.refresh();
-    double sprocketRotation = (masterRot.getValue() + slaveRot.getValue()) / 2 / falconGearbox.getRatio();
+    double sprocketRotation = /*(masterRot.getValue() + slaveRot.getValue()) / 2*/ slaveRot.getValue() / falconGearbox.getRatio();
     return sprocketRotation * sprocketCircumferenceInCM;
   }
 

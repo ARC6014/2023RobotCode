@@ -44,7 +44,7 @@ public class ZeroTelescopic extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_timer.stop();
-    m_telescobicArmSubsystem.updateLastDemandedLength(m_telescobicArmSubsystem.getLength());
+    m_telescobicArmSubsystem.updateLastDemandedLength(m_telescobicArmSubsystem.getLength() + 0.1);
     m_telescobicArmSubsystem.stop();
   }
 

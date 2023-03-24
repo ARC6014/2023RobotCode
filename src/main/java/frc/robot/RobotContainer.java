@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.RobotState.scoreLevel;
 import frc.robot.commands.DriveByJoystick;
@@ -96,7 +97,7 @@ public class RobotContainer {
     autonomouChooser.addOption("Loading Zone", "loadingZone");
     autonomouChooser.addOption("Side ", "side");
 
-    //m_drive.setDefaultCommand(driveByJoystick);
+    m_drive.setDefaultCommand(driveByJoystick);
     //m_elevator.setDefaultCommand(m_Eeneme);
     //m_telescop.setDefaultCommand(m_Teneme);
     //m_carriage.setDefaultCommand(m_Aeneme);
@@ -111,20 +112,25 @@ public class RobotContainer {
 
 
   private void configureBindings() {
-    //new JoystickButton(m_operator, 4).whileTrue(m_autoMove);
-    //new JoystickButton(m_operator, 5).whileTrue(m_SautoMove);
+    new JoystickButton(m_operator, 4).whileTrue(m_autoMove);
+    new JoystickButton(m_operator, 5).whileTrue(m_SautoMove);
 
     /*new JoystickButton(m_operator, 1).whileTrue(autoIntake).toggleOnFalse(
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)).andThen(
       m_motion));*/
     
-    /*new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
-    new JoystickButton(m_driver, 1).whileTrue(m_motion1);
-
-    new JoystickButton(m_operator, 2).whileTrue(new ParallelCommandGroup(
+    new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
+    new JoystickButton(m_driver, 1).whileTrue(autoScore);
+    new JoystickButton(m_driver, 3).whileTrue(m_motion1);
+  
+    new JoystickButton(m_operator, 8).whileTrue(new ParallelCommandGroup(
       new InstantCommand(() -> ElevatorSubsystem.getInstance().stop(), ElevatorSubsystem.getInstance()),
       new InstantCommand(() -> CarriageSubsystem.getInstance().stop(), CarriageSubsystem.getInstance()),
       new InstantCommand(() -> TelescobicSubsystem.getInstance().stop(), TelescobicSubsystem.getInstance())
+    ));
+    new JoystickButton(m_operator, 2).whileTrue(new SequentialCommandGroup(
+      new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING), RobotState.getInstance()),
+      m_motion
     ));
     new JoystickButton(m_operator, 1).whileTrue(new ParallelCommandGroup(m_intaking, new GrabCommand()));
     new JoystickButton(m_driver, 4).whileTrue(m_RelaseCommand);

@@ -7,6 +7,7 @@ package frc.robot.commands.Superstructure;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotState;
+import frc.robot.RobotState.scoreLevel;
 import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsytem;
@@ -102,11 +103,21 @@ public class SmartMotion extends CommandBase {
 
       }*/
 
-      m_elevator.setElevatorPosition(m_targetState);
-      m_carriage.setCarriagePosition(m_targetState);
-      if(m_currentState.getDegree() > extensionAngle() && m_elevator.isAtSetpoint()){
+
+
+      
+      if(RobotState.getInstance().getScoreTarget() != scoreLevel.HOMING){
+        m_elevator.setElevatorPosition(m_targetState);
+        m_carriage.setCarriagePosition(m_targetState);
+        if(m_elevator.isAtSetpoint() && m_carriage.isAtSetpoint()){
+          m_telescop.setTelescopicPosition(m_targetState);
+        }
+      }else{
+        m_elevator.setElevatorPosition(m_targetState);
+        m_carriage.setCarriagePosition(m_targetState);
         m_telescop.setTelescopicPosition(m_targetState);
       }
+      
 
 
     }

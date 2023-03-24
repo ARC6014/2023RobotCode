@@ -101,26 +101,26 @@ public class Constants {
 
     public static final class AutoConstants {
 
-        public static final double kMaxSpeed = 3.5;
-        public static final double kMaxAcceleration = 3;
+        public static final double kMaxSpeed = 2;
+        public static final double kMaxAcceleration = 2.2;
 
         public static final double kPXController = 1;
         public static final double kPYController = 1;
         public static final double kPThetaController = 4;
 
-        public static final double kPdriveOnTeleop = 1.85;
-        public static final double kDdriveOnTeleop = 0.008;
-        public static final double kPturnOnTeleop = 2.2;
-        public static final double kDturnOnTeleop = 0.005;
+        public static final double kPdriveOnTeleop = 3;
+        public static final double kDdriveOnTeleop = 0.001;
+        public static final double kPturnOnTeleop = 5;
+        public static final double kDturnOnTeleop = 0.015;
         public static final double onTheFlyMoveTreshold = 0.5;
 
-        public static final double kMaxAngularSpeed = Math.PI * 0.8;
+        public static final double kMaxAngularSpeed = Math.PI;
 
         public static final double kMaxAngularAccel = Math.pow(kMaxAngularSpeed, 2.25);
 
         public static final double OnTheFlyPathGenerationTreshold = 0.5;
-        public static final double kMaxAccelerationOnTeleop = 4;
-        public static final double kMaxSpeedOnTeleop = 3.5;
+        public static final double kMaxAccelerationOnTeleop = 6.5;
+        public static final double kMaxSpeedOnTeleop = 5;
 
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
                 kMaxAngularSpeed, kMaxAngularAccel);
@@ -128,8 +128,8 @@ public class Constants {
         public static final TrapezoidProfile.Constraints kTranslationConstraints = new TrapezoidProfile.Constraints(
             kMaxSpeedOnTeleop, kMaxAccelerationOnTeleop);
 
-        public static final double kPositionToleranceX = 0.2;
-        public static final double kPositionToleranceY = 0.2;
+        public static final double kPositionToleranceX = 0.05;
+        public static final double kPositionToleranceY = 0.05;
         public static final double kRotationToleranceRadians = 0.1;
 
         public static final Pose2d testPose = new Pose2d(7.10, 3.35, Rotation2d.fromDegrees(0));

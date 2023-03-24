@@ -59,14 +59,14 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 25;
-    configs.Slot0.kI = 1.2;
-    configs.Slot0.kD = 0.6;
-    configs.Slot0.kS = 0.05;
-    configs.Slot0.kV = 0.01;
+    configs.Slot0.kP = 28.5;
+    configs.Slot0.kI = 1.6;
+    configs.Slot0.kD = 0.85;
+    configs.Slot0.kS = 0.065;
+    configs.Slot0.kV = 0.012;
 
-    configs.Slot1.kP = 8;
-    configs.Slot1.kI = 2;
+    configs.Slot1.kP = 16;
+    configs.Slot1.kI = 2.2;
     configs.Slot1.kD = 0.08;
     configs.Slot1.kS = 0.5;
     configs.Slot1.kV = 0.025;
@@ -75,9 +75,9 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.Voltage.PeakReverseVoltage = -10;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 180;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 180;;
-    configs.MotionMagic.MotionMagicAcceleration = 400; // değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 450; // değiştir
     configs.MotionMagic.MotionMagicCruiseVelocity = 120; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 800; //  değiştir
+    configs.MotionMagic.MotionMagicJerk = 1000; //  değiştir
     
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
@@ -249,7 +249,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void autoCalibration(){
-    if( (m_timer.get() - lastAbsoluteTime) > 1.5){ 
+    if( (m_timer.get() - lastAbsoluteTime) > 2.5 && (Math.abs(getAbsolutePosition() - getRotation()) >= 1.2) ) {
     resetToAbsolute();
     lastAbsoluteTime = m_timer.get();
     }
@@ -265,7 +265,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getDegree() - getRotation()) <= 1.5;
+    return Math.abs(targetState.getDegree() - getRotation()) <= 0.5;
   }
 
 }

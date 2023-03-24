@@ -49,9 +49,9 @@ public class GrabberSubsystem extends SubsystemBase{
 
     public void release() {
         if(RobotState.getInstance().getPiece() == pieceState.CONE){
-            grabberMotorMaster.set(0.12);
+            grabberMotorMaster.set(0.1);
         }else{
-            grabberMotorMaster.set(0.8);
+            grabberMotorMaster.set(0.5);
         }
     }
 

@@ -58,17 +58,31 @@ public class LoadingAuto extends SequentialCommandGroup {
 
     if(m_blueAllience){
       addCommands(
-      new InstantCommand(() -> m_drive.resetOdometry(blueSwerveCommand.getInitialPose()), m_drive),
-      new InstantCommand(() -> RobotState.getInstance().setCube() , RobotState.getInstance()),
-      blueSwerveCommand.raceWith(m_IntakeCommand),
-      blueSwerveCommand1,
-      blueSwerveCommand2.raceWith(m_IntakeCommand1),
-      blueSwerveCommand3
+        new RunCommand(() -> m_drive.resetOdometry(blueSwerveCommand.getInitialPose()), m_drive).withTimeout(0.01),
+        /*new InstantCommand(() -> RobotState.getInstance().setCube() , RobotState.getInstance()),
+        new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel) , RobotState.getInstance()),
+        motionCommand1.withTimeout(3.5 ),
+        m_RelaseCommand.withTimeout(0.8),
+        new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.ground) , RobotState.getInstance()),
+        new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake) , RobotState.getInstance()),
+        blueSwerveCommand.raceWith(motionCommand2).raceWith(m_GrabCommand).raceWith(m_IntakeCommand),
+        new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel) , RobotState.getInstance()),
+        blueSwerveCommand1.raceWith(motionCommand3),
+        new WaitCommand(0.3),
+        m_RelaseCommand1.withTimeout(0.8),
+        new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.ground) , RobotState.getInstance()),
+        new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake) , RobotState.getInstance()),
+        new ParallelCommandGroup(motionCommand4, blueSwerveCommand2, m_IntakeCommand1, m_GrabCommand1),
+        blueSwerveCommand3*/
+        blueSwerveCommand,
+        blueSwerveCommand1/* ,
+        blueSwerveCommand2,
+        blueSwerveCommand3*/
       );
     }else if(!m_blueAllience){
-    addCommands(
+    addCommands(/* 
       new RunCommand(() -> m_drive.resetOdometry(redSwerveCommand.getInitialPose()), m_drive).withTimeout(0.01),
-      /*new InstantCommand(() -> RobotState.getInstance().setCube() , RobotState.getInstance()),
+      new InstantCommand(() -> RobotState.getInstance().setCube() , RobotState.getInstance()),
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel) , RobotState.getInstance()),
       motionCommand1,
       new WaitCommand(0.3),
@@ -83,11 +97,10 @@ public class LoadingAuto extends SequentialCommandGroup {
       new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.ground) , RobotState.getInstance()),
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake) , RobotState.getInstance()),
       new ParallelCommandGroup(motionCommand4, redSwerveCommand2, m_IntakeCommand1, m_GrabCommand1),
-      redSwerveCommand3*/
       redSwerveCommand,
       redSwerveCommand1,
       redSwerveCommand2,
-      redSwerveCommand3
+      redSwerveCommand3*/
       );
     }
   }

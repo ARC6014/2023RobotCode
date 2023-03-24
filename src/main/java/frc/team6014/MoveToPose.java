@@ -85,7 +85,15 @@ public class MoveToPose extends CommandBase {
   }
 
   public boolean atReference(){
-    return x_pid.atGoal() && y_pid.atGoal() && m_thetaController.atGoal(); 
+    Pose2d currentPose = m_poseEstimatorSubsystem.getPose();
+    //return x_pid.atGoal() && y_pid.atGoal() && m_thetaController.atGoal(); 
+    if(Math.abs(currentPose.getX() - m_targetPose.getX()) <= 0.025 && 
+    Math.abs(currentPose.getY() - m_targetPose.getY()) <= 0.02 &&
+    Math.abs(currentPose.getRotation().getRadians() - m_targetPose.getRotation().getRadians()) <= Math.toDegrees(4)){
+    return true;
+  }else {
+    return false;
+  }
   }
 
 }

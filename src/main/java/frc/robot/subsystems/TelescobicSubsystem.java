@@ -52,25 +52,25 @@ public class TelescobicSubsystem extends SubsystemBase {
     telescobicMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 25;
-    configs.Slot0.kI = 1.3;
-    configs.Slot0.kD = 0.08;
-    configs.Slot0.kS = 0.01;
-    configs.Slot0.kV = 0;
+    configs.Slot0.kP = 36;
+    configs.Slot0.kI = 2;
+    configs.Slot0.kD = 0.06;
+    configs.Slot0.kS = 0.085;
+    configs.Slot0.kV = 0.005;
 
-    configs.Slot1.kP = 6;
-    configs.Slot1.kI = 0.85;
-    configs.Slot1.kD = 0.02;
+    configs.Slot1.kP = 25;
+    configs.Slot1.kI = 1.5;
+    configs.Slot1.kD = 0.08;
     configs.Slot1.kS = 0.0;
     configs.Slot1.kV = 0;
 
-    configs.Voltage.PeakForwardVoltage = 4;
-    configs.Voltage.PeakReverseVoltage = -4;
+    configs.Voltage.PeakForwardVoltage = 5;
+    configs.Voltage.PeakReverseVoltage = -5;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 470; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 140; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 1050; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 550; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 1100; //  değiştir
 
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
@@ -160,11 +160,17 @@ public class TelescobicSubsystem extends SubsystemBase {
   }
 
   public void setLength(){
+    if(getLength() < 94){
+      return;
+    }
     double sprocketRotation = targetState.getLength() / pulleyCircumferenceInCM;
     telescobicMaster.setControl(m_motionMagic.withPosition(sprocketRotation * falconGearbox.getRatio()));
   }
 
   public void holdPosition(){
+    if(getLength() < 94){
+      return;
+    }
     double sprocketRotation = lastDemandedLength / pulleyCircumferenceInCM;
     telescobicMaster.setControl(m_torqueControl.withPosition(sprocketRotation * falconGearbox.getRatio()));
   }
@@ -213,7 +219,7 @@ public class TelescobicSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getLength() - getLength()) < 0.25; 
+    return Math.abs(targetState.getLength() - getLength()) < 0.5; 
   } 
 
 

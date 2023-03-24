@@ -162,8 +162,8 @@ public class RobotState extends SubsystemBase{
 
     public Pose2d getTargetPose(){
         return DriverStation.getAlliance() == Alliance.Blue ?
-        new Pose2d(getScorePose().getX() + 0.35, getScorePose().getY(), getScorePose().getRotation()) :
-        new Pose2d(getScorePose().getX() - 0.35, getScorePose().getY(), getScorePose().getRotation());
+        new Pose2d(getScorePose().getX() + 0.3, getScorePose().getY(), getScorePose().getRotation()) :
+        new Pose2d(getScorePose().getX() - 0.3, getScorePose().getY(), getScorePose().getRotation());
     }
 
     public Pose2d getScorePose(){
@@ -178,28 +178,28 @@ public class RobotState extends SubsystemBase{
         return AllianceFlipUtil.apply(firstNodePose);
     }
 
-    private final SuperStructureState homingState = new SuperStructureState(124, 94.4, -20);
-    private final SuperStructureState intakeFromDoubleStataion = new SuperStructureState(110, 94.4, 85.5);
+    private final SuperStructureState homingState = new SuperStructureState(125.4, 94.35, 5);
+    private final SuperStructureState intakeFromDoubleStataion = new SuperStructureState(111.2, 94.4, 88.8);
     private final SuperStructureState intakeFromSingleStataion = new SuperStructureState(110, 94.4, 90);
 
-    private final SuperStructureState intakeCubeFromGround = new SuperStructureState(100,94.4, -483);
+    private final SuperStructureState intakeCubeFromGround = new SuperStructureState(100,94.4, -48.3);
     private final SuperStructureState groundCube = new SuperStructureState(120,94.4, 50);
-    private final SuperStructureState firstCube = new SuperStructureState(115,94.4, 72.5);
+    private final SuperStructureState firstCube = new SuperStructureState(115,94.75, 72.5);
     private final SuperStructureState secondCube = new SuperStructureState(124,105, 90);
 
     private final SuperStructureState intakeConeFromGround = new SuperStructureState(100,92.5, 90);
     private final SuperStructureState groundCone = new SuperStructureState(120,95, 50);
-    private final SuperStructureState firstCone = new SuperStructureState(71,94.4, 124);
+    private final SuperStructureState firstCone = new SuperStructureState(71,94.4, 123);
     private final SuperStructureState secondCone = new SuperStructureState(94.5,130, 118);
 
-    private static final Pose2d firstNodePose = new Pose2d(1.85, 4.95, Rotation2d.fromDegrees(0));
-    private static final Pose2d firstCubePose = new Pose2d(1.85, 4.40, Rotation2d.fromDegrees(0));
-    private static final Pose2d secondNodePose = new Pose2d(1.85, 3.85, Rotation2d.fromDegrees(0));
-    private static final Pose2d thirdNodePose = new Pose2d(1.85, 3.30, Rotation2d.fromDegrees(0));
-    private static final Pose2d secondCubePose = new Pose2d(1.85, 2.75, Rotation2d.fromDegrees(0));
-    private static final Pose2d fourthNodePose = new Pose2d(1.85, 2.18, Rotation2d.fromDegrees(0));
-    private static final Pose2d fifthNodePose = new Pose2d(1.85, 1.62, Rotation2d.fromDegrees(0));
-    private static final Pose2d thirdCubePose = new Pose2d(1.85, 1.065, Rotation2d.fromDegrees(0));
-    private static final Pose2d sixthNodePose = new Pose2d(1.85, 0.50, Rotation2d.fromDegrees(0));
+    private static final Pose2d firstNodePose = new Pose2d(1.965, 4.95, Rotation2d.fromDegrees(0));
+    private static final Pose2d firstCubePose = new Pose2d(1.99, 4.40, Rotation2d.fromDegrees(0));
+    private static final Pose2d secondNodePose = new Pose2d(1.965, 3.85, Rotation2d.fromDegrees(0));
+    private static final Pose2d thirdNodePose = new Pose2d(1.965, 3.32, Rotation2d.fromDegrees(0));
+    private static final Pose2d secondCubePose = new Pose2d(1.99, 2.75, Rotation2d.fromDegrees(0));
+    private static final Pose2d fourthNodePose = new Pose2d(1.965, 2.18, Rotation2d.fromDegrees(0));
+    private static final Pose2d fifthNodePose = new Pose2d(1.965, 1.62, Rotation2d.fromDegrees(0));
+    private static final Pose2d thirdCubePose = new Pose2d(1.99, 1.065, Rotation2d.fromDegrees(0));
+    private static final Pose2d sixthNodePose = new Pose2d(1.965, 0.50, Rotation2d.fromDegrees(0));
     private static final Pose2d loadingZonePose = new Pose2d(13.45, 7.00, Rotation2d.fromDegrees(0));
 }
