@@ -421,10 +421,12 @@ public class NodeSelector {
                 if (id == 50) {
                         m_robotState.setScoreLevel(scoreLevel.Intake);
                         m_robotState.setIntakeLevel(intakeLevel.ground);
+                        m_robotState.setCube();;
                 }
                 if (id == 51) {
                         m_robotState.setScoreLevel(scoreLevel.Intake);
                         m_robotState.setIntakeLevel(intakeLevel.doubleStation);
+                        m_robotState.setCone();
                 }
                 if (id == 52) {
                         m_robotState.setScoreLevel(scoreLevel.Intake);

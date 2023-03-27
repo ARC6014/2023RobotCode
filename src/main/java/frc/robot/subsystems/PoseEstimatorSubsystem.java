@@ -11,6 +11,8 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,6 +21,8 @@ import frc.robot.Constants.DriveConstants;
 public class PoseEstimatorSubsystem extends SubsystemBase{
 
 private static PoseEstimatorSubsystem m_instance;
+private static boolean m_calibration = false;
+
 
 public static PoseEstimatorSubsystem getInstance(){
   if(m_instance == null){
@@ -37,8 +41,11 @@ private final SwerveDrivePoseEstimator m_poseEstimator;
   /** Creates a new PoseEstimatorSubsystem. */
   public PoseEstimatorSubsystem() {
     m_poseEstimator = new SwerveDrivePoseEstimator(Constants.kinematics, m_drive.getRotation2d(), m_drive.getModulePositions(), new Pose2d(), stateStdDevs, visionMeasurementStdDevs);
+    Shuffleboard.getTab("GamePieces").add("Calibrated", m_calibration).withWidget(BuiltInWidgets.kBooleanBox).withPosition(3, 3).withSize(1, 1);
+    //getCalibration();
   }
 
+  
 
 
   @Override
@@ -63,8 +70,10 @@ private final SwerveDrivePoseEstimator m_poseEstimator;
       //System.out.println("alo");
       var pose = LimelightHelpers.toPose2D(visionResult.botpose_wpiblue);
       m_poseEstimator.addVisionMeasurement(pose, Timer.getFPGATimestamp() - (visionResult.latency_capture / 1000) - (visionResult.latency_pipeline / 1000));
+      m_calibration = true;
     }
 
+    m_calibration = false;
     SmartDashboard.putBoolean("Vision", visionResult.valid);
 
     //System.out.println(getFomattedPose());
@@ -88,6 +97,10 @@ private final SwerveDrivePoseEstimator m_poseEstimator;
 
   public Pose2d getPose(){
     return m_poseEstimator.getEstimatedPosition();
+  }
+
+  public void getCalibration() {
+    SmartDashboard.putBoolean("Calibrated", m_calibration);
   }
 
 }

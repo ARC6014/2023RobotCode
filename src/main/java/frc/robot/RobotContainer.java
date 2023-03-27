@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import javax.management.relation.RelationException;
+
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.RobotState.intakeLevel;
 import frc.robot.RobotState.scoreLevel;
 import frc.robot.commands.DriveByJoystick;
 import frc.robot.commands.SetLedState;
@@ -28,6 +31,7 @@ import frc.robot.commands.Deneme.TelescopicDeneme;
 import frc.robot.commands.Grabbing.GrabCommand;
 import frc.robot.commands.Grabbing.RelaseCommand;
 import frc.robot.commands.Intaking.IntakeCommand;
+import frc.robot.commands.Intaking.Outtake;
 import frc.robot.commands.Resetting.ZeroElevator;
 import frc.robot.commands.Resetting.ZeroTelescopic;
 import frc.robot.commands.Superstructure.AutoIntake;
@@ -66,7 +70,7 @@ public class RobotContainer {
   private final AddressableLed m_ledRight = new AddressableLed(7);
   // The robot's subsystems and commands are defined here...
 
-  private final DriveByJoystick driveByJoystick = new DriveByJoystick(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawAxis(0) * -1, () -> m_driver.getRawAxis(2) * -1, () -> m_driver.getRawButton(7), () -> m_driver.getRawButton(8));
+  private final DriveByJoystick driveByJoystick = new DriveByJoystick(() -> m_driver.getRawAxis(1) * -1, () -> m_driver.getRawAxis(0) * -1, () -> m_driver.getRawAxis(2) * -1, () -> m_driver.getRawButton(7), () -> m_driver.getRawButton(8), () -> m_operator.getRawButton(9));
   private final LoadingAuto blueLoadingAuto = new LoadingAuto(true);
   private final LoadingAuto redLoadingAuto = new LoadingAuto(false);
   private final SideAuto blueSideAuto = new SideAuto(true);
@@ -84,6 +88,7 @@ public class RobotContainer {
   private final RelaseCommand m_RelaseCommand = new RelaseCommand();
   private final SmartMotion m_motion = new SmartMotion();
   private final SmartMotion m_motion1 = new SmartMotion();
+  private final SmartMotion m_motion2 = new SmartMotion();
   private final AutoScore autoScore = new AutoScore();
   private final AutoIntake autoIntake = new AutoIntake();
 
@@ -113,7 +118,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     new JoystickButton(m_operator, 4).whileTrue(m_autoMove);
-    new JoystickButton(m_operator, 5).whileTrue(m_SautoMove);
+    new JoystickButton(m_operator, 6).whileTrue(m_SautoMove);
 
     /*new JoystickButton(m_operator, 1).whileTrue(autoIntake).toggleOnFalse(
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)).andThen(
@@ -123,7 +128,7 @@ public class RobotContainer {
     new JoystickButton(m_driver, 1).whileTrue(autoScore);
     new JoystickButton(m_driver, 3).whileTrue(m_motion1);
   
-    new JoystickButton(m_operator, 8).whileTrue(new ParallelCommandGroup(
+    new JoystickButton(m_operator, 3).whileTrue(new ParallelCommandGroup(
       new InstantCommand(() -> ElevatorSubsystem.getInstance().stop(), ElevatorSubsystem.getInstance()),
       new InstantCommand(() -> CarriageSubsystem.getInstance().stop(), CarriageSubsystem.getInstance()),
       new InstantCommand(() -> TelescobicSubsystem.getInstance().stop(), TelescobicSubsystem.getInstance())
@@ -132,8 +137,27 @@ public class RobotContainer {
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING), RobotState.getInstance()),
       m_motion
     ));
+    new JoystickButton(m_driver, 6).whileTrue(new SequentialCommandGroup(
+      new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.kStarting), RobotState.getInstance()),
+      m_motion2
+    ));
     new JoystickButton(m_operator, 1).whileTrue(new ParallelCommandGroup(m_intaking, new GrabCommand()));
+    new JoystickButton(m_operator, 5).whileTrue(new ParallelCommandGroup(new Outtake(), new RelaseCommand()));
+
     new JoystickButton(m_driver, 4).whileTrue(m_RelaseCommand);
+
+    new JoystickButton(m_operator, 10).whileTrue(new SequentialCommandGroup(
+      new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake), RobotState.getInstance()),
+      new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.ground), RobotState.getInstance()),
+      new InstantCommand(() -> RobotState.getInstance().setCube(), RobotState.getInstance()),
+      new SmartMotion()
+    ));
+    new JoystickButton(m_operator, 12).whileTrue(new SequentialCommandGroup(
+      new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake), RobotState.getInstance()),
+      new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.doubleStation), RobotState.getInstance()),
+      new InstantCommand(() -> RobotState.getInstance().setCone(), RobotState.getInstance()),
+      new SmartMotion()
+    ));
  
     /*new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     new JoystickButton(m_driver, 1).whileTrue(m_motion);
@@ -185,14 +209,15 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    switch(autonomouChooser.getSelected()){
+    /*switch(autonomouChooser.getSelected()){
       case "side":
         return DriverStation.getAlliance() == Alliance.Blue? blueSideAuto : redSideAuto;
       case "loadingZone":
         return DriverStation.getAlliance() == Alliance.Blue? blueLoadingAuto : redLoadingAuto;
       default:
         return null;
-    }
+    }*/
+    return redLoadingAuto;
 
     
   }

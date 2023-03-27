@@ -60,7 +60,7 @@ public class Constants {
         public static final double openLoopRamp = 0;
         public static final double closedLoopRamp = 0;
 
-        public static final double drivePowerScalar = 0.5;
+        public static final double drivePowerScalar = 0.55;
         public static final double driveSlewRateLimitX = 7;
         public static final double driveSlewRateLimitY = 7;
         public static final double driveSlewRateLimitRot = 12;
@@ -101,8 +101,8 @@ public class Constants {
 
     public static final class AutoConstants {
 
-        public static final double kMaxSpeed = 2;
-        public static final double kMaxAcceleration = 2.2;
+        public static final double kMaxSpeed = 1.5;
+        public static final double kMaxAcceleration = 2;
 
         public static final double kPXController = 1;
         public static final double kPYController = 1;

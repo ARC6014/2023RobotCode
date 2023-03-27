@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.RobotState;
 import frc.robot.RobotState.pieceState;
+import frc.robot.RobotState.scoreLevel;
 import frc.team6014.lib.drivers.AddressableLed;
 
 public class SetLedState extends CommandBase {
@@ -33,13 +34,12 @@ public class SetLedState extends CommandBase {
   @Override
   public void execute() {
     //System.out.println("alo");
-    if(RobotState.getInstance().getPiece() == pieceState.CONE){
+    if(RobotState.getInstance().getScoreTarget() == scoreLevel.HOMING || RobotState.getInstance().getScoreTarget() == scoreLevel.kStarting){
+      m_addressableLed.setLEDColor(Color.kBlue);
+    }else if(RobotState.getInstance().getPiece() == pieceState.CONE){
       m_addressableLed.setLEDColor(Color.kRed);
-    }if(RobotState.getInstance().getPiece() == pieceState.CUBE){
+    }else if(RobotState.getInstance().getPiece() == pieceState.CUBE){
       m_addressableLed.setLEDColor(Color.kGreen);      
-    }
-    if(m_addressableLed.getTriggered()){
-      
     }
 
   }

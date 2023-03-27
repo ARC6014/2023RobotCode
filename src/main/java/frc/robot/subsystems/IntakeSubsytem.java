@@ -16,7 +16,9 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.RobotState;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.RobotState.scoreLevel;
 
 public class IntakeSubsytem extends SubsystemBase {
   /** Creates a new IntakeSubsytem. */
@@ -60,11 +62,11 @@ public class IntakeSubsytem extends SubsystemBase {
   }
 
   public void intakeCube() {
-    intakeMotor.set(ControlMode.PercentOutput, 0.7);
+    intakeMotor.set(ControlMode.PercentOutput, 0.4);
   }
 
   public void releaseCube() {
-    intakeMotor.set(ControlMode.PercentOutput, 0.25);
+    intakeMotor.set(ControlMode.PercentOutput, -0.4);
   }
 
   public void stop() {
@@ -76,7 +78,8 @@ public class IntakeSubsytem extends SubsystemBase {
   }
 
   public void maybeShouldOpen(){
-    if(CarriageSubsystem.getInstance().getRotation() < -18){
+    double a = RobotState.getInstance().getScoreTarget() == scoreLevel.Intake? -15 : -17.5;
+    if(CarriageSubsystem.getInstance().getRotation() < a){
       extendIntake();
     }else{
       retractIntake();

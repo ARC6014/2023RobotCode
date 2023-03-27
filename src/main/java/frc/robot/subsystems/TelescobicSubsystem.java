@@ -72,7 +72,7 @@ public class TelescobicSubsystem extends SubsystemBase {
     configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
     configs.MotionMagic.MotionMagicJerk = 1100; //  değiştir
 
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.02;
 

@@ -13,7 +13,7 @@ public class SuperStructureState {
 
     private double[] kTolerances = {
         0.5,
-        0.75,
+        1,
         0.5
     };
 

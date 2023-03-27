@@ -20,6 +20,7 @@ public class DriveByJoystick extends CommandBase {
   private final DoubleSupplier m_rotation;
   private final BooleanSupplier m_isLocked;
   private final BooleanSupplier m_rush;
+  private final BooleanSupplier m_yavas;
 
   private final SlewRateLimiter m_slewX = new SlewRateLimiter(DriveConstants.driveSlewRateLimitX);
   private final SlewRateLimiter m_slewY = new SlewRateLimiter(DriveConstants.driveSlewRateLimitY);
@@ -28,7 +29,8 @@ public class DriveByJoystick extends CommandBase {
   private boolean fieldOrient = DriveConstants.isFieldOriented;
   private double scalarValue = DriveConstants.drivePowerScalar;
 
-  public DriveByJoystick(DoubleSupplier x, DoubleSupplier y, DoubleSupplier rotation, BooleanSupplier isLocked, BooleanSupplier rush) {
+  public DriveByJoystick(DoubleSupplier x, DoubleSupplier y, DoubleSupplier rotation, BooleanSupplier isLocked, BooleanSupplier rush, BooleanSupplier yavas){
+    m_yavas = yavas;
     m_x=x;
     m_y=y;
     m_rotation = rotation;
@@ -49,6 +51,13 @@ public class DriveByJoystick extends CommandBase {
     m_drive.lockSwerve(m_isLocked.getAsBoolean());
 
     double scalar = m_rush.getAsBoolean()? 1 : scalarValue;
+    if(m_yavas.getAsBoolean()){
+      scalar = 0.3;
+    }else if(m_rush.getAsBoolean()){
+      scalar = 1;
+    }else{
+      scalar = scalarValue;
+    }
 
     double xSpeed = m_slewX.calculate(inputTransform(m_x.getAsDouble()) * DriveConstants.maxSpeed) * scalar;
     double ySpeed = m_slewY.calculate(inputTransform(m_y.getAsDouble()) * DriveConstants.maxSpeed) * scalar;

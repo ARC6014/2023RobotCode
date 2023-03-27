@@ -23,7 +23,7 @@ public class AutoScore extends SequentialCommandGroup {
     if(RobotState.getInstance().getScoreTarget() != scoreLevel.Intake /*&& RobotState.getInstance().getScoreTarget() != scoreLevel.HOMING*/){
       addCommands(
         new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
-        new SmartMotion(),
+        new SmartMotion().withTimeout(2),
         //new WaitCommand(0.5),
         new MoveToPose(() -> RobotState.getInstance().getScorePose()),
         new WaitCommand(0.2),

@@ -47,7 +47,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private double lastDemandedHeight;
 
   private final LimitSwitch m_limitSwitch = new LimitSwitch(9);
-  private final Debouncer m_switchBouncer = new Debouncer(0.01, DebounceType.kFalling);
+  private final Debouncer m_switchBouncer = new Debouncer(0.2, DebounceType.kRising);
   
   public ElevatorControlState m_controlState = ElevatorControlState.OPEN_LOOP;
 
@@ -59,10 +59,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 30.2;
-    configs.Slot0.kI = 3.2;
+    configs.Slot0.kP = 37.5;
+    configs.Slot0.kI = 4.2;
     configs.Slot0.kD = 0.17;
-    configs.Slot0.kS = 0.7;
+    configs.Slot0.kS = 0.75;
     configs.Slot0.kV = 0.08;
 
     configs.Slot1.kP = 13;
@@ -71,9 +71,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.Slot1.kS = 0.005;
     configs.Slot1.kV = 0;
 
-    configs.Slot2.kP = 9;
-    configs.Slot2.kI = 0.63;
-    configs.Slot2.kD = 0.32;
+    configs.Slot2.kP = 9.7;
+    configs.Slot2.kI = 0.7;
+    configs.Slot2.kD = 0.35;
     configs.Slot2.kS = 0.25;
     configs.Slot2.kV = 0.005;
 
@@ -85,7 +85,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.MotionMagic.MotionMagicCruiseVelocity = 115; // değiştir
     configs.MotionMagic.MotionMagicJerk = 1050; //  değiştir
 
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; 
     configs.MotorOutput.DutyCycleNeutralDeadband = 0.04;
 
@@ -214,15 +214,15 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void switchTriggered(){
     if(m_switchBouncer.calculate(m_limitSwitch.isThereAThing()))
-    overrideHeight(122.5);
+    overrideHeight(122.935);
   }
 
   public double getHeight(){
-    //var masterRot = elevatorMaster.getRotorPosition();
+    var masterRot = elevatorMaster.getRotorPosition();
     var slaveRot = elevatorSlave.getRotorPosition();
-    //masterRot.refresh(); 
+    masterRot.refresh(); 
     slaveRot.refresh();
-    double sprocketRotation = /*(masterRot.getValue() + slaveRot.getValue()) / 2*/ slaveRot.getValue() / falconGearbox.getRatio();
+    double sprocketRotation = (masterRot.getValue() + slaveRot.getValue()) / 2 / falconGearbox.getRatio();
     return sprocketRotation * sprocketCircumferenceInCM;
   }
 
@@ -244,7 +244,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getHeight() - getHeight()) < 0.75; 
+    return Math.abs(targetState.getHeight() - getHeight()) < 1; 
   } 
 
 }

@@ -28,11 +28,11 @@
         "y": 4.65
       },
       "prevControl": {
-        "x": 5.854671533205027,
-        "y": 4.65
+        "x": 5.971729489821319,
+        "y": 4.71140868101993
       },
       "nextControl": null,
-      "holonomicAngle": -10.0,
+      "holonomicAngle": -5.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -45,8 +45,8 @@
       }
     }
   ],
-  "maxVelocity": 2.0,
-  "maxAcceleration": 2.2,
+  "maxVelocity": 1.5,
+  "maxAcceleration": 2.0,
   "isReversed": null,
   "markers": []
 }

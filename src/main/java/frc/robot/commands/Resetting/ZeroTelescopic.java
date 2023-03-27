@@ -27,13 +27,13 @@ public class ZeroTelescopic extends CommandBase {
     m_isFinished = false;
     System.out.println("alo");
   //  m_telescobicArmSubsystem.setMotorOutput(-0.1);
-  m_telescobicArmSubsystem.setTelescopicOpenLoop(-0.1);
+  m_telescobicArmSubsystem.setTelescopicOpenLoop(-0.06);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_timer.get() > 0.5 && m_telescobicArmSubsystem.getCurrent() > 18) {
+    if (m_timer.get() > 0.5 && m_telescobicArmSubsystem.getCurrent() > 19) {
       m_telescobicArmSubsystem.stop();
       m_telescobicArmSubsystem.resetToZero();
       m_isFinished = true;

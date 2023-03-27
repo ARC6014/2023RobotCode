@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
@@ -34,7 +35,7 @@ public class AutoFromHolonomicController extends CommandBase {
       0, AutoConstants.kThetaControllerConstraints);
   private final HolonomicDriveController m_controller = new HolonomicDriveController(x_pid, y_pid, m_thetaController);
 
-  private Timer m_timer = new Timer();
+  private final Timer m_timer = new Timer();
 
   /** Creates a new AutoFromHolonomicController. */
   public AutoFromHolonomicController(PathPlannerTrajectory trajectory) {
@@ -65,12 +66,14 @@ public class AutoFromHolonomicController extends CommandBase {
         m_controller.calculate(m_drive.getPose(), desiredState, desiredState.holonomicRotation));
 
     m_drive.setClosedLoopStates(moduleStates);
+    SmartDashboard.putBoolean("timer", m_timer.hasElapsed(m_trajectory.getTotalTimeSeconds()));
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    SmartDashboard.putBoolean("path finished", true);
     m_timer.stop();
   }
 

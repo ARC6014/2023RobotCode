@@ -43,7 +43,7 @@ public class CarriageSubsystem extends SubsystemBase {
   private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0,0,1,false); 
   private final DutyCycleOut m_percentOut = new DutyCycleOut(0, true, false);
 
-  private final Gearbox falconGearbox = new Gearbox(1 * 32 * 18, 60 * 64 * 40);
+  private final Gearbox falconGearbox = new Gearbox(1 * 42 * 18, 80 * 54 * 40);
   private double targetOutput = 0.0;
   private SuperStructureState targetState = new SuperStructureState();
   private double lastDemandedRotation;
@@ -59,15 +59,15 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 28.5;
-    configs.Slot0.kI = 1.6;
+    configs.Slot0.kP = 29;
+    configs.Slot0.kI = 1.65;
     configs.Slot0.kD = 0.85;
     configs.Slot0.kS = 0.065;
     configs.Slot0.kV = 0.012;
 
     configs.Slot1.kP = 16;
     configs.Slot1.kI = 2.2;
-    configs.Slot1.kD = 0.08;
+    configs.Slot1.kD = 0.09;
     configs.Slot1.kS = 0.5;
     configs.Slot1.kV = 0.025;
 
@@ -99,6 +99,8 @@ public class CarriageSubsystem extends SubsystemBase {
 
     new InstantCommand(() -> m_encoder.setPositionOffset(0.1), this);
     m_encoder.setPositionOffset(0.055);
+
+    resetToAbsolute();
   }
 
   public static CarriageSubsystem getInstance() {
@@ -228,9 +230,9 @@ public class CarriageSubsystem extends SubsystemBase {
 
   public double getAbsolutePosition() {
     if(m_encoder.getAbsolutePosition() > 0 && m_encoder.getAbsolutePosition() < 0.5){
-      return m_encoder.getAbsolutePosition() * -360 + 14.6;
+      return m_encoder.getAbsolutePosition() * -360 + 272.4 + 6.4 -2;
     }
-    return m_encoder.getAbsolutePosition() * -360 + 360 + 14.6;
+    return m_encoder.getAbsolutePosition() * -360 + 272.4 + 6.4 -2;
 
 
 
@@ -249,7 +251,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void autoCalibration(){
-    if( (m_timer.get() - lastAbsoluteTime) > 2.5 && (Math.abs(getAbsolutePosition() - getRotation()) >= 1.2) ) {
+    if( (m_timer.get() - lastAbsoluteTime) > 2 && (Math.abs(getAbsolutePosition() - getRotation()) >= 1.2) ) {
     resetToAbsolute();
     lastAbsoluteTime = m_timer.get();
     }
@@ -258,7 +260,8 @@ public class CarriageSubsystem extends SubsystemBase {
   public void maybeShouldStop(){
     var currentVel = carriageMaster.getRotorVelocity();
     currentVel.refresh();
-    if(Util.epsilonEquals(currentVel.getValue() / falconGearbox.getRatio(), 0 , 0.1) && getCurrent() >= 100){//Kalibre ET!!!
+    if(Util.epsilonEquals(currentVel.getValue() / falconGearbox.getRatio(), 0 , 0.1) && getCurrent() >= 100)
+    {//Kalibre ET!!!
       holdPosition();
       System.out.println("Triggered Carriage");
     }

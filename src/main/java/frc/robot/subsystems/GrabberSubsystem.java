@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotState;
 import frc.robot.Constants.GrabberConstants;
 import frc.robot.RobotState.pieceState;
+import frc.robot.RobotState.scoreLevel;
 
 public class GrabberSubsystem extends SubsystemBase{
 
@@ -40,7 +41,7 @@ public class GrabberSubsystem extends SubsystemBase{
 
     public void grab() {
         if(RobotState.getInstance().getPiece() == pieceState.CONE){
-            grabberMotorMaster.set(-0.7);
+            grabberMotorMaster.set(-0.45);
         }else{
             grabberMotorMaster.set(-0.25);
         }
@@ -49,9 +50,12 @@ public class GrabberSubsystem extends SubsystemBase{
 
     public void release() {
         if(RobotState.getInstance().getPiece() == pieceState.CONE){
-            grabberMotorMaster.set(0.1);
+            if(RobotState.getInstance().getScoreTarget() == scoreLevel.FirstLevel){
+                grabberMotorMaster.set(0.072);
+            }
+                grabberMotorMaster.set(0.1);
         }else{
-            grabberMotorMaster.set(0.5);
+            grabberMotorMaster.set(0.3);
         }
     }
 

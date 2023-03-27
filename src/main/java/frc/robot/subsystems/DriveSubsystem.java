@@ -126,7 +126,7 @@ public class DriveSubsystem extends SubsystemBase{
     public void periodic() {
         updateOdometry();
 
-         for (SwerveModuleBase mod : m_swerveModules) {
+       /*/   for (SwerveModuleBase mod : m_swerveModules) {
             SmartDashboard.putNumber(mod.getName() + " - Velocity : ", mod.getState().speedMetersPerSecond);
             SmartDashboard.putNumber(mod.getName() + " - Angle : ", mod.getCANCoderRotation().getDegrees());
             SmartDashboard.putNumber(mod.getName() + " - AngleFalcon : ", mod.getState().angle.getDegrees());
@@ -134,9 +134,9 @@ public class DriveSubsystem extends SubsystemBase{
 
         SmartDashboard.putNumber("Gyro : ", getRotation2d().getDegrees());
        /*  SmartDashboard.putNumber("x", getPose().getX());
-        SmartDashboard.putNumber("Y", getPose().getY());*/
+        SmartDashboard.putNumber("Y", getPose().getY());
 
-        SmartDashboard.putString("Drive Pose", getFomattedPose());
+        SmartDashboard.putString("Drive Pose", getFomattedPose());*/
 
 
         brakeModeTrigger.whileTrue(brakeModeCommand);
@@ -213,6 +213,10 @@ public class DriveSubsystem extends SubsystemBase{
             mod.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)), true);
         }
     }
+
+    /*public double getPitch(){
+        return m_gyro.getx
+    }*/
 
     public void resetOdometry(Pose2d pose) {
         m_gyro.reset();

@@ -22,7 +22,7 @@ public class SmartMotion extends CommandBase {
 
   private SuperStructureState m_currentState;
   private SuperStructureState m_targetState;
-  private final SuperStructureState m_pivotState = new SuperStructureState(126.5,94.4,0);
+  private final SuperStructureState m_pivotState = new SuperStructureState(126,94.4,0);
   //private final SuperStructureState m_autoExtendState = new SuperStructureState(95, 95,0);
   private boolean needToSwitch = true;
   private boolean isDangerZone = true;
@@ -49,6 +49,9 @@ public class SmartMotion extends CommandBase {
     m_intake.maybeShouldOpen();
 
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
+    //TARGET STATE de güncellenmeli değil mi?
+    //m_targetState = RobotState.getInstance().getTargetState();
+
 
     needToSwitch = !m_currentState.isInSameSide(m_targetState);
     isDangerZone = m_currentState.getDegree() > -15 && m_currentState.getDegree() < 10;
@@ -106,16 +109,16 @@ public class SmartMotion extends CommandBase {
 
 
       
-      if(RobotState.getInstance().getScoreTarget() != scoreLevel.HOMING){
+      if(RobotState.getInstance().getScoreTarget() == scoreLevel.HOMING || RobotState.getInstance().getScoreTarget() == scoreLevel.kStarting){
+        m_elevator.setElevatorPosition(m_targetState);
+        m_carriage.setCarriagePosition(m_targetState);
+        m_telescop.setTelescopicPosition(m_targetState);
+      }else{
         m_elevator.setElevatorPosition(m_targetState);
         m_carriage.setCarriagePosition(m_targetState);
         if(m_elevator.isAtSetpoint() && m_carriage.isAtSetpoint()){
           m_telescop.setTelescopicPosition(m_targetState);
         }
-      }else{
-        m_elevator.setElevatorPosition(m_targetState);
-        m_carriage.setCarriagePosition(m_targetState);
-        m_telescop.setTelescopicPosition(m_targetState);
       }
       
 
