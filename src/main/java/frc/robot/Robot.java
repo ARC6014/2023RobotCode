@@ -99,9 +99,9 @@ public class Robot extends TimedRobot {
     DriveSubsystem.getInstance().resetToAbsolute();
     CarriageSubsystem.getInstance().resetToAbsolute();
     TelescobicSubsystem.getInstance().stop();
-    new InstantCommand(() -> ElevatorSubsystem.getInstance().updateLastDemandedHeight(ElevatorSubsystem.getInstance().getHeight()) , ElevatorSubsystem.getInstance());
-    new InstantCommand(() -> TelescobicSubsystem.getInstance().updateLastDemandedLength(TelescobicSubsystem.getInstance().getLength()), TelescobicSubsystem.getInstance());
-    new InstantCommand(() -> CarriageSubsystem.getInstance().updateLastDemandedRotation(CarriageSubsystem.getInstance().getRotation()), CarriageSubsystem.getInstance());
+    new InstantCommand(() -> ElevatorSubsystem.getInstance().stop() , ElevatorSubsystem.getInstance());
+    new InstantCommand(() -> TelescobicSubsystem.getInstance().stop(), TelescobicSubsystem.getInstance());
+    new InstantCommand(() -> CarriageSubsystem.getInstance().stop(), CarriageSubsystem.getInstance());
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

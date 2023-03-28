@@ -126,7 +126,7 @@ public class RobotContainer {
     
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     new JoystickButton(m_driver, 1).whileTrue(autoScore);
-    new JoystickButton(m_driver, 3).whileTrue(m_motion1);
+    new JoystickButton(m_driver, 3).whileTrue(new SmartMotion());
   
     new JoystickButton(m_operator, 3).whileTrue(new ParallelCommandGroup(
       new InstantCommand(() -> ElevatorSubsystem.getInstance().stop(), ElevatorSubsystem.getInstance()),
@@ -217,7 +217,7 @@ public class RobotContainer {
       default:
         return null;
     }*/
-    return redLoadingAuto;
+    return blueSideAuto;
 
     
   }

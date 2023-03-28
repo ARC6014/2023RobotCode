@@ -15,6 +15,7 @@ import frc.robot.subsystems.TelescobicSubsystem;
 import frc.team6014.SuperStructureState;
 
 public class SmartMotion extends CommandBase {
+
   private final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
   private final CarriageSubsystem m_carriage = CarriageSubsystem.getInstance();
   private final TelescobicSubsystem m_telescop = TelescobicSubsystem.getInstance();
@@ -39,8 +40,7 @@ public class SmartMotion extends CommandBase {
   public void initialize() {
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
     m_targetState = RobotState.getInstance().getTargetState();
-    needToSwitch = m_currentState.isInSameSide(m_targetState);
-    //m_carriage.slowCarriage();
+    needToSwitch = !m_currentState.isInSameSide(m_targetState);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,8 +49,6 @@ public class SmartMotion extends CommandBase {
     m_intake.maybeShouldOpen();
 
     m_currentState = RobotState.getInstance().getCurrentSuperStructureState();
-    //TARGET STATE de güncellenmeli değil mi?
-    //m_targetState = RobotState.getInstance().getTargetState();
 
 
     needToSwitch = !m_currentState.isInSameSide(m_targetState);
@@ -60,6 +58,8 @@ public class SmartMotion extends CommandBase {
     SmartDashboard.putBoolean("switch", needToSwitch);
     SmartDashboard.putBoolean("zone", isDangerZone);
     SmartDashboard.putBoolean("shouldwait", shouldWait);
+
+
 
     if(needToSwitch || isDangerZone){
         m_elevator.setElevatorPosition(m_pivotState);
@@ -71,43 +71,6 @@ public class SmartMotion extends CommandBase {
       }
 
     }else{
-/* 
-      if(m_currentState.getRobotSide()){
-        if(m_currentState.getDegree() > m_targetState.getDegree()){
-          if(shouldWait){
-            m_elevator.stop();
-          }else {
-            m_elevator.setElevatorPosition(m_targetState);
-          }
-          m_carriage.setCarriagePosition(m_targetState);
-        }else{
-          if(shouldWait){
-            m_carriage.stop();
-          }else {
-            m_carriage.setCarriagePosition(m_targetState);
-          }
-          m_elevator.setElevatorPosition(m_targetState);
-        }
-        m_telescop.setTelescopicPosition(m_targetState);
-      }else{
-
-        if(shouldWait){
-          m_elevator.stop();
-        }else {
-          m_elevator.setElevatorPosition(m_targetState);
-        }
-
-        m_carriage.setCarriagePosition(m_targetState);
-
-        if(m_currentState.getDegree() > extensionAngle() && m_elevator.isAtSetpoint()){
-          m_telescop.setTelescopicPosition(m_targetState);
-        }
-
-
-      }*/
-
-
-
       
       if(RobotState.getInstance().getScoreTarget() == scoreLevel.HOMING || RobotState.getInstance().getScoreTarget() == scoreLevel.kStarting){
         m_elevator.setElevatorPosition(m_targetState);
@@ -130,9 +93,12 @@ public class SmartMotion extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_elevator.holdElevatorPosition();
+    m_elevator.updateLastDemandedHeight(m_currentState.getHeight());
+    m_carriage.updateLastDemandedRotation(m_currentState.getDegree());
+    m_telescop.updateLastDemandedLength(m_currentState.getDegree());
+   /* m_elevator.holdElevatorPosition();
     m_carriage.holdCarriagePosition();
-    m_telescop.holdTelescopicPosition();
+    m_telescop.holdTelescopicPosition();*/
   }
 
   // Returns true when the command should end.

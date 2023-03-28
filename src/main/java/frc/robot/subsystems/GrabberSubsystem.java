@@ -41,7 +41,7 @@ public class GrabberSubsystem extends SubsystemBase{
 
     public void grab() {
         if(RobotState.getInstance().getPiece() == pieceState.CONE){
-            grabberMotorMaster.set(-0.45);
+            grabberMotorMaster.set(-0.35);
         }else{
             grabberMotorMaster.set(-0.25);
         }
@@ -51,7 +51,7 @@ public class GrabberSubsystem extends SubsystemBase{
     public void release() {
         if(RobotState.getInstance().getPiece() == pieceState.CONE){
             if(RobotState.getInstance().getScoreTarget() == scoreLevel.FirstLevel){
-                grabberMotorMaster.set(0.072);
+                grabberMotorMaster.set(0.03);
             }
                 grabberMotorMaster.set(0.1);
         }else{

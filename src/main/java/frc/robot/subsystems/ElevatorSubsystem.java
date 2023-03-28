@@ -59,11 +59,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSlave.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 37.5;
-    configs.Slot0.kI = 4.2;
+    configs.Slot0.kP = 40;
+    configs.Slot0.kI = 4.8;
     configs.Slot0.kD = 0.17;
-    configs.Slot0.kS = 0.75;
-    configs.Slot0.kV = 0.08;
+    configs.Slot0.kS = 0.78;
+    configs.Slot0.kV = 0.09;
 
     configs.Slot1.kP = 13;
     configs.Slot1.kI = 0.5;
@@ -71,10 +71,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     configs.Slot1.kS = 0.005;
     configs.Slot1.kV = 0;
 
-    configs.Slot2.kP = 9.7;
-    configs.Slot2.kI = 0.7;
-    configs.Slot2.kD = 0.35;
-    configs.Slot2.kS = 0.25;
+    configs.Slot2.kP = 12.1;
+    configs.Slot2.kI = 0.9;
+    configs.Slot2.kD = 0.32;
+    configs.Slot2.kS = 0.2;
     configs.Slot2.kV = 0.005;
 
     configs.Voltage.PeakForwardVoltage = 8;
@@ -244,7 +244,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getHeight() - getHeight()) < 1; 
+    return Math.abs(targetState.getHeight() - getHeight()) < 1.5; 
   } 
 
 }

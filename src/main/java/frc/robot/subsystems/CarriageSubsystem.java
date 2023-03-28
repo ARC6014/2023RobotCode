@@ -59,25 +59,25 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 29;
-    configs.Slot0.kI = 1.65;
-    configs.Slot0.kD = 0.85;
-    configs.Slot0.kS = 0.065;
-    configs.Slot0.kV = 0.012;
+    configs.Slot0.kP = 10.5;
+    configs.Slot0.kI = 0.005;
+    configs.Slot0.kD = 0.18;
+    configs.Slot0.kS = 0.02;
+    configs.Slot0.kV = 0.005;
 
-    configs.Slot1.kP = 16;
-    configs.Slot1.kI = 2.2;
-    configs.Slot1.kD = 0.09;
-    configs.Slot1.kS = 0.5;
+    configs.Slot1.kP = 10;
+    configs.Slot1.kI = 0.001;
+    configs.Slot1.kD = 0.1;
+    configs.Slot1.kS = 0.3;
     configs.Slot1.kV = 0.025;
 
     configs.Voltage.PeakForwardVoltage = 10;
     configs.Voltage.PeakReverseVoltage = -10;
     configs.TorqueCurrent.PeakForwardTorqueCurrent = 180;
     configs.TorqueCurrent.PeakReverseTorqueCurrent = 180;;
-    configs.MotionMagic.MotionMagicAcceleration = 450; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 120; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 1000; //  değiştir
+    configs.MotionMagic.MotionMagicAcceleration = 260; // değiştir
+    configs.MotionMagic.MotionMagicCruiseVelocity = 85; // değiştir
+    configs.MotionMagic.MotionMagicJerk = 600; //  değiştir
     
     configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
@@ -134,9 +134,6 @@ public class CarriageSubsystem extends SubsystemBase {
 
     autoCalibration();
 
-    if(!(m_controlState == CarriageControlState.TORQUE_CONTROL)){
-      lastDemandedRotation = getRotation();
-    }
     
     SmartDashboard.putString("Carriage State: ", m_controlState.toString());
 
@@ -180,12 +177,6 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void setRotation(){
-    double targetDegree = targetState.getDegree();
-    if (targetDegree >= 85) {// max angle
-      targetDegree = 85;
-    } else if (targetDegree <= -45) { // min angle
-      targetDegree = -45;
-    }
     double sprocketRotation = targetState.getDegree() / 360;
     carriageMaster.setControl(m_motionMagic.withPosition(sprocketRotation * falconGearbox.getRatio()));
   }
@@ -229,10 +220,10 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public double getAbsolutePosition() {
-    if(m_encoder.getAbsolutePosition() > 0 && m_encoder.getAbsolutePosition() < 0.5){
-      return m_encoder.getAbsolutePosition() * -360 + 272.4 + 6.4 -2;
+    if(m_encoder.getAbsolutePosition() > 0 && m_encoder.getAbsolutePosition() < 0.6){
+      return m_encoder.getAbsolutePosition() * -360 + 276.8 -9 - 50 - 27 + 32 + 19 -7 + 9;
     }
-    return m_encoder.getAbsolutePosition() * -360 + 272.4 + 6.4 -2;
+    return m_encoder.getAbsolutePosition() * -360 + 276.8 -9 - 50 - 27 + 32 + 19 -7 +9;
 
 
 
@@ -251,7 +242,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void autoCalibration(){
-    if( (m_timer.get() - lastAbsoluteTime) > 2 && (Math.abs(getAbsolutePosition() - getRotation()) >= 1.2) ) {
+    if( (m_timer.get() - lastAbsoluteTime) > 0.4 && (Math.abs(getAbsolutePosition() - getRotation()) >= 1.2) ) {
     resetToAbsolute();
     lastAbsoluteTime = m_timer.get();
     }
@@ -268,7 +259,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getDegree() - getRotation()) <= 0.5;
+    return Math.abs(targetState.getDegree() - getRotation()) <= 1;
   }
 
 }
