@@ -41,8 +41,8 @@ private final SwerveDrivePoseEstimator m_poseEstimator;
   /** Creates a new PoseEstimatorSubsystem. */
   public PoseEstimatorSubsystem() {
     m_poseEstimator = new SwerveDrivePoseEstimator(Constants.kinematics, m_drive.getRotation2d(), m_drive.getModulePositions(), new Pose2d(), stateStdDevs, visionMeasurementStdDevs);
-    Shuffleboard.getTab("GamePieces").add("Calibrated", m_calibration).withWidget(BuiltInWidgets.kBooleanBox).withPosition(3, 3).withSize(1, 1);
-    //getCalibration();
+    //Shuffleboard.getTab("GamePieces").add("Calibrated", m_calibration).withWidget(BuiltInWidgets.kBooleanBox).withPosition(4, 1).withSize(1, 1);
+    getCalibration();
   }
 
   

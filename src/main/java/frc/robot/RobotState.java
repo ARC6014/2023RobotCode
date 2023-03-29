@@ -168,9 +168,15 @@ public class RobotState extends SubsystemBase{
     }
 
     public Pose2d getTargetPose(){
-        return DriverStation.getAlliance() == Alliance.Blue ?
-        new Pose2d(getScorePose().getX() + 0.35, getScorePose().getY(), getScorePose().getRotation()) :
-        new Pose2d(getScorePose().getX() - 0.35, getScorePose().getY(), getScorePose().getRotation());
+        if(m_targetPiece == pieceState.CONE){
+            return DriverStation.getAlliance() == Alliance.Blue ?
+            new Pose2d(getScorePose().getX() + 0.15, getScorePose().getY(), getScorePose().getRotation()) :
+            new Pose2d(getScorePose().getX() - 0.15, getScorePose().getY(), getScorePose().getRotation());
+        }else{
+            return DriverStation.getAlliance() == Alliance.Blue ?
+            new Pose2d(getScorePose().getX() + 0.35, getScorePose().getY(), getScorePose().getRotation()) :
+            new Pose2d(getScorePose().getX() - 0.35, getScorePose().getY(), getScorePose().getRotation());
+        }
     }
 
     public Pose2d getScorePose(){
@@ -187,8 +193,8 @@ public class RobotState extends SubsystemBase{
 
     private final SuperStructureState startingStrate = new SuperStructureState(113,94.45,-17.9); 
 
-    private final SuperStructureState homingState = new SuperStructureState(124.5, 94.45, 5);
-    private final SuperStructureState intakeFromDoubleStataion = new SuperStructureState(111.2, 94.45, 88.8);
+    private final SuperStructureState homingState = new SuperStructureState(124.5, 94.45, 19.5);
+    private final SuperStructureState intakeFromDoubleStataion = new SuperStructureState(110.85, 94.45, 88.8);
     private final SuperStructureState intakeFromSingleStataion = new SuperStructureState(110, 94.45, 90);
  
     private final SuperStructureState intakeCubeFromGround = new SuperStructureState(122,108.45, -42);
@@ -198,17 +204,17 @@ public class RobotState extends SubsystemBase{
 
     private final SuperStructureState intakeConeFromGround = new SuperStructureState(100,92.5, 90);
     private final SuperStructureState groundCone = new SuperStructureState(120,95, 40);
-    private final SuperStructureState firstCone = new SuperStructureState(104.2,95, 91);
-    private final SuperStructureState secondCone = new SuperStructureState(125.5,120, 95);
+    private final SuperStructureState firstCone = new SuperStructureState(104.2,95, 95);
+    private final SuperStructureState secondCone = new SuperStructureState(125.5,120, 100);
 
-    private static final Pose2d firstNodePose = new Pose2d(1.85, 4.99, Rotation2d.fromDegrees(0));
+    private static final Pose2d firstNodePose = new Pose2d(2.04, 4.99, Rotation2d.fromDegrees(0));
     private static final Pose2d firstCubePose = new Pose2d(1.99, 4.42, Rotation2d.fromDegrees(0));
-    private static final Pose2d secondNodePose = new Pose2d(1.85, 3.86, Rotation2d.fromDegrees(0));
-    private static final Pose2d thirdNodePose = new Pose2d(1.85, 3.31, Rotation2d.fromDegrees(0));
+    private static final Pose2d secondNodePose = new Pose2d(2.04, 3.86, Rotation2d.fromDegrees(0));
+    private static final Pose2d thirdNodePose = new Pose2d(2.04, 3.31, Rotation2d.fromDegrees(0));
     private static final Pose2d secondCubePose = new Pose2d(1.99, 2.76, Rotation2d.fromDegrees(0));
-    private static final Pose2d fourthNodePose = new Pose2d(1.85, 2.18, Rotation2d.fromDegrees(0));
-    private static final Pose2d fifthNodePose = new Pose2d(1.85, 1.62, Rotation2d.fromDegrees(0));
+    private static final Pose2d fourthNodePose = new Pose2d(2.04, 2.18, Rotation2d.fromDegrees(0));
+    private static final Pose2d fifthNodePose = new Pose2d(2.04, 1.62, Rotation2d.fromDegrees(0));
     private static final Pose2d thirdCubePose = new Pose2d(1.99, 1.065, Rotation2d.fromDegrees(0));
-    private static final Pose2d sixthNodePose = new Pose2d(1.85, 0.50, Rotation2d.fromDegrees(0));
+    private static final Pose2d sixthNodePose = new Pose2d(2.04, 0.50, Rotation2d.fromDegrees(0));
     private static final Pose2d loadingZonePose = new Pose2d(13.45, 7.00, Rotation2d.fromDegrees(0));
 }

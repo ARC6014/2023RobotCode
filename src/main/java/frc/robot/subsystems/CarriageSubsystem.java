@@ -59,17 +59,17 @@ public class CarriageSubsystem extends SubsystemBase {
     carriageMaster.getConfigurator().apply(new TalonFXConfiguration());
 
     TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 10.5;
-    configs.Slot0.kI = 0.005;
-    configs.Slot0.kD = 0.18;
-    configs.Slot0.kS = 0.02;
-    configs.Slot0.kV = 0.005;
+    configs.Slot0.kP = 11.5;
+    configs.Slot0.kI = 0.000;
+    configs.Slot0.kD = 1.12;
+    configs.Slot0.kS = 0.005;
+    configs.Slot0.kV = 0.000;
 
-    configs.Slot1.kP = 10;
-    configs.Slot1.kI = 0.001;
-    configs.Slot1.kD = 0.1;
-    configs.Slot1.kS = 0.3;
-    configs.Slot1.kV = 0.025;
+    configs.Slot1.kP = 8;
+    configs.Slot1.kI = 0.0;
+    configs.Slot1.kD = 3.5;
+    configs.Slot1.kS = 0.001;
+    configs.Slot1.kV = 0.00;
 
     configs.Voltage.PeakForwardVoltage = 10;
     configs.Voltage.PeakReverseVoltage = -10;
@@ -79,7 +79,7 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.MotionMagic.MotionMagicCruiseVelocity = 85; // değiştir
     configs.MotionMagic.MotionMagicJerk = 600; //  değiştir
     
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
     configs.MotorOutput.DutyCycleNeutralDeadband = CarriageConstants.dutyCycleNeutralDeadband;
 
@@ -177,8 +177,13 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void setRotation(){
-    double sprocketRotation = targetState.getDegree() / 360;
-    carriageMaster.setControl(m_motionMagic.withPosition(sprocketRotation * falconGearbox.getRatio()));
+    if(getRotation()>=100){
+      stop();
+    }else{
+      double sprocketRotation = targetState.getDegree() / 360;
+      carriageMaster.setControl(m_motionMagic.withPosition(sprocketRotation * falconGearbox.getRatio()));
+    }
+
   }
 
   public void holdPosition(){
@@ -221,9 +226,9 @@ public class CarriageSubsystem extends SubsystemBase {
 
   public double getAbsolutePosition() {
     if(m_encoder.getAbsolutePosition() > 0 && m_encoder.getAbsolutePosition() < 0.6){
-      return m_encoder.getAbsolutePosition() * -360 + 276.8 -9 - 50 - 27 + 32 + 19 -7 + 9;
+      return m_encoder.getAbsolutePosition() * -360 + 226;
     }
-    return m_encoder.getAbsolutePosition() * -360 + 276.8 -9 - 50 - 27 + 32 + 19 -7 +9;
+    return m_encoder.getAbsolutePosition() * -360 + 226;
 
 
 
@@ -242,7 +247,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public void autoCalibration(){
-    if( (m_timer.get() - lastAbsoluteTime) > 0.4 && (Math.abs(getAbsolutePosition() - getRotation()) >= 1.2) ) {
+    if( (m_timer.get() - lastAbsoluteTime) > 0.2  && (Math.abs(getAbsolutePosition() - getRotation()) >= 1.2) ) {
     resetToAbsolute();
     lastAbsoluteTime = m_timer.get();
     }
@@ -259,7 +264,7 @@ public class CarriageSubsystem extends SubsystemBase {
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getDegree() - getRotation()) <= 1;
+    return Math.abs(targetState.getDegree() - getRotation()) <= 3;
   }
 
 }

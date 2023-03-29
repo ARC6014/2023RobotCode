@@ -29,22 +29,22 @@ public class Outtake extends CommandBase {
       m_isFinished = true;
 
     }*/
-    //m_intake.extendIntake();
+    m_intake.extendIntake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     m_intake.releaseCube();
-    m_grabber.release();
+    //m_grabber.release();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_intake.stop();
-    //m_intake.retractIntake();
-    m_grabber.stop();
+    m_intake.retractIntake();
+    //m_grabber.stop();
     
     m_isFinished = false;
   }

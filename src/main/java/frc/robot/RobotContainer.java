@@ -117,12 +117,10 @@ public class RobotContainer {
 
 
   private void configureBindings() {
-    new JoystickButton(m_operator, 4).whileTrue(m_autoMove);
+    new JoystickButton(m_operator, 1).whileTrue(m_intaking);
+    new JoystickButton(m_operator, 5).whileTrue(new Outtake());
+    /*new JoystickButton(m_operator, 4).whileTrue(m_autoMove);
     new JoystickButton(m_operator, 6).whileTrue(m_SautoMove);
-
-    /*new JoystickButton(m_operator, 1).whileTrue(autoIntake).toggleOnFalse(
-      new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)).andThen(
-      m_motion));*/
     
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
     new JoystickButton(m_driver, 1).whileTrue(autoScore);
@@ -137,7 +135,7 @@ public class RobotContainer {
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING), RobotState.getInstance()),
       m_motion
     ));
-    new JoystickButton(m_driver, 6).whileTrue(new SequentialCommandGroup(
+    new JoystickButton(m_operator, 11).whileTrue(new SequentialCommandGroup(
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.kStarting), RobotState.getInstance()),
       m_motion2
     ));
@@ -157,47 +155,7 @@ public class RobotContainer {
       new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.doubleStation), RobotState.getInstance()),
       new InstantCommand(() -> RobotState.getInstance().setCone(), RobotState.getInstance()),
       new SmartMotion()
-    ));
- 
-    /*new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
-    new JoystickButton(m_driver, 1).whileTrue(m_motion);
-    new JoystickButton(m_driver, 4).whileTrue(m_intaking);
-    new JoystickButton(m_driver, 2).whileTrue(m_RelaseCommand);
-
-    //new JoystickButton(m_driver, 8).onTrue(new RunCommand(()-> m_intake.extendIntake(), m_intake));
-    //new JoystickButton(m_driver, 7).onTrue(new RunCommand(()-> m_intake.retractIntake(), m_intake));
-    new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
-    new JoystickButton(m_operator, 1).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)));*/
-
-    
-
-    /* 
-    switch(robotStateSelector.getSelected()){
-      case 1:
-        RobotState.getInstance().setCube();
-      default:
-        RobotState.getInstance().setCone();
-    }*/
-
-    /*new JoystickButton(m_operator, 1).whileTrue(new InstantCommand(() -> RobotState.getInstance().setCone()));
-    new JoystickButton(m_operator, 2).whileTrue(new InstantCommand(() -> RobotState.getInstance().setCube()));
-
-    new JoystickButton(m_operator, 11).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Ground)));
-    new JoystickButton(m_operator, 9).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.FirstLevel)));
-    new JoystickButton(m_operator, 7).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel)));
-    new JoystickButton(m_operator, 3).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake)));
-    new JoystickButton(m_operator, 4).whileTrue(new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)));
-
-    new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
-    //new JoystickButton(m_driver, 6).onTrue(new ZeroElevator());
-    new JoystickButton(m_operator, 8).whileTrue(m_superStructure);*/
-    /*new JoystickButton(m_driver, 4).whileTrue(m_intaking);
-    new JoystickButton(m_driver, 2).whileTrue(m_RelaseCommand);
-
-    new JoystickButton(m_driver, 1).whileTrue(m_autoMove);
-    new JoystickButton(m_driver, 2).whileTrue(m_SautoMove);*/
-
-    //new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
+    ));*/
 
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
   }
@@ -217,7 +175,7 @@ public class RobotContainer {
       default:
         return null;
     }*/
-    return blueSideAuto;
+    return blueLoadingAuto;
 
     
   }

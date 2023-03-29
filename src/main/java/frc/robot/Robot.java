@@ -77,10 +77,10 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     CarriageSubsystem.getInstance().resetToAbsolute();
     DriveSubsystem.getInstance().resetToAbsolute();
-    TelescobicSubsystem.getInstance().stop();
-    new InstantCommand(() -> ElevatorSubsystem.getInstance().updateLastDemandedHeight(ElevatorSubsystem.getInstance().getHeight()) , ElevatorSubsystem.getInstance());
+    //TelescobicSubsystem.getInstance().stop();
+   /*  new InstantCommand(() -> ElevatorSubsystem.getInstance().updateLastDemandedHeight(ElevatorSubsystem.getInstance().getHeight()) , ElevatorSubsystem.getInstance());
     new InstantCommand(() -> TelescobicSubsystem.getInstance().updateLastDemandedLength(TelescobicSubsystem.getInstance().getLength()), TelescobicSubsystem.getInstance());
-    new InstantCommand(() -> CarriageSubsystem.getInstance().updateLastDemandedRotation(CarriageSubsystem.getInstance().getRotation()), CarriageSubsystem.getInstance());
+    new InstantCommand(() -> CarriageSubsystem.getInstance().updateLastDemandedRotation(CarriageSubsystem.getInstance().getRotation()), CarriageSubsystem.getInstance());*/
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)

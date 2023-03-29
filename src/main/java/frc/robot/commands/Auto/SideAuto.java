@@ -98,8 +98,8 @@ public class SideAuto extends SequentialCommandGroup {
           m_RelaseCommand.withTimeout(0.8),
           new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING) , RobotState.getInstance()),
           motionCommand3.withTimeout(3.5),
-          new RunCommand(() -> m_drive.swerveDrive(0.0, -1.5, 0, true) , m_drive).withTimeout(0.8),
-          new RunCommand(() -> m_drive.swerveDrive(1.5, 0, 0, true) , m_drive).withTimeout(2.7),
+          new RunCommand(() -> m_drive.swerveDrive(0.0, -1.6, 0, true) , m_drive).withTimeout(0.5),
+          new RunCommand(() -> m_drive.swerveDrive(1.5, 0, 0, true) , m_drive).withTimeout(2.6),
           new RunCommand(() -> m_drive.lockSwerve(true) , m_drive).withTimeout(0.02),
           new RunCommand(() -> m_drive.swerveDrive(0, 0, 0, true) , m_drive).withTimeout(2)
           /*new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.ground) , RobotState.getInstance()),

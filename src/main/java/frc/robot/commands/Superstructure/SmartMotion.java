@@ -93,12 +93,12 @@ public class SmartMotion extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_elevator.updateLastDemandedHeight(m_currentState.getHeight());
+    /*m_elevator.updateLastDemandedHeight(m_currentState.getHeight());
     m_carriage.updateLastDemandedRotation(m_currentState.getDegree());
-    m_telescop.updateLastDemandedLength(m_currentState.getDegree());
-   /* m_elevator.holdElevatorPosition();
+    m_telescop.updateLastDemandedLength(m_currentState.getDegree());*/
+    m_elevator.holdElevatorPosition();
     m_carriage.holdCarriagePosition();
-    m_telescop.holdTelescopicPosition();*/
+    m_telescop.holdTelescopicPosition();
   }
 
   // Returns true when the command should end.

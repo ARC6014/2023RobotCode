@@ -46,9 +46,10 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_intake.stop();
-    if(RobotState.getInstance().getCurrentSuperStructureState().getDegree() > - 18){
+    /*if(RobotState.getInstance().getCurrentSuperStructureState().getDegree() > - 18){
       m_intake.retractIntake();
-    }
+    }*/
+    m_intake.retractIntake();
 
     //m_grabber.setOutput(-0.05);
     
