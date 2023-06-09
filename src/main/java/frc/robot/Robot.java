@@ -13,11 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.subsystems.CarriageSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.GrabberSubsystem;
-import frc.robot.subsystems.TelescobicSubsystem;
 import io.github.oblarg.oblog.Logger;
 
 /**
@@ -43,7 +39,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_nodeSelector = new NodeSelector();
-    TelescobicSubsystem.getInstance().stop();
     
     Logger.configureLoggingAndConfig(this, false);
   }
@@ -75,7 +70,6 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    CarriageSubsystem.getInstance().resetToAbsolute();
     DriveSubsystem.getInstance().resetToAbsolute();
     //TelescobicSubsystem.getInstance().stop();
    /*  new InstantCommand(() -> ElevatorSubsystem.getInstance().updateLastDemandedHeight(ElevatorSubsystem.getInstance().getHeight()) , ElevatorSubsystem.getInstance());
@@ -97,11 +91,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     DriveSubsystem.getInstance().resetToAbsolute();
-    CarriageSubsystem.getInstance().resetToAbsolute();
-    TelescobicSubsystem.getInstance().stop();
-    new InstantCommand(() -> ElevatorSubsystem.getInstance().stop() , ElevatorSubsystem.getInstance());
-    new InstantCommand(() -> TelescobicSubsystem.getInstance().stop(), TelescobicSubsystem.getInstance());
-    new InstantCommand(() -> CarriageSubsystem.getInstance().stop(), CarriageSubsystem.getInstance());
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -123,7 +112,6 @@ public class Robot extends TimedRobot {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
     //DriveSubsystem.getInstance().zeroHeading();
-    CarriageSubsystem.getInstance().resetToAbsolute();
   }
 
   /** This function is called periodically during test mode. */
