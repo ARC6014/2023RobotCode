@@ -103,9 +103,9 @@ public class RobotContainer {
     autonomouChooser.addOption("Side ", "side");
 
     m_drive.setDefaultCommand(driveByJoystick);
-    //m_elevator.setDefaultCommand(m_Eeneme);
-    //m_telescop.setDefaultCommand(m_Teneme);
-    //m_carriage.setDefaultCommand(m_Aeneme);
+    m_elevator.setDefaultCommand(m_Eeneme);
+    m_telescop.setDefaultCommand(m_Teneme);
+    m_carriage.setDefaultCommand(m_Aeneme);
     m_ledRight.setDefaultCommand(new SetLedState(m_ledRight));
     // Configure the trigger bindings
     m_nodeSelector.ConfigureWidgets();
@@ -120,21 +120,24 @@ public class RobotContainer {
     new JoystickButton(m_operator, 1).whileTrue(m_intaking);
     new JoystickButton(m_operator, 5).whileTrue(new Outtake());
     /*new JoystickButton(m_operator, 4).whileTrue(m_autoMove);
-    new JoystickButton(m_operator, 6).whileTrue(m_SautoMove);
+    new JoystickButton(m_operator, 6).whileTrue(m_SautoMove); */
     
     new JoystickButton(m_driver, 5).onTrue(new ZeroTelescopic());
-    new JoystickButton(m_driver, 1).whileTrue(autoScore);
+    //new JoystickButton(m_driver, 1).whileTrue(autoScore);
     new JoystickButton(m_driver, 3).whileTrue(new SmartMotion());
+
+    
   
     new JoystickButton(m_operator, 3).whileTrue(new ParallelCommandGroup(
       new InstantCommand(() -> ElevatorSubsystem.getInstance().stop(), ElevatorSubsystem.getInstance()),
       new InstantCommand(() -> CarriageSubsystem.getInstance().stop(), CarriageSubsystem.getInstance()),
       new InstantCommand(() -> TelescobicSubsystem.getInstance().stop(), TelescobicSubsystem.getInstance())
-    ));
+    )); 
     new JoystickButton(m_operator, 2).whileTrue(new SequentialCommandGroup(
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING), RobotState.getInstance()),
       m_motion
     ));
+     
     new JoystickButton(m_operator, 11).whileTrue(new SequentialCommandGroup(
       new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.kStarting), RobotState.getInstance()),
       m_motion2
@@ -155,7 +158,7 @@ public class RobotContainer {
       new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.doubleStation), RobotState.getInstance()),
       new InstantCommand(() -> RobotState.getInstance().setCone(), RobotState.getInstance()),
       new SmartMotion()
-    ));*/
+    ));
 
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
   }

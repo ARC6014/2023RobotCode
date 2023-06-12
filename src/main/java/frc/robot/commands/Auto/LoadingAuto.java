@@ -62,18 +62,17 @@ public class LoadingAuto extends SequentialCommandGroup {
       addCommands(
         new RunCommand(() -> m_drive.resetOdometry(blueSwerveCommand.getInitialPose()), m_drive).withTimeout(0.01),
         new WaitCommand(1),
-       /*  zeroing,
         new InstantCommand(() -> RobotState.getInstance().setCube() , RobotState.getInstance()),
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel) , RobotState.getInstance()),
         motionCommand2.withTimeout(3.8),
         m_RelaseCommand.withTimeout(0.8),
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING) , RobotState.getInstance()),
-        motionCommand3.withTimeout(3.5),*/
+        motionCommand3.withTimeout(3.5),
         new RunCommand(() -> m_drive.swerveDrive(2.1, 0.0, 0, true) , m_drive).withTimeout(1.2),
         new RunCommand(() -> m_drive.swerveDrive(0.64, 0, 0, true) , m_drive).withTimeout(4.55),
         new RunCommand(() -> m_drive.lockSwerve(true) , m_drive).withTimeout(0.01),
-        new RunCommand(() -> m_drive.swerveDrive(0, 0, 0, true) , m_drive).withTimeout(2)
-        /*new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.ground) , RobotState.getInstance()),
+        new RunCommand(() -> m_drive.swerveDrive(0, 0, 0, true) , m_drive).withTimeout(2),
+        new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.ground) , RobotState.getInstance()),
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake) , RobotState.getInstance()),
         blueSwerveCommand.raceWith(motionCommand2).raceWith(m_GrabCommand).raceWith(m_IntakeCommand),
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel) , RobotState.getInstance()),
@@ -83,12 +82,9 @@ public class LoadingAuto extends SequentialCommandGroup {
         new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.ground) , RobotState.getInstance()),
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake) , RobotState.getInstance()),
         new ParallelCommandGroup(motionCommand4, blueSwerveCommand2, m_IntakeCommand1, m_GrabCommand1),
-        blueSwerveCommand3*/
-        /*new ParallelCommandGroup(/*blueSwerveCommand, motionCommand1)/*,
+        new ParallelCommandGroup(blueSwerveCommand, motionCommand1)
         
-        blueSwerveCommand1 ,
-        blueSwerveCommand2,
-        blueSwerveCommand3*/
+        
       );
     }else{
         addCommands(
