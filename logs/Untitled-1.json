@@ -1,0 +1,537 @@
+[
+    {
+        "messageType": 2,
+        "timestamp": 64.13818359375,
+        "seqNumber": 3126,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.16748046875,
+        "seqNumber": 3127,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.377685546875,
+        "seqNumber": 3128,
+        "line": "NT: Got a NT4 connection from 10.60.14.166 port 59212"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 64.381103515625,
+        "seqNumber": 3129,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.60.14.166:59212)"
+    },
+    {
+        "timestamp": 64.8907470703125,
+        "seqNumber": 3130,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] CANbus Connected: CANivore (can0, 6B523E74394C4853202020500A1A18FF)",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 64.89129638671875,
+        "seqNumber": 3131,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] CANbus Network Up: CANivore (can0, 6B523E74394C4853202020500A1A18FF)",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 65.30078125,
+        "seqNumber": 3132,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "pigeon 2 0 (CANivore) Status Signal Value Yaw",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CorePigeon2.getYaw(CorePigeon2.java:407)\ncom.ctre.phoenixpro.hardware.Pigeon2.<init>(Pigeon2.java:39)\nfrc.robot.subsystems.DriveSubsystem.<init>(DriveSubsystem.java:50)\nfrc.robot.subsystems.DriveSubsystem.getInstance(DriveSubsystem.java:120)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:59)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 65.3135986328125,
+        "seqNumber": 3133,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "pigeon 2 0 (CANivore) Status Signal Value AngularVelocityZ",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CorePigeon2.getAngularVelocityZ(CorePigeon2.java:883)\ncom.ctre.phoenixpro.hardware.Pigeon2.<init>(Pigeon2.java:40)\nfrc.robot.subsystems.DriveSubsystem.<init>(DriveSubsystem.java:50)\nfrc.robot.subsystems.DriveSubsystem.getInstance(DriveSubsystem.java:120)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:59)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 66.524658203125,
+        "seqNumber": 3134,
+        "numOccur": 1,
+        "errorCode": -200,
+        "flags": 1,
+        "details": "CTR: No new response to update signal",
+        "location": "Talon FX 0 ConfigSupplyCurrentLimit",
+        "callStack": "\tat Java_com_ctre_phoenix_motorcontrol_can_MotControllerJNI_ConfigSupplyCurrentLimit\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 66.528076171875,
+        "seqNumber": 3135,
+        "numOccur": 1,
+        "errorCode": -200,
+        "flags": 1,
+        "details": "CTR: No new response to update signal",
+        "location": "Talon FX 0 ConfigSupplyCurrentLimit",
+        "callStack": "com.ctre.phoenix.motorcontrol.can.MotControllerJNI.ConfigSupplyCurrentLimit(Native Method)\ncom.ctre.phoenix.motorcontrol.can.TalonFX.configSupplyCurrentLimit(TalonFX.java:184)\ncom.ctre.phoenix.motorcontrol.can.TalonFX.configSupplyCurrentLimit(TalonFX.java:193)\nfrc.team6014.lib.util.SwerveUtils.CTREConfigs.swerveAngleFXConfig(CTREConfigs.java:37)\nfrc.team6014.lib.drivers.SwerveModuleBase.configAngleMotor(SwerveModuleBase.java:124)\nfrc.team6014.lib.drivers.SwerveModuleBase.configAll(SwerveModuleBase.java:136)\nfrc.team6014.lib.drivers.SwerveModuleBase.<init>(SwerveModuleBase.java:65)\nfrc.robot.subsystems.DriveSubsystem.<init>(DriveSubsystem.java:69)\nfrc.robot.subsystems.DriveSubsystem.getInstance(DriveSubsystem.java:120)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:59)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 66.83062744140625,
+        "seqNumber": 3136,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "pigeon 2 0 (CANivore) Apply Config",
+        "callStack": "Stack Trace not received for performance reasons.",
+        "messageType": 0
+    },
+    {
+        "timestamp": 67.72088623046875,
+        "seqNumber": 3137,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 68.763671875,
+        "seqNumber": 3138,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "talon fx 30 (CANivore) Status Signal Value DutyCycle",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CoreTalonFX.getDutyCycle(CoreTalonFX.java:932)\ncom.ctre.phoenixpro.hardware.TalonFX.<init>(TalonFX.java:49)\nfrc.robot.subsystems.ElevatorSubsystem.<init>(ElevatorSubsystem.java:36)\nfrc.robot.subsystems.ElevatorSubsystem.getInstance(ElevatorSubsystem.java:105)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:63)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 68.8052978515625,
+        "seqNumber": 3139,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "talon fx 31 (CANivore) Status Signal Value DutyCycle",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CoreTalonFX.getDutyCycle(CoreTalonFX.java:932)\ncom.ctre.phoenixpro.hardware.TalonFX.<init>(TalonFX.java:49)\nfrc.robot.subsystems.ElevatorSubsystem.<init>(ElevatorSubsystem.java:37)\nfrc.robot.subsystems.ElevatorSubsystem.getInstance(ElevatorSubsystem.java:105)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:63)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 69.08636474609375,
+        "seqNumber": 3140,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "talon fx 30 (CANivore) Apply Config",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:52)\ncom.ctre.phoenixpro.configs.TalonFXConfigurator.apply(TalonFXConfigurator.java:87)\ncom.ctre.phoenixpro.configs.TalonFXConfigurator.apply(TalonFXConfigurator.java:73)\nfrc.robot.subsystems.ElevatorSubsystem.<init>(ElevatorSubsystem.java:58)\nfrc.robot.subsystems.ElevatorSubsystem.getInstance(ElevatorSubsystem.java:105)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:63)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 69.1937255859375,
+        "seqNumber": 3141,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "talon fx 31 (CANivore) Apply Config",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:52)\ncom.ctre.phoenixpro.configs.TalonFXConfigurator.apply(TalonFXConfigurator.java:87)\ncom.ctre.phoenixpro.configs.TalonFXConfigurator.apply(TalonFXConfigurator.java:73)\nfrc.robot.subsystems.ElevatorSubsystem.<init>(ElevatorSubsystem.java:59)\nfrc.robot.subsystems.ElevatorSubsystem.getInstance(ElevatorSubsystem.java:105)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:63)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 69.41259765625,
+        "seqNumber": 3142,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "talon fx 30 (CANivore) Status Signal Value RotorPosition",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CoreTalonFX.getRotorPosition(CoreTalonFX.java:1132)\nfrc.robot.subsystems.ElevatorSubsystem.getHeight(ElevatorSubsystem.java:221)\nfrc.robot.subsystems.ElevatorSubsystem.<init>(ElevatorSubsystem.java:100)\nfrc.robot.subsystems.ElevatorSubsystem.getInstance(ElevatorSubsystem.java:105)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:63)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 69.4171142578125,
+        "seqNumber": 3143,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "talon fx 31 (CANivore) Status Signal Value RotorPosition",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CoreTalonFX.getRotorPosition(CoreTalonFX.java:1132)\nfrc.robot.subsystems.ElevatorSubsystem.getHeight(ElevatorSubsystem.java:222)\nfrc.robot.subsystems.ElevatorSubsystem.<init>(ElevatorSubsystem.java:100)\nfrc.robot.subsystems.ElevatorSubsystem.getInstance(ElevatorSubsystem.java:105)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:63)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 69.4373779296875,
+        "seqNumber": 3144,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "talon fx 40 (CANivore) Status Signal Value DutyCycle",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CoreTalonFX.getDutyCycle(CoreTalonFX.java:932)\ncom.ctre.phoenixpro.hardware.TalonFX.<init>(TalonFX.java:49)\nfrc.robot.subsystems.CarriageSubsystem.<init>(CarriageSubsystem.java:38)\nfrc.robot.subsystems.CarriageSubsystem.getInstance(CarriageSubsystem.java:108)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:65)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 69.66748046875,
+        "seqNumber": 3145,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "talon fx 40 (CANivore) Apply Config",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:52)\ncom.ctre.phoenixpro.configs.TalonFXConfigurator.apply(TalonFXConfigurator.java:87)\ncom.ctre.phoenixpro.configs.TalonFXConfigurator.apply(TalonFXConfigurator.java:73)\nfrc.robot.subsystems.CarriageSubsystem.<init>(CarriageSubsystem.java:59)\nfrc.robot.subsystems.CarriageSubsystem.getInstance(CarriageSubsystem.java:108)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:65)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 69.7674560546875,
+        "seqNumber": 3146,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix-diagnostics] Server 2023.0.1 (Jan 26 2023, 19:27:56) running on port: 1250",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 69.80328369140625,
+        "seqNumber": 3147,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "talon fx 40 (CANivore) Status Signal Value RotorPosition",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CoreTalonFX.getRotorPosition(CoreTalonFX.java:1132)\nfrc.robot.subsystems.CarriageSubsystem.getRotation(CarriageSubsystem.java:238)\nfrc.robot.subsystems.CarriageSubsystem.<init>(CarriageSubsystem.java:97)\nfrc.robot.subsystems.CarriageSubsystem.getInstance(CarriageSubsystem.java:108)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:65)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.13311767578125,
+        "seqNumber": 3148,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.1409912109375,
+        "seqNumber": 3149,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.14453125,
+        "seqNumber": 3150,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.1468505859375,
+        "seqNumber": 3151,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.14910888671875,
+        "seqNumber": 3152,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.14984130859375,
+        "seqNumber": 3153,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.35693359375,
+        "seqNumber": 3154,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 70.360107421875,
+        "seqNumber": 3155,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 71.9273681640625,
+        "seqNumber": 3156,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.0753173828125,
+        "seqNumber": 3157,
+        "line": "CS: USB Camera 0: Connecting to USB camera on /dev/video0"
+    },
+    {
+        "timestamp": 72.1051025390625,
+        "seqNumber": 3158,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "Unhandled exception: java.lang.IllegalArgumentException: Commands that have been composed may not be added to another composition or scheduled individually!",
+        "location": "frc.robot.commands.Auto.LoadingAuto.<init>(LoadingAuto.java:77)",
+        "callStack": "\tat edu.wpi.first.wpilibj2.command.CommandScheduler.requireNotComposed(CommandScheduler.java:618)\n\tat edu.wpi.first.wpilibj2.command.CommandScheduler.registerComposedCommands(CommandScheduler.java:569)\n\tat edu.wpi.first.wpilibj2.command.ParallelRaceGroup.addCommands(ParallelRaceGroup.java:46)\n\tat edu.wpi.first.wpilibj2.command.Command.raceWith(Command.java:246)\n\tat frc.robot.commands.Auto.LoadingAuto.<init>(LoadingAuto.java:77)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:74)\n\tat frc.robot.Robot.robotInit(Robot.java:44)\n\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\n\tat frc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.1064453125,
+        "seqNumber": 3159,
+        "line": "Error at frc.robot.commands.Auto.LoadingAuto.<init>(LoadingAuto.java:77): Unhandled exception: java.lang.IllegalArgumentException: Commands that have been composed may not be added to another composition or scheduled individually!"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.1080322265625,
+        "seqNumber": 3160,
+        "line": "\tat edu.wpi.first.wpilibj2.command.CommandScheduler.requireNotComposed(CommandScheduler.java:618)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.1083984375,
+        "seqNumber": 3161,
+        "line": "\tat edu.wpi.first.wpilibj2.command.CommandScheduler.registerComposedCommands(CommandScheduler.java:569)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.1087646484375,
+        "seqNumber": 3162,
+        "line": "\tat edu.wpi.first.wpilibj2.command.ParallelRaceGroup.addCommands(ParallelRaceGroup.java:46)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.10906982421875,
+        "seqNumber": 3163,
+        "line": "\tat edu.wpi.first.wpilibj2.command.Command.raceWith(Command.java:246)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.110107421875,
+        "seqNumber": 3164,
+        "line": "\tat frc.robot.commands.Auto.LoadingAuto.<init>(LoadingAuto.java:77)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.1104736328125,
+        "seqNumber": 3165,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:74)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.11077880859375,
+        "seqNumber": 3166,
+        "line": "\tat frc.robot.Robot.robotInit(Robot.java:44)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.11212158203125,
+        "seqNumber": 3167,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.11248779296875,
+        "seqNumber": 3168,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.11279296875,
+        "seqNumber": 3169,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.11309814453125,
+        "seqNumber": 3170,
+        "line": "\tat frc.robot.Main.main(Main.java:23)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.11334228515625,
+        "seqNumber": 3171,
+        "line": ""
+    },
+    {
+        "timestamp": 72.135986328125,
+        "seqNumber": 3172,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "The robot program quit unexpectedly. This is usually due to a code error.\n  The above stacktrace can help determine where the error occurred.\n  See https://wpilib.org/stacktrace for more information.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:364)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.137451171875,
+        "seqNumber": 3173,
+        "line": "Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:364): The robot program quit unexpectedly. This is usually due to a code error."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.13787841796875,
+        "seqNumber": 3174,
+        "line": "  The above stacktrace can help determine where the error occurred."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.13818359375,
+        "seqNumber": 3175,
+        "line": "  See https://wpilib.org/stacktrace for more information."
+    },
+    {
+        "timestamp": 72.139404296875,
+        "seqNumber": 3176,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 1,
+        "details": "The startCompetition() method (or methods called by it) should have handled the exception above.",
+        "location": "edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:371)",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.14141845703125,
+        "seqNumber": 3177,
+        "line": "Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:371): The startCompetition() method (or methods called by it) should have handled the exception above."
+    },
+    {
+        "timestamp": 72.56024169921875,
+        "seqNumber": 3178,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix-diagnostics] Server shutdown cleanly. (dur:85)",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 72.56109619140625,
+        "seqNumber": 3179,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library shutdown cleanly",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 72.562255859375,
+        "seqNumber": 3180,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 1,
+        "details": "[phoenix] CANbus Disconnected: CANivore (can0, 6B523E74394C4853202020500A1A18FF)",
+        "location": "",
+        "callStack": "",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 72.5679931640625,
+        "seqNumber": 3181,
+        "line": "*** Error in `/usr/local/frc/JRE/bin/java': corrupted double-linked list: 0xac8a7b28 ***"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 76.45404052734375,
+        "seqNumber": 3182,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 76.48406982421875,
+        "seqNumber": 3183,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 76.65057373046875,
+        "seqNumber": 3184,
+        "line": "NT: Got a NT4 connection from 10.60.14.166 port 59285"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 76.65435791015625,
+        "seqNumber": 3185,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.60.14.166:59285)"
+    },
+    {
+        "timestamp": 77.2275390625,
+        "seqNumber": 3186,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] CANbus Connected: CANivore (can0, 6B523E74394C4853202020500A1A18FF)",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 77.22796630859375,
+        "seqNumber": 3187,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] CANbus Network Up: CANivore (can0, 6B523E74394C4853202020500A1A18FF)",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 77.4791259765625,
+        "seqNumber": 3188,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "pigeon 2 0 (CANivore) Status Signal Value Yaw",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CorePigeon2.getYaw(CorePigeon2.java:407)\ncom.ctre.phoenixpro.hardware.Pigeon2.<init>(Pigeon2.java:39)\nfrc.robot.subsystems.DriveSubsystem.<init>(DriveSubsystem.java:50)\nfrc.robot.subsystems.DriveSubsystem.getInstance(DriveSubsystem.java:120)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:59)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 77.4857177734375,
+        "seqNumber": 3189,
+        "numOccur": 1,
+        "errorCode": -1003,
+        "flags": 1,
+        "details": "CAN frame not received/too-stale.",
+        "location": "pigeon 2 0 (CANivore) Status Signal Value AngularVelocityZ",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.StatusSignalValue.updateValue(StatusSignalValue.java:197)\ncom.ctre.phoenixpro.StatusSignalValue.refresh(StatusSignalValue.java:217)\ncom.ctre.phoenixpro.hardware.ParentDevice.commonLookup(ParentDevice.java:130)\ncom.ctre.phoenixpro.hardware.ParentDevice.lookupStatusSignalValue(ParentDevice.java:140)\ncom.ctre.phoenixpro.hardware.core.CorePigeon2.getAngularVelocityZ(CorePigeon2.java:883)\ncom.ctre.phoenixpro.hardware.Pigeon2.<init>(Pigeon2.java:40)\nfrc.robot.subsystems.DriveSubsystem.<init>(DriveSubsystem.java:50)\nfrc.robot.subsystems.DriveSubsystem.getInstance(DriveSubsystem.java:120)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:59)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    },
+    {
+        "timestamp": 78.70330810546875,
+        "seqNumber": 3190,
+        "numOccur": 1,
+        "errorCode": -1001,
+        "flags": 1,
+        "details": "Could not transmit CAN Frame.",
+        "location": "pigeon 2 0 (CANivore) Apply Config",
+        "callStack": "com.ctre.phoenixpro.jni.ErrorReportingJNI.reportStatusCode(Native Method)\ncom.ctre.phoenixpro.configs.ParentConfigurator.setConfigsPrivate(ParentConfigurator.java:52)\ncom.ctre.phoenixpro.configs.Pigeon2Configurator.setYaw(Pigeon2Configurator.java:317)\ncom.ctre.phoenixpro.hardware.core.CorePigeon2.setYaw(CorePigeon2.java:1615)\ncom.ctre.phoenixpro.hardware.core.CorePigeon2.setYaw(CorePigeon2.java:1626)\ncom.ctre.phoenixpro.hardware.Pigeon2.reset(Pigeon2.java:200)\nfrc.robot.subsystems.DriveSubsystem.zeroHeading(DriveSubsystem.java:239)\nfrc.robot.subsystems.DriveSubsystem.<init>(DriveSubsystem.java:99)\nfrc.robot.subsystems.DriveSubsystem.getInstance(DriveSubsystem.java:120)\nfrc.robot.RobotContainer.<init>(RobotContainer.java:59)\nfrc.robot.Robot.robotInit(Robot.java:44)\nedu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)\nedu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:349)\nedu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:442)\nfrc.robot.Main.main(Main.java:23)\n",
+        "messageType": 0
+    }
+]

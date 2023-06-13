@@ -82,6 +82,7 @@ public class CarriageSubsystem extends SubsystemBase {
     configs.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     configs.MotorOutput.Inverted = CarriageConstants.invertedValue; 
     configs.MotorOutput.DutyCycleNeutralDeadband = CarriageConstants.dutyCycleNeutralDeadband;
+    configs.ClosedLoopRamps.VoltageClosedLoopRampPeriod = 0.100;
 
     configs.CurrentLimits.StatorCurrentLimit = CarriageConstants.statorCurrentLimit;
     configs.CurrentLimits.StatorCurrentLimitEnable = CarriageConstants.statorCurrentLimitEnable;
@@ -174,6 +175,10 @@ public class CarriageSubsystem extends SubsystemBase {
 
   public void setMotorOutput(){
     carriageMaster.setControl(m_percentOut.withOutput(targetOutput));
+  }
+
+  public void setMotorOutput(double output) {
+    carriageMaster.setControl(m_percentOut.withOutput(output));
   }
 
   public void setRotation(){

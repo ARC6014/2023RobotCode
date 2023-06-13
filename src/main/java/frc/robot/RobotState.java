@@ -5,6 +5,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.team6014.SuperStructureState;
 import frc.team6014.lib.math.AllianceFlipUtil;
@@ -31,6 +32,8 @@ public class RobotState extends SubsystemBase{
         SmartDashboard.putNumber("Target Height", getTargetState().getHeight());
         SmartDashboard.putNumber("Target Length", getTargetState().getLength());
         SmartDashboard.putNumber("Target Degree", getTargetState().getDegree());*/
+
+        SmartDashboard.putData(CommandScheduler.getInstance());
     }
 
     private SuperStructureState currentStructureState = new SuperStructureState();

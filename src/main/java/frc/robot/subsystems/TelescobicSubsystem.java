@@ -31,59 +31,9 @@ public class TelescobicSubsystem extends SubsystemBase {
     TORQUE_CONTROL
   }
 
-  private final TalonFX telescobicMaster = new TalonFX(TelescobicArmConstants.telesobicMotorID, Constants.CANIVORE_CANBUS);
-
-  private final MotionMagicTorqueCurrentFOC m_motionMagic = new MotionMagicTorqueCurrentFOC(0,0,0, false);
-  private final PositionTorqueCurrentFOC m_torqueControl = new PositionTorqueCurrentFOC(0,0,1,false); 
-  private final DutyCycleOut m_percentOut = new DutyCycleOut(0, true, false);
-
-  private final Gearbox falconGearbox = new Gearbox(1 * 18, 5 * 24);
-  private final double pulleyCircumferenceInCM = Units.inchesToMeters(1.504) * Math.PI * 100;
-  private double targetOutput = 0.0;
-  private SuperStructureState targetState = new SuperStructureState();
-  private double lastDemandedLength;
-
-  public TelescopicControlState m_controlState = TelescopicControlState.OPEN_LOOP;
-
   private static TelescobicSubsystem mInstance;
   /** Creates a new TelescobicArmSubsystem. */
   public TelescobicSubsystem() {
-
-    telescobicMaster.getConfigurator().apply(new TalonFXConfiguration());
-
-    TalonFXConfiguration configs = new TalonFXConfiguration();
-    configs.Slot0.kP = 36;
-    configs.Slot0.kI = 2;
-    configs.Slot0.kD = 0.06;
-    configs.Slot0.kS = 0.085;
-    configs.Slot0.kV = 0.005;
-
-    configs.Slot1.kP = 25;
-    configs.Slot1.kI = 1.5;
-    configs.Slot1.kD = 0.08;
-    configs.Slot1.kS = 0.0;
-    configs.Slot1.kV = 0;
-
-    configs.Voltage.PeakForwardVoltage = 5;
-    configs.Voltage.PeakReverseVoltage = -5;
-    configs.TorqueCurrent.PeakForwardTorqueCurrent = 200;
-    configs.TorqueCurrent.PeakReverseTorqueCurrent = 200;
-    configs.MotionMagic.MotionMagicAcceleration = 550; // değiştir
-    configs.MotionMagic.MotionMagicCruiseVelocity = 150; // değiştir
-    configs.MotionMagic.MotionMagicJerk = 1100; //  değiştir
-
-    configs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    configs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; // değiştir
-    configs.MotorOutput.DutyCycleNeutralDeadband = 0.02;
-
-    configs.CurrentLimits.StatorCurrentLimit = TelescobicArmConstants.statorCurrentLimit;
-    configs.CurrentLimits.StatorCurrentLimitEnable = TelescobicArmConstants.statorCurrentLimitEnable;
-    configs.CurrentLimits.SupplyCurrentLimit = TelescobicArmConstants.supplyCurrentLimit;
-    configs.CurrentLimits.SupplyCurrentLimitEnable = TelescobicArmConstants.supplyCurrentLimitEnable;
-
-    telescobicMaster.getConfigurator().apply(configs);
-
-    lastDemandedLength = getLength();
 
   }
 
@@ -96,130 +46,65 @@ public class TelescobicSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //maybeShouldStop();   
-
-    //setTelescopicControlState(TelescopicControlState.HOMING);
-   
-    switch(m_controlState){
-      case OPEN_LOOP:
-        setMotorOutput();
-        break;
-      case MOTION_MAGIC:
-        setLength();
-        break;
-      case TORQUE_CONTROL:
-        holdPosition();
-        break;
-      default:
-        stop();
-        break;
-    }
-
-
-
-    SmartDashboard.putString("Telescopic State: ", m_controlState.toString());
-    SmartDashboard.putNumber("Telescopic Length", getLength());
-    SmartDashboard.putNumber("Telescopic Current", getCurrent());
-
-    RobotState.getInstance().updateLength(getLength());
-    // This method will be called once per scheduler run
+  
   }
 
   public synchronized void setTelescopicOpenLoop(double output){
-    if(m_controlState != TelescopicControlState.OPEN_LOOP){
-      m_controlState =  TelescopicControlState.OPEN_LOOP;
-    }
-    targetOutput = output;
-    lastDemandedLength = getLength();
+
   }
 
   public synchronized void setTelescopicPosition(SuperStructureState state){
-    if(m_controlState != TelescopicControlState.MOTION_MAGIC){
-      m_controlState =  TelescopicControlState.MOTION_MAGIC;
-    }
-    targetState = state;
-    lastDemandedLength = getLength();
+
   }
 
   public synchronized void holdTelescopicPosition(){
-    if(m_controlState != TelescopicControlState.TORQUE_CONTROL){
-      m_controlState =  TelescopicControlState.TORQUE_CONTROL;
-    }
+
   }
 
   public void setTelescopicControlState(TelescopicControlState state){
-    m_controlState = state;
   }
 
   public void updateLastDemandedLength(double length){
-    lastDemandedLength = length;
   }
 
   public void setMotorOutput(){
-    telescobicMaster.setControl(m_percentOut.withOutput(targetOutput));
+
   }
 
   public void setLength(){
-    if(getLength() < 94){
-      return;
-    }
-    double sprocketRotation = targetState.getLength() / pulleyCircumferenceInCM;
-    telescobicMaster.setControl(m_motionMagic.withPosition(sprocketRotation * falconGearbox.getRatio()));
+
   }
 
   public void holdPosition(){
-    if(getLength() < 94){
-      return;
-    }
-    double sprocketRotation = lastDemandedLength / pulleyCircumferenceInCM;
-    telescobicMaster.setControl(m_torqueControl.withPosition(sprocketRotation * falconGearbox.getRatio()));
+
   }
 
   public void stop(){
-    if(m_controlState != TelescopicControlState.HOMING){
-      m_controlState =  TelescopicControlState.HOMING;
-    }
-    telescobicMaster.stopMotor();
   }
 
   public void overrideLength(double length){
-    double pulleyRotation = (length  / pulleyCircumferenceInCM);
-    telescobicMaster.setRotorPosition(pulleyRotation * falconGearbox.getRatio());
   }
 
   public void resetToZero(){
-    overrideLength(94.2); //Min Length
   }
 
   public void resetToMax(){
-    overrideLength(135.715); //Max Length
   }
 
   public double getLength(){
-    var masterRot = telescobicMaster.getRotorPosition();
-    masterRot.refresh(); 
-    double pulleyRotation = masterRot.getValue() / falconGearbox.getRatio();
-    return pulleyRotation * pulleyCircumferenceInCM;
-    //return 92.225;
+    return 0;
   }
 
   public double getCurrent(){
-    var masterCurrent = telescobicMaster.getStatorCurrent();
-    masterCurrent.refresh();
-    return masterCurrent.getValue();
+    return 0;
   }
 
   public void maybeShouldStop(){
-    var currentVel = telescobicMaster.getRotorVelocity();
-    currentVel.refresh();
-    if(Util.epsilonEquals(currentVel.getValue() / falconGearbox.getRatio(), 0 , 0.1) && getCurrent() >= 100){//Kalibre ET!!!
-      holdPosition();
-      System.out.println("Triggered Telescopic");
-    }
+
   }
 
   public boolean isAtSetpoint(){
-    return Math.abs(targetState.getLength() - getLength()) < 0.5; 
+    return true;
   } 
 
 

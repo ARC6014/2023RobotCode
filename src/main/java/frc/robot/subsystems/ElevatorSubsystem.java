@@ -112,15 +112,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     //maybeShouldStop();
 
     switch(m_controlState){
-      case OPEN_LOOP:
-        setMotorOutput();
-        break;
-      case MOTION_MAGIC:
-        setHeight();
-        break;
-      case TORQUE_CONTROL:
-        holdPosition();
-        break;
+      // case OPEN_LOOP:
+      //   setMotorOutput();
+      //   break;
+      // case MOTION_MAGIC:
+      //   setHeight();
+      //   break;
+      // case TORQUE_CONTROL:
+      //   holdPosition();
+      //   break;
       default:
         stop();
         break;
@@ -169,8 +169,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setMotorOutput(){
-    elevatorMaster.setControl(m_percentOut.withOutput(targetOutput));
-    elevatorSlave.setControl(m_percentOut.withOutput(targetOutput));
+    // elevatorMaster.setControl(m_percentOut.withOutput(targetOutput));
+    // elevatorSlave.setControl(m_percentOut.withOutput(targetOutput));
   }
 
   public void setHeight(){

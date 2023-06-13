@@ -22,14 +22,14 @@ public class AutoScore extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     if(RobotState.getInstance().getScoreTarget() != scoreLevel.Intake /*&& RobotState.getInstance().getScoreTarget() != scoreLevel.HOMING*/){
       addCommands(
-        new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
+        //new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
         new SmartMotion().withTimeout(2),
         //new WaitCommand(0.5),
-        new MoveToPose(() -> RobotState.getInstance().getScorePose()),
+        //new MoveToPose(() -> RobotState.getInstance().getScorePose()),
         new WaitCommand(0.2),
         new RelaseCommand().withTimeout(0.5),
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.HOMING)),
-        new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
+        //new MoveToPose(() -> RobotState.getInstance().getTargetPose()),
         new SmartMotion()
       );
     }

@@ -19,6 +19,7 @@ import frc.robot.commands.Grabbing.GrabCommand;
 import frc.robot.commands.Grabbing.RelaseCommand;
 import frc.robot.commands.Intaking.IntakeCommand;
 import frc.robot.commands.Resetting.ZeroTelescopic;
+import frc.robot.commands.Superstructure.AutoScore;
 import frc.robot.commands.Superstructure.SmartMotion;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.team6014.SwerveAutoBuilder;
@@ -60,6 +61,9 @@ public class LoadingAuto extends SequentialCommandGroup {
 
     if(blueAllience){
       addCommands(
+        new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel) , RobotState.getInstance()),
+        new AutoScore()
+        /*
         new RunCommand(() -> m_drive.resetOdometry(blueSwerveCommand.getInitialPose()), m_drive).withTimeout(0.01),
         new WaitCommand(1),
         new InstantCommand(() -> RobotState.getInstance().setCube() , RobotState.getInstance()),
@@ -74,7 +78,7 @@ public class LoadingAuto extends SequentialCommandGroup {
         new RunCommand(() -> m_drive.swerveDrive(0, 0, 0, true) , m_drive).withTimeout(2),
         new InstantCommand(() -> RobotState.getInstance().setIntakeLevel(intakeLevel.ground) , RobotState.getInstance()),
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake) , RobotState.getInstance()),
-        blueSwerveCommand.raceWith(motionCommand2).raceWith(m_GrabCommand).raceWith(m_IntakeCommand),
+        //blueSwerveCommand.raceWith(motionCommand2).raceWith(m_GrabCommand).raceWith(m_IntakeCommand),
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.SecondLevel) , RobotState.getInstance()),
         blueSwerveCommand1.raceWith(motionCommand3),
         new WaitCommand(0.3),
@@ -83,6 +87,7 @@ public class LoadingAuto extends SequentialCommandGroup {
         new InstantCommand(() -> RobotState.getInstance().setScoreLevel(scoreLevel.Intake) , RobotState.getInstance()),
         new ParallelCommandGroup(motionCommand4, blueSwerveCommand2, m_IntakeCommand1, m_GrabCommand1),
         new ParallelCommandGroup(blueSwerveCommand, motionCommand1)
+        */
         
         
       );

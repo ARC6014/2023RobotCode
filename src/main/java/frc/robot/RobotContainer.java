@@ -25,6 +25,7 @@ import frc.robot.commands.DriveByJoystick;
 import frc.robot.commands.SetLedState;
 import frc.robot.commands.Auto.SideAuto;
 import frc.robot.commands.Auto.LoadingAuto;
+import frc.robot.commands.Deneme.AutoCarriageTest;
 import frc.robot.commands.Deneme.CarriageDeneme;
 import frc.robot.commands.Deneme.ElevatorDeneme;
 import frc.robot.commands.Deneme.TelescopicDeneme;
@@ -103,9 +104,10 @@ public class RobotContainer {
     autonomouChooser.addOption("Side ", "side");
 
     m_drive.setDefaultCommand(driveByJoystick);
-    m_elevator.setDefaultCommand(m_Eeneme);
-    m_telescop.setDefaultCommand(m_Teneme);
-    m_carriage.setDefaultCommand(m_Aeneme);
+    // m_elevator.setDefaultCommand(m_Eeneme);
+    // m_telescop.setDefaultCommand(m_Teneme);
+    // m_carriage.setDefaultCommand(m_Aeneme);
+    m_carriage.setDefaultCommand(new AutoCarriageTest(() -> m_operator.getRawAxis(0)));
     m_ledRight.setDefaultCommand(new SetLedState(m_ledRight));
     // Configure the trigger bindings
     m_nodeSelector.ConfigureWidgets();
@@ -178,6 +180,7 @@ public class RobotContainer {
       default:
         return null;
     }*/
+    
     return blueLoadingAuto;
 
     
